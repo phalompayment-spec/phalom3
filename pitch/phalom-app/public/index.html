@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="lo">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Phalom · ພະລົມ ສຳລັບແມ່ຄ້າ</title>
+  <meta name="description" content="ຮັບເງິນຈາກນັກທ່ອງທ່ຽວຜ່ານ Alipay, WeChat Pay, PromptPay ແລະ VietQR ເປັນເງິນກີບ ເຂົ້າບັນຊີທະນາຄານຂອງທ່ານ">
+  <meta name="color-scheme" content="only light">
+  <meta name="theme-color" content="#FBF5EA">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;600;700;800&family=Noto+Sans+Lao+Looped:wght@700;800&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/shared/lao.css">
+  <link rel="stylesheet" href="/merchant.css">
+</head>
+<body>
+  <div class="backdrop"><main class="phone" id="app"></main></div>
+  <script src="/shared/qrcode.js"></script>
+  <script src="/shared/glyphs.js"></script>
+  <script src="/shared/core.js"></script>
+  <script src="/merchant.js"></script>
+  <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => {});</script>
+</body>
+</html>

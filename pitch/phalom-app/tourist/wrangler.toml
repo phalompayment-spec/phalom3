@@ -1,0 +1,18 @@
+# Tourist demo app: a tourist "pays" a Lao shop from their own wallet (simulated).
+# Its API calls and shared design files go to the main "phalom" Worker through a service binding.
+name = "phalom-tourist"
+main = "src/worker.js"
+compatibility_date = "2025-06-01"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = ["/api/*", "/shared/*"]
+
+[[services]]
+binding = "API"
+service = "phalom"
+
+[observability]
+enabled = true

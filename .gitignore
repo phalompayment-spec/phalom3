@@ -1,0 +1,11 @@
+node_modules/
+.wrangler/
+.dev.vars
+.env
+.env.*
+*.p12
+*.keystore
+pitch/phalom-app/android/.tools/
+pitch/phalom-app/android/build/
+pitch/phalom-app/out/
+.DS_Store

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Phalom</string>
+    <!-- Filled in by scripts/build-apk.sh (SERVER_URL). Empty means the app asks on first launch. -->
+    <string name="server_url" translatable="false"></string>
+</resources>

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="lo">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ບົດເວົ້າ 5 ນາທີ · Phalom</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped:wght@500;700;800&family=Noto+Sans+Lao:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#f7f4ee;--panel:#ffffff;--fg:#1d1b33;--muted:#6b6880;--line:#e4dfd3;
+  --gold:#b8860b;--goldbg:#fbf1d8;
+  --p1:#3b4fc4;--p2:#0f8a5f;--p3:#c2306b;--p4:#b26a00;
+  --cue:#6b6880;--cuebg:#f1eee6;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12132a;--panel:#1b1d3a;--fg:#f2f0ff;--muted:#a4a2c4;--line:#2d3058;
+  --gold:#f4b740;--goldbg:#2b2716;
+  --p1:#8b9bff;--p2:#45d39b;--p3:#ff7fae;--p4:#ffb54d;
+  --cue:#a4a2c4;--cuebg:#24264a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12132a;--panel:#1b1d3a;--fg:#f2f0ff;--muted:#a4a2c4;--line:#2d3058;
+  --gold:#f4b740;--goldbg:#2b2716;
+  --p1:#8b9bff;--p2:#45d39b;--p3:#ff7fae;--p4:#ffb54d;
+  --cue:#a4a2c4;--cuebg:#24264a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 18px/1.75 "Noto Sans Lao","Noto Sans Lao Looped",system-ui,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding-block:32px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:"Noto Sans Lao Looped","Noto Sans Lao",sans-serif;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.3}
+.sub{color:var(--muted);margin:6px 0 0}
+.slogan{margin-top:14px;font:700 18px/1.6 "Noto Sans Lao Looped",sans-serif}
+.slogan b{color:var(--gold)}
+
+/* timeline */
+.tl{margin-top:26px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.bar{display:flex;height:16px;border-radius:8px;overflow:hidden;gap:2px}
+.bar i{display:block}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.lg{display:flex;gap:10px;align-items:flex-start;min-width:0}
+.dot{flex:none;width:12px;height:12px;border-radius:4px;margin-top:8px}
+.lg b{display:block;font-weight:700}
+.lg span{color:var(--muted);font-size:15px}
+.tot{margin-top:12px;font-size:15px;color:var(--muted)}
+.tot b{color:var(--fg)}
+
+/* timer */
+.timer{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.clock{font:800 28px/1 "Noto Sans Lao Looped",sans-serif;font-variant-numeric:tabular-nums;min-width:86px}
+.now{flex:1;min-width:140px;font-size:15px;color:var(--muted)}
+.now b{color:var(--fg)}
+button{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:6px 14px;cursor:pointer}
+button.go{background:var(--gold);border-color:var(--gold);color:#1d1b33;font-weight:700}
+
+/* speakers */
+.sp{margin-top:28px;background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:14px;padding:20px 20px 8px}
+.sp.on{box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 35%,transparent)}
+.sph{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.sph h2{font-size:24px;color:var(--c)}
+.sph .t{font:700 16px/1 "Noto Sans Lao Looped",sans-serif;color:var(--muted);font-variant-numeric:tabular-nums}
+.who{color:var(--muted);font-size:15px;margin-top:2px}
+.sl{border-top:1px dashed var(--line);padding:14px 0 12px;margin-top:12px}
+.slh{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.chip{display:inline-block;font:700 14px/1 "Noto Sans Lao Looped",sans-serif;padding:6px 10px;border-radius:999px;background:var(--c);color:var(--panel)}
+.slh .name{font-weight:700}
+.slh .sec{margin-left:auto;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+p{margin:6px 0;max-width:65ch}
+.cue{display:inline;font-size:15px;color:var(--cue);background:var(--cuebg);border-radius:6px;padding:1px 7px;margin-right:4px;font-weight:500}
+.hand{margin:10px 0 4px;padding:8px 12px;border-radius:10px;background:var(--goldbg);font-size:16px}
+.hand b{color:var(--gold)}
+.skip{color:var(--muted);font-size:15px;font-style:italic}
+.num{font-weight:700;white-space:nowrap}
+
+/* tips */
+.tips{margin-top:28px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.tips h2{font-size:22px}
+.tips ul{margin:10px 0 0;padding-left:22px}
+.tips li{margin:6px 0;max-width:65ch}
+@media (max-width:520px){body{font-size:17px}.sp{padding:16px 14px 6px}}
+@media print{.timer{display:none}.sp,.tl,.tips{break-inside:avoid}}
+.edbar{margin-top:16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;gap:10px}
+.names{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:15px}
+.names label{display:flex;gap:6px;align-items:center;color:var(--muted)}
+.names input{font:inherit;font-size:15px;width:120px;max-width:40vw;padding:4px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.hint{font-size:14px;color:var(--muted)}
+body.editing [data-ed]{outline:1.5px dashed color-mix(in srgb,var(--gold) 70%,transparent);outline-offset:3px;border-radius:4px;cursor:text}
+body.editing [data-ed]:focus{outline:2px solid var(--gold);background:var(--goldbg)}
+button.on{background:var(--gold);border-color:var(--gold);color:#1d1b33}
+@media print{.edbar{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>ບົດເວົ້າ Phalom · 5 ນາທີ · 4 ຄົນ</h1>
+  <p class="sub">ທີມ ພັດລົມ · ໃຊ້ກັບເວັບນຳສະເໜີ 3D (17 ໜ້າ) · ເວົ້າປະມານ 4:40 ເຫຼືອ 20 ວິນາທີ ສຳຮອງ</p>
+  <div class="slogan">ນັກທ່ອງທ່ຽວຈ່າຍແບບບ້ານເຂົາ — <b>ແມ່ຄ້າຮັບເງິນກີບແບບບ້ານເຮົາ</b></div>
+
+  <div class="tl">
+    <div class="bar" aria-hidden="true">
+      <i style="flex:75;background:var(--p1)"></i><i style="flex:55;background:var(--p2)"></i><i style="flex:55;background:var(--p3)"></i><i style="flex:95;background:var(--p4)"></i><i style="flex:20;background:var(--line)"></i>
+    </div>
+    <div class="legend">
+      <div class="lg"><i class="dot" style="background:var(--p1)"></i><div><b>ຄົນທີ 1 · <span class="nm" data-sp="1">ແສງຕາວັນ</span></b><span>ໜ້າ 1–4 · 0:00–1:15</span></div></div>
+      <div class="lg"><i class="dot" style="background:var(--p2)"></i><div><b>ຄົນທີ 2 · <span class="nm" data-sp="2">ເພັດມີໄຊ</span></b><span>ໜ້າ 5–7 · 1:15–2:10</span></div></div>
+      <div class="lg"><i class="dot" style="background:var(--p3)"></i><div><b>ຄົນທີ 3 · <span class="nm" data-sp="3">ເຈດສະດາ</span></b><span>ໜ້າ 8–9 · 2:10–3:05</span></div></div>
+      <div class="lg"><i class="dot" style="background:var(--p4)"></i><div><b>ຄົນທີ 4 · <span class="nm" data-sp="4">ສີສົມພອນ</span></b><span>ໜ້າ 10–17 · 3:05–4:40</span></div></div>
+    </div>
+    <div class="tot">ລວມ <b>4:40</b> · ສຳຮອງ <b>0:20</b> · ໜ້າທີ່ກົດຜ່ານໄວ ບໍ່ເວົ້າ: <b>9, 13, 15, 17</b> · ຊື່ຄົນສະຫຼັບກັນໄດ້ ຕາມທີ່ທີມຕົກລົງ</div>
+  </div>
+
+  <div class="edbar" id="edbar">
+    <div class="names"><b>ຊື່ຜູ້ເວົ້າ:</b>
+      <label>1 <input data-sp="1" value="ແສງຕາວັນ"></label>
+      <label>2 <input data-sp="2" value="ເພັດມີໄຊ"></label>
+      <label>3 <input data-sp="3" value="ເຈດສະດາ"></label>
+      <label>4 <input data-sp="4" value="ສີສົມພອນ"></label>
+    </div>
+    <div class="btns">
+      <button id="edit">✏️ ແກ້ໄຂບົດ</button>
+      <button id="save" class="go">💾 ບັນທຶກເປັນໄຟລ໌</button>
+      <button id="undo">↺ ຄືນບົດເດີມ</button>
+    </div>
+    <div class="hint" id="hint">ກົດ “ແກ້ໄຂບົດ” ແລ້ວກົດໃສ່ຂໍ້ຄວາມໃດກໍ່ໄດ້ ເພື່ອແກ້. ການແກ້ຈະຈື່ໄວ້ໃນເຄື່ອງນີ້. ກົດ “ບັນທຶກເປັນໄຟລ໌” ເພື່ອສົ່ງໃຫ້ເພື່ອນ.</div>
+  </div>
+  <div class="timer" role="group" aria-label="ຈັບເວລາຊ້ອມ">
+    <div class="clock" id="clock">0:00</div>
+    <div class="now" id="now">ກົດ <b>ເລີ່ມຊ້ອມ</b> ເພື່ອຈັບເວລາ</div>
+    <button class="go" id="go">ເລີ່ມຊ້ອມ</button>
+    <button id="reset">ເລີ່ມໃໝ່</button>
+  </div>
+
+  <!-- SPEAKER 1 -->
+  <section class="sp" id="sp1" style="--c:var(--p1)">
+    <div class="sph"><h2>ຄົນທີ 1 · <span class="nm" data-sp="1">ແສງຕາວັນ</span></h2><span class="t">0:00 – 1:15 · 75 ວິ</span></div>
+    <div class="who">ເປີດ · ບັນຫາ · ສາເຫດ · ຂະໜາດຕະຫຼາດ</div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 1</span><span class="name">ໜ້າປົກ</span><span class="sec">10 ວິ</span></div>
+      <p>ສະບາຍດີ ຄະນະກຳມະການ ແລະ ທຸກທ່ານ. ພວກເຮົາແມ່ນທີມ ພັດລົມ — ນັກສຶກສາ 4 ຄົນ. ແນວຄິດຂອງເຮົາ: ນັກທ່ອງທ່ຽວຈ່າຍແບບບ້ານເຂົາ — ແມ່ຄ້າຮັບເງິນກີບແບບບ້ານເຮົາ.</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 2</span><span class="name">ບັນຫາ</span><span class="sec">25 ວິ</span></div>
+      <p>ລອງນຶກພາບ: ນັກທ່ອງທ່ຽວຈີນຄົນໜຶ່ງ ຢາກຊື້ຜ້າທໍຢູ່ຕະຫຼາດມືດ. ລາວບໍ່ມີເງິນກີບ — ມີແຕ່ Alipay. ແມ່ຄ້າຮັບບໍ່ໄດ້. ລາວຈຶ່ງຍ່າງໜີ.</p>
+      <p>ປີ 2025 ລາວມີນັກທ່ອງທ່ຽວ <span class="num">4.58 ລ້ານຄົນ</span>, <span class="num">82%</span> ມາຈາກ ໄທ, ຈີນ ແລະ ຫວຽດນາມ — ທີ່ຈ່າຍດ້ວຍ QR ເປັນປົກກະຕິ. ແຕ່ຮ້ານນ້ອຍສ່ວນຫຼາຍ ຮັບໄດ້ແຕ່ເງິນສົດ.</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 3</span><span class="name">ສາເຫດ</span><span class="sec">20 ວິ</span></div>
+      <p>ເປັນຫຍັງ? QR ຂອງແມ່ຄ້າ ເປັນບັນຊີສ່ວນຕົວ ທີ່ບໍ່ໄດ້ສະໝັກຮັບເງິນຕ່າງປະເທດ. ຂໍ້ມູນກໍ່ຫາຍາກ — ເຮົາຖາມທະນາຄານ 4 ແຫ່ງ ບໍ່ໄດ້ຄຳຕອບຊັດເຈນຈັກແຫ່ງ.</p>
+      <p>ສະນັ້ນ ເສັ້ນທາງເງິນມີແລ້ວ — ແຕ່ຂາດ <b>ສະພານ</b> ທີ່ພາແມ່ຄ້ານ້ອຍໄປເຖິງ. <span class="cue">ເວົ້າຊ້າ ໜັກແໜ້ນ</span></p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 4</span><span class="name">ຂະໜາດຕະຫຼາດ</span><span class="sec">20 ວິ</span></div>
+      <p><b>TAM</b> ຕະຫຼາດທັງໝົດ: ນັກທ່ອງທ່ຽວໃຊ້ຈ່າຍໃນລາວ <span class="num">1,422 ລ້ານໂດລາ</span> ຕໍ່ປີ. <b>SAM</b> ສ່ວນທີ່ເຮົາເຂົ້າເຖິງໄດ້: <span class="num">44 ລ້ານໂດລາ</span>. <b>SOM</b> ສ່ວນແບ່ງທີ່ເຮົາຈະໄດ້ ປີທຳອິດ: <span class="num">1.3 ລ້ານໂດລາ</span> ຫຼື 3% ຂອງສ່ວນທີ່ເຂົ້າເຖິງ.</p>
+      <div class="hand"><b>ສົ່ງຕໍ່ →</b> “ແລ້ວເຮົາແກ້ບັນຫານີ້ແນວໃດ? <span class="nm" data-sp="2">ເພັດມີໄຊ</span> ຈະເລົ່າໃຫ້ຟັງ.”</div></div>
+  </section>
+
+  <!-- SPEAKER 2 -->
+  <section class="sp" id="sp2" style="--c:var(--p2)">
+    <div class="sph"><h2>ຄົນທີ 2 · <span class="nm" data-sp="2">ເພັດມີໄຊ</span></h2><span class="t">1:15 – 2:10 · 55 ວິ</span></div>
+    <div class="who">ວິທີແກ້ · ວິທີເຮັດວຽກ · ຄູ່ແຂ່ງ</div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 5</span><span class="name">ວິທີແກ້</span><span class="sec">20 ວິ</span></div>
+      <p>ທາງແກ້ຂອງເຮົາ ຄື <b>ແອັບຂອງແມ່ຄ້າ</b> ທີ່ເຊື່ອມກັບ <b>PhaJay</b> — ລະບົບຮັບເງິນອອນລາຍຂອງລາວ ທີ່ສົ່ງເງິນເຂົ້າບັນຊີທະນາຄານລາວຂອງແມ່ຄ້າ. ເຮົາບໍ່ຖືເງິນຂອງແມ່ຄ້າ.</p>
+      <p>ແມ່ຄ້າໄດ້ປ້າຍ QR ດຽວ ຮັບໄດ້ທຸກແອັບ, ໃສ່ເມນູ ແລະ ລາຄາໄວ້ໃນແອັບ ເວລາຂາຍກົດເລືອກສິນຄ້າ ແອັບບວກເງິນໃຫ້, ແລະ ມີສຽງແຈ້ງເງິນເຂົ້າເປັນພາສາລາວ.</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 6</span><span class="name">ວິທີເຮັດວຽກ</span><span class="sec">20 ວິ</span></div>
+      <p>ນັກທ່ອງທ່ຽວສະແກນດ້ວຍແອັບຂອງຕົນ. ເງິນຜ່ານ <b>PhaJay</b> — ຄູ່ຮ່ວມຂອງເຮົາ ທີ່ຮັບ Alipay ແລະ WeChat Pay ໄດ້ — ແລ້ວເຂົ້າບັນຊີແມ່ຄ້າ ເປັນເງິນກີບ.</p>
+      <p>ແອັບປະກາດ “ໄດ້ຮັບເງິນແລ້ວ” — ແມ່ຄ້າຍື່ນເຄື່ອງໄດ້ທັນທີ ບໍ່ຖືກຫຼອກດ້ວຍສະລິບປອມ.</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 7</span><span class="name">ຄູ່ແຂ່ງ</span><span class="sec">15 ວິ</span></div>
+      <p>LOCA Pay ໃຫ້ລູກຄ້າໂຫຼດແອັບ ແລະ ເສຍເພີ່ມ: ຜ້າ <span class="num">100,000 ກີບ</span> ລູກຄ້າຈ່າຍ <span class="num">108,000</span>. ກັບເຮົາ ຈ່າຍ <span class="num">101,500</span> — ເສຍເພີ່ມພຽງ 1,500 ແລະ ແມ່ຄ້າໄດ້ເຕັມ <span class="num">100,000</span>. ຄູ່ແຂ່ງແທ້ຂອງເຮົາ ຄື ນິໄສໃຊ້ເງິນສົດ.</p>
+      <div class="hand"><b>ສົ່ງຕໍ່ →</b> “<span class="nm" data-sp="3">ເຈດສະດາ</span> ຈະສາທິດແອັບຈິງໃຫ້ເບິ່ງ.”</div></div>
+  </section>
+
+  <!-- SPEAKER 3 -->
+  <section class="sp" id="sp3" style="--c:var(--p3)">
+    <div class="sph"><h2>ຄົນທີ 3 · <span class="nm" data-sp="3">ເຈດສະດາ</span></h2><span class="t">2:10 – 3:05 · 55 ວິ</span></div>
+    <div class="who">ສາທິດ 2 ແອັບ (ແມ່ຄ້າ + ນັກທ່ອງທ່ຽວ)</div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 8</span><span class="name">ສາທິດສົດ</span><span class="sec">50 ວິ</span></div>
+      <p>ນີ້ຄື 2 ແອັບ ທີ່ໃຊ້ໄດ້ແທ້. <span class="cue">ເປີດແອັບແມ່ຄ້າ</span> ແມ່ຄ້າມີເມນູ ແລະ ລາຄາໄວ້ໃນແອັບ.</p>
+      <p><span class="cue">ກົດຮັບເງິນ · ໃສ່ 85,000</span> ແມ່ຄ້າກົດເລືອກສິນຄ້າ ແອັບບວກເງິນໃຫ້ ແລ້ວໄດ້ QR.</p>
+      <p><span class="cue">ເພື່ອນສະແກນ ດ້ວຍແອັບນັກທ່ອງທ່ຽວ</span> ນັກທ່ອງທ່ຽວເຫັນລາຄາເປັນກີບ ກົດຈ່າຍ… <span class="cue">ສຽງ</span> “ໄດ້ຮັບເງິນ 85,000 ກີບ”. ນັກທ່ອງທ່ຽວໄດ້ໃບຮັບເງິນທັນທີ.</p>
+      <p>ທ່ານກຳມະການ ສະແກນ QR ໃນໜ້ານີ້ ລອງໃຊ້ເອງໄດ້: ຊ້າຍ ແອັບແມ່ຄ້າ, ຂວາ ແອັບນັກທ່ອງທ່ຽວ.</p>
+      <p class="skip">ຖ້າເນັດຊ້າ ຫຼື ແອັບບໍ່ເປີດ: ຊີ້ຮູບໜ້າຈໍ 5 ເຄື່ອງໃນໜ້ານີ້ ແລ້ວເລົ່າຕາມລຳດັບ 01 → 05.</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 9</span><span class="name">ກ່ອນ ແລະ ຫຼັງ</span><span class="sec">5 ວິ</span></div>
+      <p>ສະຫຼຸບສັ້ນ: ກ່ອນ — ລູກຄ້າຍ່າງໜີ. ຫຼັງ — ສະແກນໄດ້ ໄດ້ເງິນກີບ ໄດ້ຍິນສຽງຢືນຢັນ.</p>
+      <div class="hand"><b>ສົ່ງຕໍ່ →</b> “ແລ້ວເຮົາຫາລາຍໄດ້ແນວໃດ? <span class="nm" data-sp="4">ສີສົມພອນ</span>.”</div></div>
+  </section>
+
+  <!-- SPEAKER 4 -->
+  <section class="sp" id="sp4" style="--c:var(--p4)">
+    <div class="sph"><h2>ຄົນທີ 4 · <span class="nm" data-sp="4">ສີສົມພອນ</span></h2><span class="t">3:05 – 4:40 · 95 ວິ</span></div>
+    <div class="who">ລາຍໄດ້ · ແຜນ · ງົບປະມານ · ຜົນກະທົບ · ປິດ</div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 10</span><span class="name">ຮູບແບບທຸລະກິດ</span><span class="sec">20 ວິ</span></div>
+      <p>ແມ່ຄ້າບໍ່ຖືກຫັກຄ່າທຳນຽມ — ຄ່າທຳນຽມ PhaJay 1.5% ບວກເຂົ້າໃນຍອດທີ່ນັກທ່ອງທ່ຽວຈ່າຍ. PhaJay ເກັບຄ່າທຳນຽມນ້ອຍໆຢູ່ແລ້ວ — ເຮົາພາຮ້ານໃໝ່ມາໃຫ້ ຈຶ່ງຂໍສ່ວນແບ່ງ. ຕົວຢ່າງ: ສິນຄ້າ <span class="num">100,000</span>, ນັກທ່ອງທ່ຽວຈ່າຍ <span class="num">101,500</span>, ແມ່ຄ້າໄດ້ເຕັມ <span class="num">100,000</span>, PhaJay ໄດ້ <span class="num">1,500</span>, ເຮົາໄດ້ <span class="num">450</span>. ປະມານ <span class="num">40,500 ກີບ</span> ຕໍ່ຮ້ານ ຕໍ່ເດືອນ.</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 11</span><span class="name">ແຜນງານ</span><span class="sec">10 ວິ</span></div>
+      <p>ແຜນ 4 ໄຕມາດ: <span class="num">100 → 250 → 400 → 700</span> ຮ້ານ. ໄຕມາດ 3 ເປີດ ຫຼວງພະບາງ ແລະ ວັງວຽງ.</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 12</span><span class="name">ງົບປະມານ</span><span class="sec">25 ວິ</span></div>
+      <p>ທຶນເລີ່ມຕົ້ນ <span class="num">40 ລ້ານກີບ</span>: <span class="num">21 ລ້ານ</span> ໃຊ້ 3 ເດືອນທຳອິດ — ປ້າຍ QR, ໂຄສະນາ, ເຊີເວີ, ຈົດທະບຽນ ແລະ ເດີນທາງ. ທີມຊວນຮ້ານເອງ. ອີກ <span class="num">19 ລ້ານ</span> ກັນໄວ້ ຈົນລາຍຮັບພໍຈ່າຍ.</p>
+      <p>ໄຕມາດ 3 ລາຍຮັບ <span class="num">39.5 ລ້ານ</span> ເກີນລາຍຈ່າຍ <span class="num">36.3 ລ້ານ</span> — ປີທຳອິດ ກຳໄລ <span class="num">9.3 ລ້ານກີບ</span>.</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 13</span><span class="name">ຄວາມສ່ຽງ</span><span class="sec">ກົດຜ່ານ</span></div>
+      <p class="skip">ບໍ່ເວົ້າ — ກົດຕໍ່ເລີຍ. ຖ້າກຳມະການຖາມ ຕອບຕາມໜ້ານີ້ ຫຼື ໄຟລ໌ Q&amp;A.</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 14</span><span class="name">ຜົນກະທົບ</span><span class="sec">15 ວິ</span></div>
+      <p>ຖ້າສຳເລັດ: ແມ່ຄ້າ <span class="num">700 ຮ້ານ</span> ຮັບເງິນນັກທ່ອງທ່ຽວໄດ້, ນັກທ່ອງທ່ຽວຈ່າຍ <span class="num">1.28 ລ້ານຄັ້ງ</span> ຕໍ່ປີ, ແລະ ເງິນປະມານ <span class="num">78,700 ລ້ານກີບ</span> ເຂົ້າທະນາຄານລາວ.</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 15</span><span class="name">KPI</span><span class="sec">ກົດຜ່ານ</span></div>
+      <p class="skip">ບໍ່ເວົ້າ — ກົດຕໍ່ເລີຍ (ຕົວເລກມີສູດຢູ່ໃນໜ້າ ໃຫ້ກຳມະການອ່ານເອງ).</p></div>
+
+    <div class="sl"><div class="slh"><span class="chip">ໜ້າ 16</span><span class="name">ສະຫຼຸບ</span><span class="sec">25 ວິ</span></div>
+      <p>ເຮົາຂໍ 3 ຢ່າງ: ການແນະນຳຕໍ່ PhaJay, ທຶນເລີ່ມຕົ້ນ <span class="num">40 ລ້ານກີບ</span>, ແລະ ການຮ່ວມມືຈາກກະຊວງວັດທະນະທຳ ແລະ ການທ່ອງທ່ຽວ.</p>
+      <p><span class="cue">ທັງ 4 ຄົນ ເວົ້າພ້ອມກັນ</span> ນັກທ່ອງທ່ຽວຈ່າຍແບບບ້ານເຂົາ — ແມ່ຄ້າຮັບເງິນກີບແບບບ້ານເຮົາ. ຂອບໃຈທຸກທ່ານ.</p></div>
+  </section>
+
+  <section class="tips">
+    <h2>ຄຳແນະນຳຊ້ອມ</h2>
+    <ul>
+      <li>ຄົນທີ່ເວົ້າ ຖືຣີໂມດ ຫຼື ກົດລູກສອນເອງ. ສົ່ງຕໍ່ໃຫ້ຄົນຕໍ່ໄປ ດ້ວຍປະໂຫຍກ “ສົ່ງຕໍ່” ທີ່ຂຽນໄວ້.</li>
+      <li>ຢ່າກົດ T ໃນເວັບນຳສະເໜີ — ເວລາໃນນັ້ນຍັງຕັ້ງໄວ້ 9:20. ໃຊ້ຕົວຈັບເວລາໃນໜ້ານີ້ ເວລາຊ້ອມ.</li>
+      <li>ກ່ອນຂຶ້ນເວທີ ເປີດແອັບທັງ 2 ໄວ້ກ່ອນ ແລະ ກຽມວິດີໂອບັນທຶກໜ້າຈໍ ໄວ້ສຳຮອງ.</li>
+      <li>ຖ້າເກີນເວລາ: ຕັດໜ້າ 9 ແລະ ໜ້າ 11 ອອກກ່ອນ — ໄດ້ຄືນ 15 ວິນາທີ.</li>
+      <li>ລາຄາ ແລະ ເງິນທັງໝົດ ເວົ້າເປັນເງິນກີບ. ໂດລາ ໃຊ້ສະເພາະຕົວເລກຕະຫຼາດ (TAM, SAM, SOM).</li>
+    </ul>
+  </section>
+</div>
+<script>
+(function(){
+  const parts=[{id:'sp1',name:'ຄົນທີ 1 · <span class="nm" data-sp="1">ແສງຕາວັນ</span>',end:75},{id:'sp2',name:'ຄົນທີ 2 · <span class="nm" data-sp="2">ເພັດມີໄຊ</span>',end:130},{id:'sp3',name:'ຄົນທີ 3 · <span class="nm" data-sp="3">ເຈດສະດາ</span>',end:185},{id:'sp4',name:'ຄົນທີ 4 · <span class="nm" data-sp="4">ສີສົມພອນ</span>',end:280}];
+  const clock=document.getElementById('clock'),now=document.getElementById('now'),go=document.getElementById('go');
+  let t0=0,acc=0,run=false,raf=0;
+  const fmt=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+  function tick(){
+    const s=acc+(run?(performance.now()-t0)/1000:0);
+    clock.textContent=fmt(s);
+    const p=parts.find(p=>s<p.end);
+    parts.forEach(q=>document.getElementById(q.id).classList.toggle('on',p&&q.id===p.id));
+    if(s>=300) now.innerHTML='<b>ເກີນ 5:00 ແລ້ວ</b>';
+    else if(p) now.innerHTML='ຕອນນີ້: <b>'+p.name+'</b> · ຄວນຈົບ '+fmt(p.end);
+    else now.innerHTML='ຄວນຈົບແລ້ວ · ເຫຼືອ '+fmt(300-s)+' ກ່ອນ 5:00';
+    clock.style.color=s>=300?'var(--p3)':'';
+    if(run) raf=requestAnimationFrame(tick);
+  }
+  go.onclick=()=>{
+    if(run){acc+=(performance.now()-t0)/1000;run=false;go.textContent='ຊ້ອມຕໍ່';cancelAnimationFrame(raf);tick()}
+    else{t0=performance.now();run=true;go.textContent='ຢຸດ';tick()}
+  };
+  document.getElementById('reset').onclick=()=>{run=false;acc=0;cancelAnimationFrame(raf);go.textContent='ເລີ່ມຊ້ອມ';tick();now.innerHTML='ກົດ <b>ເລີ່ມຊ້ອມ</b> ເພື່ອຈັບເວລາ'};
+})();
+</script>
+<script>
+(function(){
+  const KEY='phalom-script5-v1';
+  const sel='.wrap h1,.sub,.slogan,.sp .who,.sp .slh .name,.sp .slh .sec,.sp .sph .t,.sl p,.hand,.tips li,.tot,.legend span';
+  const els=[...document.querySelectorAll(sel)];
+  els.forEach((e,i)=>e.dataset.ed=i);
+  const ins=[...document.querySelectorAll('.names input')];
+  const orig={html:els.map(e=>e.innerHTML),names:ins.map(i=>i.value)};
+  function applyNames(){ins.forEach(i=>document.querySelectorAll('.nm[data-sp="'+i.dataset.sp+'"]').forEach(n=>n.textContent=i.value||('ຄົນທີ '+i.dataset.sp)))}
+  function store(){try{localStorage.setItem(KEY,JSON.stringify({html:els.map(e=>e.innerHTML),names:ins.map(i=>i.value)}))}catch(e){}}
+  function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d)return;
+    if(d.html&&d.html.length===els.length)els.forEach((e,i)=>e.innerHTML=d.html[i]);
+    if(d.names)ins.forEach((x,i)=>{if(d.names[i]!=null)x.value=d.names[i]})}catch(e){}}
+  load();applyNames();
+  ins.forEach(i=>i.addEventListener('input',()=>{applyNames();store()}));
+  els.forEach(e=>e.addEventListener('input',store));
+  const eb=document.getElementById('edit');let on=false;
+  eb.onclick=()=>{on=!on;document.body.classList.toggle('editing',on);els.forEach(e=>e.contentEditable=on?'true':'false');eb.classList.toggle('on',on);eb.textContent=on?'✔ ແກ້ແລ້ວ':'✏️ ແກ້ໄຂບົດ'};
+  document.getElementById('undo').onclick=()=>{const b=document.getElementById('undo');
+    if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='ກົດອີກເທື່ອ ເພື່ອຢືນຢັນ';setTimeout(()=>{b.dataset.sure='';b.textContent='↺ ຄືນບົດເດີມ'},3000);return}
+    els.forEach((e,i)=>e.innerHTML=orig.html[i]);ins.forEach((x,i)=>x.value=orig.names[i]);applyNames();try{localStorage.removeItem(KEY)}catch(e){}
+    b.dataset.sure='';b.textContent='↺ ຄືນບົດເດີມ'};
+  document.getElementById('save').onclick=()=>{
+    const wasOn=on;if(on)eb.click();
+    ins.forEach(i=>i.setAttribute('value',i.value));
+    const c=document.documentElement.cloneNode(true);
+    c.querySelectorAll('[data-ed]').forEach(e=>{e.removeAttribute('data-ed');e.removeAttribute('contenteditable')});
+    c.querySelectorAll('.sp.on').forEach(e=>e.classList.remove('on'));
+    const html='<!doctype html>\n'+c.outerHTML;
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));
+    a.download='Phalom_Script_5min_4people.html';document.body.appendChild(a);a.click();a.remove();
+    document.getElementById('hint').textContent='ບັນທຶກແລ້ວ — ສົ່ງໄຟລ໌ນີ້ໃຫ້ເພື່ອນໃນທີມ. ຖ້າບໍ່ມີໄຟລ໌ອອກມາ ໃຫ້ເປີດໜ້ານີ້ໃນ Chrome ຫຼື Safari.';
+    if(wasOn)eb.click()};
+})();
+</script>
+</body>
+</html>

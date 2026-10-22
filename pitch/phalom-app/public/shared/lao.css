@@ -1,0 +1,188 @@
+/* Phalom design system: "rice paper, indigo silk, temple gold".
+   Light theme by default. Colours come from Lao life: indigo-dyed cotton,
+   the red of the flag and the sinh hem, That Luang gold, Mekong jade, champa white. */
+:root {
+  color-scheme: only light; /* the app is light; stops phone "auto dark" from turning QR codes black */
+  --paper: #FBF5EA;
+  --paper-2: #F4EAD7;
+  --paper-3: #EADBC0;
+  --card: #FFFFFF;
+  --ink: #1C1A2B;
+  --ink-2: #5A5570;
+  --ink-3: #8D879E;
+  --line: #E9DEC9;
+  --indigo: #24307A;
+  --indigo-d: #161F57;
+  --indigo-l: #3A4BA8;
+  --indigo-50: #ECEEF8;
+  --gold: #C9962B;
+  --gold-d: #9C6F12;
+  --gold-l: #F3D58C;
+  --gold-50: #FBF1DA;
+  --red: #C8102E;
+  --red-d: #9B0C24;
+  --red-50: #FBE8EA;
+  --jade: #17785A;
+  --jade-l: #2FA57E;
+  --jade-50: #E3F3EC;
+  --mekong: #4E8FA8;
+  --champa: #FFFDF6;
+  --shadow: 0 1px 2px rgba(60, 40, 10, .06), 0 10px 30px -14px rgba(60, 40, 10, .28);
+  --shadow-lg: 0 2px 6px rgba(60, 40, 10, .06), 0 24px 60px -20px rgba(36, 48, 122, .45);
+  --r-sm: 12px; --r: 20px; --r-lg: 28px;
+  --font: "Noto Sans Lao", "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Noto Sans Lao Looped", "Noto Serif Lao", "Noto Sans Lao", serif;
+  --font-num: "Outfit", "Noto Sans Lao", system-ui, sans-serif;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  /* Sinh hem band: red ground, indigo diamonds with gold hearts. */
+  --sinh: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='16' viewBox='0 0 48 16'%3E%3Crect width='48' height='16' fill='%23C8102E'/%3E%3Crect y='0' width='48' height='1.6' fill='%23C9962B'/%3E%3Crect y='14.4' width='48' height='1.6' fill='%23C9962B'/%3E%3Cpath d='M12 2.6 19 8 12 13.4 5 8Z' fill='%2324307A'/%3E%3Cpath d='M12 5.4 15.4 8 12 10.6 8.6 8Z' fill='%23F3D58C'/%3E%3Cpath d='M36 2.6 43 8 36 13.4 29 8Z' fill='%2324307A'/%3E%3Cpath d='M36 5.4 39.4 8 36 10.6 32.6 8Z' fill='%23F3D58C'/%3E%3Ccircle cx='24' cy='8' r='1.5' fill='%23FFF6E0'/%3E%3Ccircle cx='0' cy='8' r='1.5' fill='%23FFF6E0'/%3E%3Ccircle cx='48' cy='8' r='1.5' fill='%23FFF6E0'/%3E%3C/svg%3E");
+  /* Naga scales, very faint, for big indigo cards. */
+  --scales: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='16' viewBox='0 0 28 16'%3E%3Cpath d='M0 16a7 7 0 0 1 14 0M14 16a7 7 0 0 1 14 0M-7 8a7 7 0 0 1 14 0M7 8a7 7 0 0 1 14 0M21 8a7 7 0 0 1 14 0' fill='none' stroke='%23ffffff' stroke-opacity='.07' stroke-width='1.2'/%3E%3C/svg%3E");
+  /* Woven paper texture for the page. */
+  --weave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'%3E%3Cpath d='M11 3 19 11 11 19 3 11Z' fill='none' stroke='%23C9962B' stroke-opacity='.09' stroke-width='1'/%3E%3Ccircle cx='11' cy='11' r='1' fill='%23C9962B' fill-opacity='.12'/%3E%3C/svg%3E");
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: var(--font); color: var(--ink); background: var(--paper);
+  font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; border: 0; background: none; padding: 0; }
+img, svg { display: block; }
+a { color: var(--indigo); }
+[hidden] { display: none !important; }
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.display { font-family: var(--font-display); }
+
+/* On a laptop the app sits in a phone-width column on a woven backdrop. */
+.backdrop { min-height: 100%; background: var(--paper-2) var(--weave); }
+.phone {
+  position: relative; max-width: 440px; min-height: 100vh; min-height: 100dvh; margin: 0 auto;
+  background: var(--paper); overflow-x: hidden;
+}
+@media (min-width: 560px) {
+  .backdrop { padding: 28px 0; }
+  .phone { min-height: calc(100dvh - 56px); border-radius: 36px; box-shadow: var(--shadow-lg); outline: 1px solid var(--line); }
+}
+
+.sinh-band { height: 12px; background: var(--sinh) repeat-x center / auto 12px; }
+.sinh-band.thin { height: 8px; background-size: auto 8px; }
+
+/* Glyphs */
+.g { width: 24px; height: 24px; flex: none; }
+.g * { vector-effect: non-scaling-stroke; }
+.g .d { fill: currentColor; fill-opacity: .16; stroke: none; }
+.g-lg { width: 30px; height: 30px; }
+.g-sm { width: 18px; height: 18px; }
+.g-xs { width: 14px; height: 14px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 54px; padding: 0 22px; border-radius: 18px; font-weight: 700; font-size: 17px;
+  transition: transform .12s ease, box-shadow .2s ease, background .2s;
+  user-select: none; text-decoration: none;
+}
+.btn:active { transform: scale(.97); }
+.btn-primary { background: linear-gradient(180deg, var(--indigo-l), var(--indigo)); color: #fff; box-shadow: 0 10px 22px -10px rgba(36, 48, 122, .7), inset 0 1px 0 rgba(255,255,255,.18); }
+.btn-gold { background: linear-gradient(180deg, #E2B44C, var(--gold)); color: #2A1C00; box-shadow: 0 10px 22px -10px rgba(156, 111, 18, .7), inset 0 1px 0 rgba(255,255,255,.35); }
+.btn-ghost { background: var(--card); color: var(--indigo); box-shadow: inset 0 0 0 1.5px var(--line); }
+.btn-soft { background: var(--indigo-50); color: var(--indigo); }
+.btn-danger { background: var(--red-50); color: var(--red-d); }
+.btn-block { width: 100%; }
+.btn[disabled] { opacity: .45; pointer-events: none; }
+.icon-btn { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; color: var(--ink); background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line); }
+.icon-btn:active { transform: scale(.94); }
+
+/* Cards */
+.card { background: var(--card); border-radius: var(--r); box-shadow: var(--shadow); }
+.card-pad { padding: 18px; }
+.section-title { display: flex; align-items: center; justify-content: space-between; margin: 26px 20px 10px; }
+.section-title h3 { margin: 0; font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.section-title h3::before { content: ""; width: 10px; height: 10px; transform: rotate(45deg); background: var(--gold); border-radius: 2px; box-shadow: 0 0 0 3px var(--gold-50); }
+.section-title a, .section-title button { font-size: 14px; font-weight: 700; color: var(--indigo); text-decoration: none; }
+
+/* Chips */
+.chip { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 999px; background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line); font-weight: 600; font-size: 14px; white-space: nowrap; }
+.chip.on { background: var(--indigo); color: #fff; box-shadow: none; }
+.wallet-tile { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 13px; font-family: var(--font-num); flex: none; letter-spacing: -.02em; }
+.wallet-tile.sm { width: 26px; height: 26px; border-radius: 8px; font-size: 11px; }
+.wallets { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.wallet-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: 999px; background: var(--paper); font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+
+/* Inputs */
+.field { display: block; margin-bottom: 16px; }
+.field > span { display: block; font-weight: 700; font-size: 14px; color: var(--ink-2); margin: 0 0 6px 4px; }
+.input { width: 100%; height: 56px; padding: 0 16px; border-radius: 16px; border: 1.5px solid var(--line); background: var(--card); font-size: 17px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.input:focus { border-color: var(--indigo-l); box-shadow: 0 0 0 4px var(--indigo-50); }
+
+/* Toast */
+.toast-wrap { position: fixed; left: 0; right: 0; top: 10px; z-index: 80; display: grid; justify-items: center; pointer-events: none; padding: 0 12px; }
+.toast {
+  pointer-events: auto; width: 100%; max-width: 416px; display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  border-radius: 20px; background: var(--card); box-shadow: var(--shadow-lg); border: 1px solid var(--line);
+  animation: toastIn .5s cubic-bezier(.2, 1.4, .4, 1) both;
+}
+.toast.out { animation: toastOut .35s ease both; }
+@keyframes toastIn { from { transform: translateY(-120%) scale(.96); opacity: 0; } }
+@keyframes toastOut { to { transform: translateY(-120%); opacity: 0; } }
+
+/* Bottom sheet */
+.sheet-bg { position: fixed; inset: 0; background: rgba(28, 26, 43, .38); z-index: 60; animation: fade .25s both; backdrop-filter: blur(2px); }
+.sheet {
+  position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: 100%; max-width: 440px; z-index: 61;
+  background: var(--paper); border-radius: 28px 28px 0 0; padding: 10px 20px calc(24px + var(--safe-b));
+  animation: sheetIn .38s cubic-bezier(.2, 1, .3, 1) both; max-height: 88vh; overflow: auto;
+}
+.sheet::before { content: ""; display: block; width: 44px; height: 5px; border-radius: 9px; background: var(--paper-3); margin: 0 auto 14px; }
+@keyframes sheetIn { from { transform: translate(-50%, 100%); } }
+@keyframes fade { from { opacity: 0; } }
+
+/* View transitions */
+.view { animation: viewIn .38s cubic-bezier(.2, .9, .3, 1) both; }
+@keyframes viewIn { from { opacity: 0; transform: translateY(14px); } }
+
+/* Loading */
+.dots { display: inline-flex; gap: 5px; }
+.dots i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: dot 1.2s infinite ease-in-out; }
+.dots i:nth-child(2) { animation-delay: .15s; } .dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes dot { 0%, 80%, 100% { transform: scale(.5); opacity: .4; } 40% { transform: scale(1); opacity: 1; } }
+.skeleton { background: linear-gradient(90deg, var(--paper-2), #fff8ec, var(--paper-2)); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 12px; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* Champa petal confetti */
+.petals { position: fixed; inset: 0; pointer-events: none; z-index: 70; overflow: hidden; }
+.petals span { position: absolute; top: -40px; animation: petal linear forwards; }
+@keyframes petal {
+  0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  100% { transform: translate(var(--dx), 110vh) rotate(var(--rot)); opacity: .9; }
+}
+
+/* Lantern sway */
+.sway { transform-origin: top center; animation: sway 4.5s ease-in-out infinite; }
+@keyframes sway { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+.float { animation: float 6s ease-in-out infinite; }
+@keyframes float { 50% { transform: translateY(-6px); } }
+
+.muted { color: var(--ink-2); }
+.small { font-size: 13.5px; }
+.center { text-align: center; }
+.row { display: flex; align-items: center; gap: 12px; }
+.grow { flex: 1; min-width: 0; }
+.ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+@media print {
+  .backdrop { background: #fff; padding: 0; }
+  .phone { box-shadow: none; outline: 0; border-radius: 0; max-width: none; }
+  .no-print { display: none !important; }
+}
+
+/* QR codes always black on white, whatever the phone theme. */
+.qr-svg, .qr-svg * { forced-color-adjust: none; }
+.qr-svg { background: #fff !important; }

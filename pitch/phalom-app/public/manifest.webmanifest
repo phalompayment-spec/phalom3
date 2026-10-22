@@ -1,0 +1,60 @@
+{
+  "id": "/",
+  "name": "Phalom ພະລົມ ສຳລັບແມ່ຄ້າ",
+  "short_name": "Phalom",
+  "description": "ຮັບເງິນຈາກນັກທ່ອງທ່ຽວຜ່ານ Alipay, WeChat Pay, PromptPay ແລະ VietQR ເປັນເງິນກີບ",
+  "lang": "lo",
+  "dir": "ltr",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF5EA",
+  "theme_color": "#24307A",
+  "categories": [
+    "finance",
+    "business"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "ຮັບເງິນ",
+      "url": "/?source=shortcut#/charge",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "ປະຫວັດການຂາຍ",
+      "url": "/?source=shortcut#/history",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
