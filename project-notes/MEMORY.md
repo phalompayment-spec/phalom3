@@ -11,7 +11,7 @@
 - Team contact for slides: email phalom.payment@gmail.com, phone +856 20 5628 0572. Closing slide says just "ຂອບໃຈທຸກທ່ານ".
 - Concept: merchant app on top of existing rails; one partner route is PhaJay (see Decisions); team never holds funds; revenue = share of partner fees.
 - Team's own deck: Canva https://canva.link/mshqv9ybohe4dgx (reachable from the redesign thread only; original untouched).
-- Repo https://github.com/phalompayment-spec/phalom3 is PUBLIC (user chose to keep it public 2026-10-22). It holds the project files, BUSINESS.md, CLAUDE.md and project-notes/ (copy of this memory). Never put keys or private personal data in it.
+- Repo https://github.com/phalompayment-spec/phalom3 is PUBLIC (user chose to keep it public 2026-10-22). It holds the project files, BUSINESS.md, CLAUDE.md and project-notes/ (copy of this memory). Never put keys or private personal data in it. SHARED BRANCH (user, 2026-10-23): `main` only; old branch claude/project-thread-c3h2u9 deleted. Git sign-in via `gh auth login`, never a token inside the repo link.
 - Cloud environment: project default env_0152yunWk7sPY8g2d8eJ7QGP ("phalom2"); user's keys saved there as env vars "supabase" and "cloudflare". "openrouter" NOT saved as an env var; user pasted the key in thread "ເປີດສຽງແຈ້ງເງິນເຂົ້າ" (2026-10-17 05:59) and that thread put it only into the Worker secret. Running threads keep their start environment; only new threads get the new default. Prefer keys in the environment, not chat.
 
 ## Preferences

@@ -7,4 +7,4 @@ Phalom won the Innovative Business Challenge (Oct 2026). **The pitch is over; th
 - App code: `pitch/phalom-app/`. Deploy with `scripts/deploy.sh` (needs `CLOUDFLARE_API_TOKEN`, `SUPABASE_ACCESS_TOKEN`, optional `OPENROUTER_API_KEY`). Never write keys into files.
 - The live app is a demo with no shop login. Don't put real shop or customer data into it until the go-live items in `BUSINESS.md` are done.
 - The team is cost-conscious: don't redo unchanged work, and ask before paid services.
-- `project-notes/` is a snapshot of the project memory from 2026-10-22. Another Claude also works on this project in claude.ai, so `git pull` before you start, push small commits often, and update `BUSINESS.md` when something changes.
+- `project-notes/` is a snapshot of the project memory from 2026-10-22. Another Claude also works on this project in claude.ai, so work on the `main` branch (the only shared branch since 2026-10-23), `git pull` before you start, push small commits often, and update `BUSINESS.md` when something changes.
