@@ -8,7 +8,7 @@ Written 22 Oct 2026, after Phalom won 1st place. The pitch is over; the team is 
 |---|---|
 | Shop app + tourist demo app | Running on Cloudflare Workers + Supabase (links in README). Built for the pitch demo. |
 | Payments | **Simulated.** No money moves. The app has a webhook (`POST /api/webhooks/payment`, HMAC-signed) ready for a payment partner, but no partner is connected. |
-| PhaJay | Chosen as the partner route (tourist's app → PhaJay → shop's Lao bank). **No contact, contract or API access yet.** |
+| PhaJay | Chosen as the partner route (tourist's app → PhaJay → shop's Lao bank). **No contract.** Free portal test account opened 23 Oct 2026: sandbox QR and payment link work (test money only, mock bank, no foreign wallets). See `winner-agreement/PhaJay_Sandbox_Test.md`. No live API access (needs KYC). |
 | Company | Not registered yet (pitch budget had 3M kip for registration in quarter 1). |
 | Shops | No real shops signed up. Real field visits with shop owners still need to be written down. |
 | Prize / winner agreement | Organizer (SPK) timeline: draft to the team 24 Oct, comments by about 31 Oct, final 2 Nov, signing + prize money 15 Nov. Prep: `winner-agreement/Phalom_Agreement_Prep.md`. |
