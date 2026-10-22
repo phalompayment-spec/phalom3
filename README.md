@@ -18,6 +18,7 @@ Result: 1st place (October 2026). **The pitch is over and the team is now buildi
 | `knowledge-base/` | Business knowledge base (English). Its fee section is older than the current fee model, see project notes. |
 | `winner-agreement/` | Prep for the prize contract and the check of PhaJay's real fees. |
 | `rules/` | Challenge rules and pitch template (PDFs) with a short summary. |
+| `HUMAN_TODO.md` | **Start here when you come back:** the tasks only a person can do (sign in, phone PhaJay, sign, decide). |
 | `BUSINESS.md` | Current status of the business, open decisions and the to-do list for going live. |
 | `project-notes/` | Copy of the project memory: every decision, number and preference the team agreed on. **Read `project-notes/MEMORY.md` first.** |
 

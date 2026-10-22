@@ -2,6 +2,8 @@
 
 Written 22 Oct 2026, after Phalom won 1st place. The pitch is over; the team is now turning the idea into a real business. This page says what is real today, what was only an estimate for the pitch, and what has to happen next. Keep it up to date.
 
+Tasks waiting on a person: [HUMAN_TODO.md](HUMAN_TODO.md).
+
 ## Where things stand
 
 | Area | Status today |
