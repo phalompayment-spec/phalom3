@@ -4,7 +4,7 @@ Team Phalom's project for the Innovative Business Challenge (challenge 10, "ຮ�
 
 Slogan: "ນັກທ່ອງທ່ຽວຈ່າຍແບບບ້ານເຂົາ — ແມ່ຄ້າຮັບເງິນກີບແບບບ້ານເຮົາ"
 
-Result: 1st place (October 2026).
+Result: 1st place (October 2026). **The pitch is over and the team is now building Phalom as a real business.** Start with [BUSINESS.md](BUSINESS.md): what is real today, which pitch numbers were estimates, and what has to happen before real money flows.
 
 ## What is where
 
@@ -18,6 +18,7 @@ Result: 1st place (October 2026).
 | `knowledge-base/` | Business knowledge base (English). Its fee section is older than the current fee model, see project notes. |
 | `winner-agreement/` | Prep for the prize contract and the check of PhaJay's real fees. |
 | `rules/` | Challenge rules and pitch template (PDFs) with a short summary. |
+| `BUSINESS.md` | Current status of the business, open decisions and the to-do list for going live. |
 | `project-notes/` | Copy of the project memory: every decision, number and preference the team agreed on. **Read `project-notes/MEMORY.md` first.** |
 
 ## Live links
@@ -46,11 +47,11 @@ Never commit keys or tokens. Put them in environment variables only.
 
 Not in this repo: the Android signing key (`android/phalom-demo.p12`, needed so a new APK installs over the old one) and the uploaded reference images. Both stay in the project's shared folder on claude.ai.
 
-## Rules the team agreed on (short version)
+## Rules the team agreed on during the pitch (short version)
 
 - Lao first: apps, slides and scripts are in plain Lao; English only where truly needed.
 - Lao kip only, everywhere (market-size stats stay in USD because they come from the official report).
-- Shop gets the full 100%: the PhaJay fee (1.5%, an estimate) is added to the tourist's total. 100,000 kip item → tourist pays 101,500, shop gets 100,000.
+- Shop gets the full 100%: the partner fee is added to the tourist's total, not taken from the shop. (The pitch used 1.5%; PhaJay's real fees are higher, see BUSINESS.md.)
 - Name PhaJay as the partner, but never say a contract is signed or that PhaJay/LAPNet is already connected.
 - Every slide with numbers shows its source in the bottom-left corner.
 
