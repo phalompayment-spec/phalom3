@@ -1,6 +1,7 @@
 # Phaloms project memory
 
 ## Project
+- PHASE CHANGE (user, 2026-10-22 17:12): the pitch is over; Phalom is now being built as a REAL BUSINESS. Pitch-era rules (5-min, slides, judges) are history; repo README/CLAUDE.md being updated for this in thread "Put project in GitHub repo".
 - RESULT (user, 2026-10-20): Phalom WON 1ST PLACE in the INNOVATIVE BUSINESS CHALLENGE. Organizer (SPK) contract timeline: 21 Oct 2026 first draft; 24 Oct draft sent to winners, 1 week to review and send comments (≈ by 31 Oct); 2 Nov final version confirmed; 15 Nov signing + prize money. Claude offered to review the draft contract with the team when it arrives. Prep file winner-agreement/Phalom_Agreement_Prep.md (2026-10-20): rules PDFs say nothing on prize/contract; unknown if prize = project budget (pitched 40M kip); open team decisions: signer, bank account, pilot city.
 - PHAJAY REAL FEES (checked 2026-10-20, phajay.co/en/pricing): Lao bank QR & payment link 1.60%, Alipay/WeChat Pay 4.15%, Visa 4.15%, Mastercard 5.15%; no PromptPay/Thai QR listed; NO public partner/revenue-share program (our 30% share is unsupported). Pitch 1.5% was a team estimate set below the general Laos 2.5–4% (PayAtlas). Plan needs ~38,000 kip/shop/month; real Lao QR × 30% = 43,200 (break-even Q3), 20% → Q4, <~26% or no share → needs Phalom's own fee (e.g. 0.5% → 45,000). Alipay tourist total ≈104,330 per 100,000, still under LOCA 108,000. File: winner-agreement/PhaJay_Real_Fee_Check.md (deck/budget unchanged).
 - Team "Phalom" pitch for a Lao challenge: cross-border payments for small souvenir / street-food vendors (tourists pay with PromptPay/Alipay/WeChat, vendor receives kip).
@@ -10,7 +11,7 @@
 - Team contact for slides: email phalom.payment@gmail.com, phone +856 20 5628 0572. Closing slide says just "ຂອບໃຈທຸກທ່ານ".
 - Concept: merchant app on top of existing rails; one partner route is PhaJay (see Decisions); team never holds funds; revenue = share of partner fees.
 - Team's own deck: Canva https://canva.link/mshqv9ybohe4dgx (reachable from the redesign thread only; original untouched).
-- Repo https://github.com/phalompayment-spec/phalom3 added 2026-10-14; purpose not stated.
+- Repo https://github.com/phalompayment-spec/phalom3 is PUBLIC (user chose to keep it public 2026-10-22). It holds the project files, BUSINESS.md, CLAUDE.md and project-notes/ (copy of this memory). Never put keys or private personal data in it.
 - Cloud environment: project default env_0152yunWk7sPY8g2d8eJ7QGP ("phalom2"); user's keys saved there as env vars "supabase" and "cloudflare". "openrouter" NOT saved as an env var; user pasted the key in thread "ເປີດສຽງແຈ້ງເງິນເຂົ້າ" (2026-10-17 05:59) and that thread put it only into the Worker secret. Running threads keep their start environment; only new threads get the new default. Prefer keys in the environment, not chat.
 
 ## Preferences
