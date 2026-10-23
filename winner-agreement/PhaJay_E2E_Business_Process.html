@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phalom × PhaJay: core end-to-end business processes</title>
+<style>
+  :root {
+    --fg: var(--foreground, #1c1b1a); --mut: var(--muted-foreground, #6b6760); --bd: var(--border, #e3dfd8);
+    --cardbg: var(--card, #faf8f4); --ok: var(--success, #2f8f5b); --warn: var(--warning, #c98a12); --bad: var(--destructive, #c2410c);
+    --acc: var(--accent, #3b5bdb); --r: var(--radius, 10px);
+  }
+  body { margin: 0; color: var(--fg); font: 14px/1.55 var(--font-sans, system-ui, sans-serif); }
+  .wrap { max-width: 1000px; }
+  h1 { font-size: 21px; margin: 0 0 2px; }
+  h2 { font-size: 16px; margin: 26px 0 8px; padding-top: 4px; }
+  h3 { font-size: 14px; margin: 0 0 6px; }
+  p { margin: 6px 0; }
+  .sub { color: var(--mut); font-size: 12.5px; }
+  .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .card { background: var(--cardbg); border: 1px solid var(--bd); border-radius: var(--r); padding: 14px 16px; }
+  .card.hi { border-left: 4px solid var(--bad); }
+  .card.go { border-left: 4px solid var(--ok); }
+  .card.wa { border-left: 4px solid var(--warn); }
+  .big { font-size: 22px; font-weight: 700; line-height: 1.2; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--bd); }
+  th { color: var(--mut); font-weight: 600; font-size: 12px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 99px; white-space: nowrap; }
+  .t-ok { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
+  .t-wa { background: color-mix(in srgb, var(--warn) 20%, transparent); color: var(--warn); }
+  .t-bad { background: color-mix(in srgb, var(--bad) 16%, transparent); color: var(--bad); }
+  .t-est { background: color-mix(in srgb, var(--acc) 16%, transparent); color: var(--acc); }
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: stretch; margin: 8px 0 4px; }
+  .step { flex: 1 1 130px; background: var(--cardbg); border: 1px solid var(--bd); border-radius: var(--r); padding: 9px 10px; font-size: 12.5px; position: relative; }
+  .step b { display: block; font-size: 11px; color: var(--mut); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
+  .step.gap { border: 1.5px dashed var(--bad); }
+  .step.unk { border: 1.5px dashed var(--warn); }
+  .proc { margin: 14px 0 18px; }
+  .proc .note { font-size: 12.5px; color: var(--mut); }
+  ol, ul { margin: 6px 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  .legend { font-size: 12px; color: var(--mut); display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+  .legend span::before { content: ""; display: inline-block; width: 12px; height: 10px; margin-right: 5px; border-radius: 3px; vertical-align: -1px; border: 1.5px dashed var(--warn); }
+  .legend span.g::before { border-color: var(--bad); }
+  .score { font-weight: 700; }
+  a { color: var(--acc); }
+  .src { font-size: 12px; color: var(--mut); }
+  .src li { margin: 2px 0; word-break: break-word; }
+  .tw { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Phalom × PhaJay: the core end-to-end business processes</h1>
+<p class="sub">Research of 23 Oct 2026, from PhaJay's public site and developer docs, Bank of the Lao PDR rules, and the competition. Nothing here is agreed with PhaJay. <span class="tag t-ok">Confirmed</span> = written by the source. <span class="tag t-wa">Unknown</span> = ask. <span class="tag t-est">Estimate</span> = our own guess.</p>
+
+<h2>Bottom line</h2>
+<div class="grid">
+  <div class="card hi"><h3>1. The pitch's core promise is already free elsewhere</h3><p>Thai (since mid-2024), Vietnamese (since about early 2025) and Chinese UnionPay (since Dec 2024) tourists can already pay <b>any shop's normal LAO QR</b> with their own apps. Western tourists can use LOCA Pay or EzyKip. Thailand + China + Vietnam = <b>3.77M of 4.58M</b> visitors in 2025.</p></div>
+  <div class="card hi"><h3>2. A PhaJay QR may be worse for tourists</h3><p>PhaJay's docs: the BCEL QR it makes <b>"is not a Lao QR, so it can only be scanned and paid using the BCEL One app."</b> A Thai or Chinese tourist's app probably can't pay it. Alipay/WeChat Pay are on PhaJay's price list (4.15%) but have <b>no API docs and no sandbox</b>.</p></div>
+  <div class="card go"><h3>3. But PhaJay has a ready-made way for us to earn</h3><p><b>Split Payment</b>: a parent account (Phalom) with sub-accounts (shops). PhaJay splits each payment automatically, and the parent keeps a set % (above 0, up to 90%). No revenue-share deal needed, and Phalom never holds the shop's money.</p></div>
+  <div class="card wa"><h3>4. Hard blockers for street vendors</h3><p>PhaJay's KYC asks for business name/registration, business documents and <b>5 real paid transactions first</b>. Payouts are <b>manual</b> (claim, then an admin transfers), with no stated timing. Refunds are full only. Unclear whether tiny shops with no business licence can become sub-accounts.</p></div>
+</div>
+<p><b>What this means:</b> "Tourists pay with their own app" can't be the whole business, because banks and LAPNet already give shops that for free. Phalom's value has to be what banks don't do: <b>tourists finding the shop</b> (map, recommendations, menus in 5 languages), plain-Lao tools, and the shop knowing who its buyers are. PhaJay is worth it only for the payments that LAO QR <i>doesn't</i> cover (Alipay/WeChat, cards) and as a way to collect Phalom's fee, <b>if</b> the sub-account terms work for small shops.</p>
+
+<h2>The 6 core processes, start to finish</h2>
+<div class="legend"><span>Unknown: must ask PhaJay</span><span class="g">Gap or blocker</span></div>
+
+<div class="proc">
+<h3>① Phalom becomes a PhaJay merchant (one time)</h3>
+<div class="flow">
+  <div class="step"><b>Register</b>portal.phajay.co, OTP. Free sandbox. <span class="tag t-ok">Done 23 Oct</span></div>
+  <div class="step gap"><b>Company</b>KYC wants business name, registration and documents. Phalom isn't registered yet.</div>
+  <div class="step gap"><b>5 real payments</b>Must be paid from a real bank app with real money, before KYC.</div>
+  <div class="step"><b>KYC review</b>Submit in portal. PhaJay may ask questions. <span class="tag t-wa">Time unknown</span></div>
+  <div class="step unk"><b>Parent / agent</b>Sub Account menu only for parents whose agent status is "approved". How to apply isn't documented.</div>
+</div>
+<p class="note">Order that works: register the company → 5 small real payments → KYC → ask for agent (parent) status.</p>
+</div>
+
+<div class="proc">
+<h3>② A shop joins Phalom (each shop)</h3>
+<div class="flow">
+  <div class="step"><b>Sign up</b>In Phalom: name, market, phone. <span class="tag t-ok">Built (demo, no login)</span></div>
+  <div class="step unk"><b>Sub-account</b>Phalom creates the shop as a PhaJay sub-account? Via API or portal only? Not documented.</div>
+  <div class="step gap"><b>Shop KYC</b>Does each vendor need business papers + 5 payments? Most street vendors have an ID card and a bank account, not a business licence.</div>
+  <div class="step"><b>Bank account</b>Payouts go to "the bank account you used for KYC".</div>
+  <div class="step"><b>Poster + menu</b>Phalom prints the QR stand and translates the menu. <span class="tag t-ok">Built</span></div>
+</div>
+</div>
+
+<div class="proc">
+<h3>③ A tourist pays (the core moment)</h3>
+<div class="flow">
+  <div class="step"><b>Shop enters amount</b>Phalom asks PhaJay for a QR (per bank) or a payment link. tag1–3 carry our payment id.</div>
+  <div class="step gap"><b>Tourist scans</b>BCEL QR: BCEL One only. Other banks' QR: LAO QR or not? Thai / VietQR / UnionPay apps: unknown, probably no.</div>
+  <div class="step unk"><b>Alipay / WeChat</b>On price list (4.15%). No API, no sandbox, no sign-up steps.</div>
+  <div class="step"><b>Confirm</b>PhaJay webhook, <code>X-Signature</code> HMAC-SHA256, status <code>PAYMENT_COMPLETED</code>. <span class="tag t-ok">Docs</span></div>
+  <div class="step"><b>Shop hears it</b>Phalom matches tag → "ໄດ້ຮັບເງິນ 50,000 ກີບ". <span class="tag t-ok">Built, needs adapter</span></div>
+</div>
+<p class="note">The pay-link page shows only Lao banks (JDB, LDB, IB, BCEL, STB, APB): no card, Alipay or WeChat option.</p>
+</div>
+
+<div class="proc">
+<h3>④ Money reaches the shop (settlement)</h3>
+<div class="flow">
+  <div class="step"><b>Split</b>Each payment is split automatically between parent (Phalom %) and sub-account (the rest). Settings apply to new payments only.</div>
+  <div class="step gap"><b>Claim</b>Each account opens Payment History and taps Claim. A vendor would have to do this in PhaJay's portal (or can Phalom claim for them?).</div>
+  <div class="step unk"><b>Admin transfer</b>A PhaJay admin approves and transfers. Days? Withdrawal fee? Minimum? Not stated.</div>
+  <div class="step"><b>Bank</b>Into the KYC bank account, in kip <span class="tag t-wa">currency assumed</span></div>
+</div>
+<p class="note">With a normal bank LAO QR the money lands in the shop's account instantly. A manual claim is a big step backwards for a vendor who needs today's cash.</p>
+</div>
+
+<div class="proc">
+<h3>⑤ Refunds and disputes</h3>
+<div class="flow">
+  <div class="step"><b>Request</b><code>POST /v1/api/refund {transactionId}</code> or in the portal with a reason. KYC accounts only.</div>
+  <div class="step"><b>Full only</b>No amount field, so no partial refunds documented.</div>
+  <div class="step"><b>Payout</b>BCEL: back to the customer directly. JDB/IB: an admin returns it within 24 hours.</div>
+  <div class="step gap"><b>Fee kept</b>On BCEL payments the fee isn't refunded. Who pays it: shop or Phalom?</div>
+</div>
+</div>
+
+<div class="proc">
+<h3>⑥ Phalom earns money</h3>
+<div class="flow">
+  <div class="step"><b>PhaJay's fee</b>1.60% Lao bank QR / link; 4.15% Alipay, WeChat, Visa; 5.15% Mastercard. Only on successful payments. <span class="tag t-ok">Price page</span></div>
+  <div class="step"><b>Phalom's cut</b>Split % on top of that, e.g. 0.5% <span class="tag t-est">Estimate</span></div>
+  <div class="step unk"><b>Fee on tourist?</b>Can the shop add the fee to the price? Card/Alipay rules often forbid surcharges.</div>
+  <div class="step"><b>Break-even</b>About 38,000 kip per shop per month needed in year 1 <span class="tag t-est">Estimate</span></div>
+</div>
+</div>
+
+<h2>What a tourist can already do today, without Phalom</h2>
+<div class="tw"><table>
+<tr><th>Tourist (2025 arrivals)</th><th>How they pay a shop's normal LAO QR</th><th>Through a PhaJay QR?</th></tr>
+<tr><td><b>Thailand</b> 1,484,319</td><td>Thai bank app scans LAO QR (BOT–BOL link, Thai users since mid-2024). <span class="tag t-ok">Confirmed</span> Which Thai banks today: <span class="tag t-wa">check</span></td><td>BCEL QR: no. Others: <span class="tag t-wa">Unknown</span></td></tr>
+<tr><td><b>China</b> 1,157,278</td><td>UnionPay QR through LAPNet (8 banks incl. BCEL, JDB, APB), since Dec 2024. Alipay/WeChat at many shops via BCEL's older partnerships. LOCA Pay.</td><td>Alipay/WeChat 4.15% listed, not documented <span class="tag t-wa">Unknown</span></td></tr>
+<tr><td><b>Vietnam</b> 1,129,109</td><td>VietQR ↔ LAO QR link (around early 2025). <span class="tag t-ok">Reported</span></td><td><span class="tag t-wa">Unknown</span></td></tr>
+<tr><td><b>Korea, Japan, West</b> ~0.8M</td><td>LOCA Pay (Visa, Mastercard, Kakao Pay, Apple Pay…; tourist pays 3% + 5,000 kip) or BCEL EzyKip (top-up wallet).</td><td>Visa 4.15% / Mastercard 5.15% (USD, 3-D Secure)</td></tr>
+</table></div>
+<p class="sub">BCEL's own free <b>OnePay Shop</b> app (since Nov 2025) already gives shops a QR, <b>voice alerts when money arrives</b>, staff logins, refunds and reports. That overlaps Phalom's chime-and-voice feature. Its listing is in English only, so a plain-Lao app is still a difference.</p>
+
+<h2>Four business models, side by side</h2>
+<div class="tw"><table>
+<tr><th>Model</th><th>How Phalom earns</th><th>Good</th><th>Risk</th><th>Depends on PhaJay?</th></tr>
+<tr><td><b>A. PhaJay split</b><br>(pitch idea, new route)</td><td>Split % of each payment, e.g. 0.5% ≈ 45,000 kip/shop/month at 9M sales <span class="tag t-est">Estimate</span></td><td>Automatic, Phalom never holds money, no share to negotiate</td><td>Tourists may not be able to pay PhaJay QRs; vendor KYC; manual payouts; tourist pays 1.6–4.15% more than with a bank QR</td><td><span class="tag t-bad">Fully</span></td></tr>
+<tr><td><b>B. Shop subscription</b><br>(shop keeps its own bank LAO QR)</td><td>Monthly fee for Phalom tools: menu in 5 languages, poster, sales by nationality, Lao voice</td><td>Works for every tourist that LAO QR reaches today; no payment licence question; can start now</td><td>Will vendors pay monthly? Phalom can't see payments automatically (no bank feed), so no auto "paid" alert</td><td><span class="tag t-ok">No</span></td></tr>
+<tr><td><b>C. Tourist discovery</b><br>(map + recommendations)</td><td>Free for shops. Featured listings, tour/hotel partners, guesthouse referral</td><td>Uses what's already built (map, ranking, 5 languages); something banks don't do</td><td>Needs many tourists using the app before anyone pays; slow to earn</td><td><span class="tag t-ok">No</span></td></tr>
+<tr><td><b>D. Hybrid</b> (recommended to test)</td><td>B or C first; add A only for Alipay/WeChat/cards once PhaJay confirms terms</td><td>Pilot can start without PhaJay or a licence; keeps PhaJay as an add-on</td><td>Two things to build; the pitch story changes from "payments" to "selling to tourists"</td><td><span class="tag t-wa">Partly</span></td></tr>
+</table></div>
+
+<h2>Rules (Bank of the Lao PDR)</h2>
+<ul>
+  <li><b>Decision 511/BOL (19 Jun 2025)</b> on payment services replaced Decision 1058 (2016). Cross-border services (accepting foreign payment instruments, cross-border transfers) need BOL authorisation and at least <b>1 billion kip</b> capital, and the firm must first hold a domestic payment licence. <span class="tag t-ok">Secondary source</span></li>
+  <li>The Payment System Law was amended (unofficial English, Dec 2025). We found <b>nothing on "technical service providers"</b> or platforms that never touch money.</li>
+  <li>So: if Phalom ever <b>receives tourists' money and pays shops out</b>, it is very likely doing a licensed payment service. Model A (PhaJay splits directly into each shop's sub-account) and models B/C (shop's own bank QR) keep Phalom out of the money flow. Confirm with BOL or a lawyer (open decision 5 in BUSINESS.md).</li>
+</ul>
+
+<h2>Questions only PhaJay can answer (ask before choosing)</h2>
+<ol>
+  <li><b>Tourists:</b> Is a PhaJay QR (JDB, LDB, IB, STB, APB, M-Money) a real LAO QR that Thai bank apps, VietQR and UnionPay can pay? Your docs say the BCEL QR is BCEL One only.</li>
+  <li><b>Alipay / WeChat Pay:</b> How do we turn them on, is there an API and a sandbox, and does the shop receive kip?</li>
+  <li><b>Sub-accounts:</b> How does Phalom get agent (parent) status? Can we create shop sub-accounts by API?</li>
+  <li><b>Small shops:</b> Can a vendor with only an ID card and a bank account be a sub-account, without a business licence or 5 real payments?</li>
+  <li><b>Payouts:</b> How many days from Claim to the shop's bank? Withdrawal fee? Can payouts be automatic? Can the parent claim for its sub-accounts?</li>
+  <li><b>Fees:</b> Can the shop add the fee to the tourist's price? Is there a lower rate for a platform with many small shops?</li>
+</ol>
+
+<h2>What to do next</h2>
+<ol>
+  <li><b>Send PhaJay the questions above</b> (Lao draft added to HUMAN_TODO.md). Their answer to Q1 decides whether model A is worth building.</li>
+  <li><b>Visit 5–10 real vendors</b> in the pilot market. Ask: Do you already have a bank QR? Do Thai or Chinese tourists pay it? Would you pay X kip a month for a menu in 5 languages and a spot on a tourist map? Write the answers down. This is the evidence the business model is missing.</li>
+  <li><b>Ask BCEL</b> what OnePay Shop / LAO QR costs a merchant (no public rate found).</li>
+  <li><b>Don't build the PhaJay integration yet.</b> Start the pilot on model D: shop keeps its bank QR, and Phalom adds menu, poster, map and stats.</li>
+</ol>
+
+<h2>Sources</h2>
+<ul class="src">
+  <li>PhaJay site and prices: <a href="https://www.phajay.co/en">phajay.co/en</a>, <a href="https://www.phajay.co/en/pricing">phajay.co/en/pricing</a></li>
+  <li>PhaJay docs: <a href="https://payment-doc.phajay.co/v1/how-to-kyc">KYC</a>, <a href="https://payment-doc.phajay.co/v1/split-payment">Split Payment</a>, <a href="https://payment-doc.phajay.co/v1/withdraw-money">Withdraw</a>, <a href="https://payment-doc.phajay.co/v1/refund">Refund</a>, <a href="https://payment-doc.phajay.co/v1/connect-payment-QR/generateQR">Generate QR</a>, <a href="https://payment-doc.phajay.co/v1/payment-link">Payment Link</a>, <a href="https://payment-doc.phajay.co/v1/connect-credit-card">Credit card</a>, <a href="https://payment-doc.phajay.co/v1/registration">Registration</a></li>
+  <li>Our sandbox test: winner-agreement/PhaJay_Sandbox_Test.md. Fee check: winner-agreement/PhaJay_Real_Fee_Check.md</li>
+  <li>Thailand–Laos QR: <a href="https://www.bot.or.th/en/news-and-media/news/news-20240403.html">Bank of Thailand</a>, <a href="https://www.tourismlaos.org/2024/07/17/thai-tourists-go-cashless-in-laos-with-new-qr-payments/">Tourism Laos, Jul 2024</a></li>
+  <li>China UnionPay ↔ LAPNet: <a href="https://www.tourismlaos.org/2025/01/17/laos-china-launch-qr-payment-system-for-cashless-tourism/">Tourism Laos, Jan 2025</a>, <a href="https://www.caixinglobal.com/2024-12-20/unionpay-takes-its-qr-payment-network-into-laos-making-shopping-by-mobile-easier-102270004.html">Caixin</a></li>
+  <li>Lao QR history and links: <a href="https://moretapay.com/blog/how-laos-learned-to-scan">Moreta Pay, Jun 2026</a>; tourist guide <a href="https://terralao.la/blog/qr-code-payments-laos-tourist-guide-loca-ezykip-2026">Terra Lao, Jan 2026</a></li>
+  <li>LOCA Pay: <a href="https://loca.la/locapay/">loca.la/locapay</a>. BCEL OnePay Shop: <a href="https://apps.apple.com/app/id6752244322">App Store</a>. BCEL gateway fees: <a href="https://www.bcel.com.la/bcel/product-review.html?prd=e-banking&id=online-payment&lang=en">bcel.com.la</a></li>
+  <li>Arrivals 2025: <a href="https://kpl.gov.la/detail.aspx?id=96974">KPL, Feb 2026</a></li>
+  <li>BOL rules: <a href="https://ilawasia.com/blogs/a-new-legislation-regarding-the-payment-service-system-in-lao-pdr">ILAW Asia on Decision 511/BOL</a>, <a href="https://www.rajahtannasia.com/viewpoints/regional-round-up-lao-pdr-q2-2025/">Rajah &amp; Tann Q2 2025</a>, <a href="https://www.bol.gov.la/en/law">BOL laws</a></li>
+</ul>
+</div>
+</body>
+</html>

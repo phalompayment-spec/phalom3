@@ -38,6 +38,12 @@ The sandbox already works. See `winner-agreement/PhaJay_Sandbox_Test.md`.
   > 2. ມີ sandbox ສຳລັບ Alipay / WeChat Pay ບໍ?
   > 3. ໃນ sandbox ກວດສະຖານະ transaction ບໍ່ໄດ້ (PAYMENT_NOT_FOUND). ຕ້ອງໃຊ້ webhook ແທນ ແມ່ນບໍ?
   > 4. ພວກເຮົາມີຫຼາຍຮ້ານໃນລະບົບດຽວ: ແຕ່ລະຮ້ານຕ້ອງ KYC ແຍກ, ຫຼື ໃຊ້ split payment ສົ່ງເງິນເຂົ້າບັນຊີແຕ່ລະຮ້ານໄດ້ບໍ?
+  > 5. QR ຂອງ PhaJay (JDB, LDB, IB, STB, APB, M-Money) ແມ່ນ LAO QR ບໍ? ແອັບທະນາຄານໄທ, VietQR ຫຼື UnionPay ສະແກນຈ່າຍໄດ້ບໍ? (ເອກະສານບອກວ່າ QR BCEL ຈ່າຍໄດ້ສະເພາະ BCEL One.)
+  > 6. ຈະຂໍສະຖານະ parent / agent ເພື່ອໃຊ້ Sub Account ແລະ Split Payment ແນວໃດ? ສ້າງ sub account ໃຫ້ຮ້ານຜ່ານ API ໄດ້ບໍ? ຮ້ານນ້ອຍທີ່ມີແຕ່ບັດປະຈຳຕົວ ແລະ ບັນຊີທະນາຄານ (ບໍ່ມີໃບທະບຽນທຸລະກິດ) ເປັນ sub account ໄດ້ບໍ? ຕ້ອງເຮັດ 5 ທຸລະກຳຈິງກ່ອນບໍ?
+  > 7. ຫຼັງຈາກກົດ Claim, ເງິນເຂົ້າບັນຊີຮ້ານຈັກມື້? ມີຄ່າທຳນຽມຖອນບໍ? ຖອນອັດຕະໂນມັດ ຫຼື parent ກົດ Claim ແທນຮ້ານໄດ້ບໍ?
+  > 8. ຮ້ານບວກຄ່າທຳນຽມໃສ່ລາຄາຂອງລູກຄ້າໄດ້ບໍ? ມີລາຄາພິເສດສຳລັບ platform ທີ່ມີຮ້ານນ້ອຍຫຼາຍຮ້ານບໍ?
+
+  Why these matter: `winner-agreement/PhaJay_E2E_Business_Process.html` (23 Oct). Questions 1 and 5 decide whether tourists can pay a PhaJay QR at all.
   > 5. PhaJay ມີໂປຣແກຣມ partner ຫຼື ແບ່ງລາຍຮັບ ສຳລັບ platform ບໍ?
   > ຂອບໃຈຫຼາຍໆ
 
@@ -58,3 +64,8 @@ The sandbox already works. See `winner-agreement/PhaJay_Sandbox_Test.md`.
 
 - [x] 23 Oct 2026: signed in to GitHub with `gh`; `main` is the shared branch.
 - [x] 23 Oct 2026: opened a free PhaJay portal test account and got the Test Key.
+
+## 🔵 Business model evidence (free, needs people)
+
+- [ ] **Visit 5–10 vendors** in the pilot market and write the answers down (in `knowledge-base/` or tell Claude): Do you already have a bank QR (BCEL OnePay or other)? Do Thai, Chinese or Vietnamese tourists pay it with their own apps? What's hard about selling to tourists? Would you pay a small monthly fee (say 30,000–50,000 kip) for a menu in 5 languages, a QR poster and a spot on a tourist map? Don't record names or phone numbers in the repo.
+- [ ] **Ask BCEL** (branch or OnePay desk) what a merchant pays for LAO QR / OnePay Shop. No public rate found.
