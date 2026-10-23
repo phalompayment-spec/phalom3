@@ -41,6 +41,7 @@ The app was built for a demo, so these are missing:
 - **Keys:** the OpenRouter key was pasted in chat and must be revoked and replaced. Keep all keys in environment variables or Worker secrets, never in files.
 - **Basics for a live service:** error monitoring, database backups, a privacy notice for shops and tourists, and terms of use.
 - Test on real Android phones in a real market (sound, QR scanning in sunlight, weak signal).
+- Automated browser tests (none today, only the API check `smoke.mjs`). Research and plan: `pitch/phalom-app/E2E_TESTING_RESEARCH.md` (Playwright + free GitHub Actions; team to decide).
 
 ## Pitch-only material
 
