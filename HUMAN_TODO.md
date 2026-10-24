@@ -48,13 +48,13 @@ The sandbox already works. See `winner-agreement/PhaJay_Sandbox_Test.md`.
   > 12. ຖ້າເຈົ້າຂອງບັດຂໍເງິນຄືນ (chargeback), ຂັ້ນຕອນແນວໃດ ແລະ ໃຜຮັບຜິດຊອບ: ຮ້ານ, ບັນຊີແມ່ ຫຼື PhaJay?
   > ຂອບໃຈຫຼາຍໆ
 
-  Why these matter: `winner-agreement/PhaJay_E2E_Business_Process.html` (23 Oct) and the new proposal `winner-agreement/Phalom_New_Solution_lo.html` (25 Oct). Questions 6, 7, 10 and 11 decide whether the new proposal works.
+  Why these matter: `winner-agreement/PhaJay_E2E_Business_Process.html` (23 Oct) and the new proposal `winner-agreement/Phalom_New_Solution_lo.html` (25 Oct). Question 7 (instant, automatic payout) decides whether PhaJay fits the new proposal at all.
 
 ## 🔵 Team decisions (details in `BUSINESS.md`)
 
 - [ ] Where the pilot starts: Vientiane or Luang Prabang.
 - [x] 25 Oct 2026: How Phalom earns money: **transaction fee only**, paid by the vendor (no subscription). Proposal: `winner-agreement/Phalom_New_Solution_lo.html`.
-- [ ] The fee rate (e.g. 5%, 7% or 10% on card/Alipay/WeChat sales). Decide after the vendor visits.
+- [ ] The fee rate (e.g. 5%, 8% or 10% on card/Alipay/WeChat sales). Decide after the vendor visits.
 - [ ] Company registration: what kind of company, and who owns which share.
 - [ ] Ask the Bank of the Lao PDR or a lawyer whether Phalom needs its own licence.
 
@@ -71,7 +71,16 @@ The sandbox already works. See `winner-agreement/PhaJay_Sandbox_Test.md`.
 
 ## 🔵 Business model evidence (free, needs people)
 
-- [ ] **Visit 5–10 vendors** in the pilot market and write the answers down (in `knowledge-base/` or tell Claude): Do you already have a bank QR (BCEL OnePay or other)? Do Thai, Chinese or Vietnamese tourists pay it with their own apps? What's hard about selling to tourists? How often does a tourist walk away because they have no cash and can't pay the QR? If Phalom let you take cards, Alipay and WeChat Pay, would you pay 5%, 7% or 10% on those sales only? Do you have an ID card and a personal bank account (no business licence needed)? Don't record names or phone numbers in the repo.
+- [ ] **Visit 5–10 vendors** in the pilot market and write the answers down (in `knowledge-base/` or tell Claude): Do you already have a bank QR (BCEL OnePay or other)? Do Thai, Chinese or Vietnamese tourists pay it with their own apps? What's hard about selling to tourists? How often does a tourist walk away because they have no cash and can't pay the QR? If Phalom let you take cards, Alipay and WeChat Pay, would you pay 5%, 8% or 10% on those sales only, taken off before the money reaches your account? Do you have an ID card and a personal bank account (no business licence needed)? Don't record names or phone numbers in the repo.
 - [ ] **Ask BCEL** (branch or OnePay desk) what a merchant pays for LAO QR / OnePay Shop. No public rate found.
-- [ ] **Ask BCEL and LDB** whether they have a partner program that lets a platform like Phalom bring small vendors (ID card only, no business licence) to accept Alipay, WeChat Pay and cards, with the platform taking part of the fee.
-- [ ] **Ask a lawyer or the Bank of the Lao PDR:** if a licensed partner holds the money and pays vendors directly, and Phalom only does the software and signs vendors up, does Phalom need a payment licence?
+- [ ] **Contact LOCA (LOCA Pay) and BCEL (EzyKip / OnePay).** This decides the new proposal (`winner-agreement/Phalom_New_Solution_lo.html`). Draft, edit as you like:
+
+  > ສະບາຍດີ. ພວກເຮົາແມ່ນທີມ Phalom, ຊະນະການແຂ່ງຂັນ Innovative Business Challenge 2026. ພວກເຮົາພາແມ່ຄ້ານ້ອຍ ແລະ ນັກທ່ອງທ່ຽວມາພົບກັນ (ແຜນທີ່, ເມນູ 5 ພາສາ). ຢາກຮ່ວມມືໃຫ້ນັກທ່ອງທ່ຽວຈ່າຍ LAO QR ຂອງແມ່ຄ້າ ດ້ວຍບັດ ຫຼື Alipay/WeChat ຜ່ານລະບົບຂອງທ່ານ. ຂໍຖາມແດ່:
+  > 1. ເງິນເຂົ້າບັນຊີທະນາຄານຂອງແມ່ຄ້າທັນທີ ຜ່ານ LAO QR ບໍ່?
+  > 2. ໃຫ້ແມ່ຄ້າເປັນຜູ້ຈ່າຍຄ່າທຳນຽມ (ຫັກກ່ອນໂອນ) ແທນນັກທ່ອງທ່ຽວ ໄດ້ບໍ່?
+  > 3. ມີ API ໃຫ້ Phalom ເອີ້ນຈາກໜ້າເວັບ ໂດຍນັກທ່ອງທ່ຽວບໍ່ຕ້ອງຕິດຕັ້ງແອັບ ບໍ່?
+  > 4. ແບ່ງຄ່າທຳນຽມໃຫ້ Phalom ໄດ້ບໍ່? ມີໂປຣແກຣມ partner ບໍ່?
+  > 5. ຮັບ Alipay / WeChat Pay ໄດ້ບໍ່, ຫຼື ສະເພາະບັດ?
+  > 6. ຖ້າເຈົ້າຂອງບັດຂໍເງິນຄືນ (chargeback), ໃຜຮັບຜິດຊອບ?
+  > ຂອບໃຈຫຼາຍໆ
+- [ ] **Ask a lawyer or the Bank of the Lao PDR:** if a licensed partner takes the tourist's money and pays it straight into the vendor's LAO QR, and Phalom only does the software and signs vendors up, does Phalom need a payment licence?
