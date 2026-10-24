@@ -73,14 +73,14 @@ The sandbox already works. See `winner-agreement/PhaJay_Sandbox_Test.md`.
 
 - [ ] **Visit 5–10 vendors** in the pilot market and write the answers down (in `knowledge-base/` or tell Claude): Do you already have a bank QR (BCEL OnePay or other)? Do Thai, Chinese or Vietnamese tourists pay it with their own apps? What's hard about selling to tourists? How often does a tourist walk away because they have no cash and can't pay the QR? Would you put up a free Phalom sign so tourists can pay by card, Alipay or WeChat Pay (the tourist pays the fee, you get the full price instantly)? Do you have an ID card and a personal bank account (no business licence needed)? Don't record names or phone numbers in the repo.
 - [ ] **Ask BCEL** (branch or OnePay desk) what a merchant pays for LAO QR / OnePay Shop. No public rate found.
-- [ ] **Contact BCEL first (EzyKip / OnePay team), then LOCA and LDB.** This decides the new proposal (`winner-agreement/Phalom_New_Solution_lo.html`, v3). Draft, edit as you like:
+- [ ] **Contact BCEL first (EzyKip / OnePay team), then LOCA and LDB.** This decides the new proposal (`winner-agreement/Phalom_New_Solution_lo.html`, v4). Pitch it as: Phalom brings the bank micro-vendors its sales team does not reach, and all foreign card / Alipay payments run through the bank. Draft, edit as you like:
 
   > ສະບາຍດີ. ພວກເຮົາແມ່ນທີມ Phalom, ຊະນະການແຂ່ງຂັນ Innovative Business Challenge 2026. ພວກເຮົາຊ່ວຍນັກທ່ອງທ່ຽວຊອກຫາ ແລະ ຈ່າຍເງິນໃຫ້ແມ່ຄ້ານ້ອຍ (ແຜນທີ່, ເມນູ 5 ພາສາ). ຢາກຮ່ວມມືໃຫ້ນັກທ່ອງທ່ຽວສະແກນປ້າຍ Phalom ດ້ວຍກ້ອງໂທລະສັບ ແລ້ວຈ່າຍດ້ວຍບັດ, Apple Pay, Alipay ຫຼື WeChat Pay ໃນໜ້າເວັບ (ບໍ່ຕ້ອງດາວໂຫຼດແອັບ), ແລະ ລະບົບຂອງທ່ານໂອນລາຄາເຕັມເຂົ້າ LAO QR ຂອງແມ່ຄ້າ. ຂໍຖາມແດ່:
   > 1. ໂອນເຂົ້າບັນຊີທະນາຄານຂອງແມ່ຄ້າ ຜ່ານ LAO QR ທັນທີ ໄດ້ບໍ່?
   > 2. ມີ API ໃຫ້ Phalom ເອີ້ນຈາກໜ້າເວັບ (ບັດ, Apple Pay, Google Pay, Alipay, WeChat Pay) ບໍ່?
   > 3. ຕົ້ນທຶນຕໍ່ລາຍການເທົ່າໃດ? ພວກເຮົາຢາກໃຫ້ນັກທ່ອງທ່ຽວຈ່າຍທັງໝົດບໍ່ເກີນ 2.9% + 1,000 ກີບ ແລະ ແບ່ງສ່ວນໜຶ່ງໃຫ້ Phalom.
   > 4. ນັກທ່ອງທ່ຽວຈ່າຍຄ່າທຳນຽມ (ສະແດງກ່ອນຈ່າຍ) ໄດ້ບໍ່ ຕາມກົດຂອງບັດ ແລະ Alipay?
-  > 5. ຖ້າເຈົ້າຂອງບັດຂໍເງິນຄືນ (chargeback), ໃຜຮັບຜິດຊອບ?
+  > 5. ຖ້າເຈົ້າຂອງບັດຂໍເງິນຄືນ (chargeback), ໃຜຮັບຜິດຊອບ? ບັດທຸກໃບໃຊ້ 3-D Secure ໄດ້ບໍ່? ຫັກຈາກຍອດຂາຍຄັ້ງຕໍ່ໄປຂອງຮ້ານ ໄດ້ບໍ່? ຕ້ອງກັນເງິນໄວ້ (reserve) ບໍ່, ຖ້າຕ້ອງ: ຈັກ % ແລະ ຈັກມື້? Alipay / WeChat Pay ຕ້ອງກັນບໍ່?
   > 6. Phalom ບໍ່ແຕະເງິນເລີຍ: ແບບນີ້ Phalom ຕ້ອງມີໃບອະນຸຍາດບໍ່?
   > ຂອບໃຈຫຼາຍໆ
 - [ ] **Check EzyKip's and LOCA Pay's real fees** in the apps (sources disagree: LOCA 3% + 5,000 kip or 1.5%; EzyKip 2.1% top-up). Write the numbers in BUSINESS.md.
