@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="lo">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phalom × PhaJay: ຂັ້ນຕອນທຸລະກິດຫຼັກ ຕັ້ງແຕ່ຕົ້ນຈົນຈົບ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fg: var(--foreground, #1c1b1a); --mut: var(--muted-foreground, #6b6760); --bd: var(--border, #e3dfd8);
+    --cardbg: var(--card, #faf8f4); --ok: var(--success, #2f8f5b); --warn: var(--warning, #c98a12); --bad: var(--destructive, #c2410c);
+    --acc: var(--accent, #3b5bdb); --r: var(--radius, 10px);
+  }
+  body { margin: 0; color: var(--fg); font: 14px/1.7 "Noto Sans Lao", var(--font-sans, system-ui, sans-serif); }
+  .wrap { max-width: 1000px; }
+  h1 { font-size: 21px; margin: 0 0 2px; }
+  h2 { font-size: 16px; margin: 26px 0 8px; padding-top: 4px; }
+  h3 { font-size: 14px; margin: 0 0 6px; }
+  p { margin: 6px 0; }
+  .sub { color: var(--mut); font-size: 12.5px; }
+  .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .card { background: var(--cardbg); border: 1px solid var(--bd); border-radius: var(--r); padding: 14px 16px; }
+  .card.hi { border-left: 4px solid var(--bad); }
+  .card.go { border-left: 4px solid var(--ok); }
+  .card.wa { border-left: 4px solid var(--warn); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--bd); }
+  th { color: var(--mut); font-weight: 600; font-size: 12px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 99px; white-space: nowrap; }
+  .t-ok { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
+  .t-wa { background: color-mix(in srgb, var(--warn) 20%, transparent); color: var(--warn); }
+  .t-bad { background: color-mix(in srgb, var(--bad) 16%, transparent); color: var(--bad); }
+  .t-est { background: color-mix(in srgb, var(--acc) 16%, transparent); color: var(--acc); }
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: stretch; margin: 8px 0 4px; }
+  .step { flex: 1 1 130px; background: var(--cardbg); border: 1px solid var(--bd); border-radius: var(--r); padding: 9px 10px; font-size: 12.5px; position: relative; }
+  .step b { display: block; font-size: 11.5px; color: var(--mut); margin-bottom: 2px; }
+  .step.gap { border: 1.5px dashed var(--bad); }
+  .step.unk { border: 1.5px dashed var(--warn); }
+  .proc { margin: 14px 0 18px; }
+  .proc .note { font-size: 12.5px; color: var(--mut); }
+  ol, ul { margin: 6px 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  .legend { font-size: 12px; color: var(--mut); display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+  .legend span::before { content: ""; display: inline-block; width: 12px; height: 10px; margin-right: 5px; border-radius: 3px; vertical-align: -1px; border: 1.5px dashed var(--warn); }
+  .legend span.g::before { border-color: var(--bad); }
+  a { color: var(--acc); }
+  .src { font-size: 12px; color: var(--mut); }
+  .src li { margin: 2px 0; word-break: break-word; }
+  .tw { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Phalom × PhaJay: ຂັ້ນຕອນທຸລະກິດຫຼັກ ຕັ້ງແຕ່ຕົ້ນຈົນຈົບ</h1>
+<p class="sub">ຄົ້ນຄວ້າວັນທີ 23 ຕຸລາ 2026 ຈາກເວັບໄຊ ແລະ ເອກະສານນັກພັດທະນາຂອງ PhaJay, ລະບຽບຂອງທະນາຄານແຫ່ງ ສປປ ລາວ ແລະ ຄູ່ແຂ່ງ. ບໍ່ມີຫຍັງໃນນີ້ທີ່ຕົກລົງກັບ PhaJay ແລ້ວ. ພາສາອັງກິດ: PhaJay_E2E_Business_Process.html. <span class="tag t-ok">ຢືນຢັນແລ້ວ</span> = ແຫຼ່ງຂໍ້ມູນຂຽນໄວ້. <span class="tag t-wa">ຍັງບໍ່ຮູ້</span> = ຕ້ອງຖາມ. <span class="tag t-est">ຄາດຄະເນ</span> = ພວກເຮົາຄາດເອງ.</p>
+
+<h2>ສະຫຼຸບ</h2>
+<div class="grid">
+  <div class="card hi"><h3>1. ສິ່ງທີ່ pitch ສັນຍາໄວ້ ມີຢູ່ແລ້ວແບບບໍ່ເສຍເງິນ</h3><p>ນັກທ່ອງທ່ຽວໄທ (ຕັ້ງແຕ່ກາງປີ 2024), ຫວຽດນາມ (ປະມານຕົ້ນປີ 2025) ແລະ ຈີນທີ່ໃຊ້ UnionPay (ຕັ້ງແຕ່ ທັນວາ 2024) ສາມາດຈ່າຍ <b>LAO QR ທຳມະດາຂອງຮ້ານໃດກໍໄດ້</b> ດ້ວຍແອັບຂອງເຂົາເຈົ້າເອງແລ້ວ. ນັກທ່ອງທ່ຽວຕາເວັນຕົກໃຊ້ LOCA Pay ຫຼື EzyKip ໄດ້. ໄທ + ຈີນ + ຫວຽດນາມ = <b>3.77 ລ້ານ ຈາກ 4.58 ລ້ານ</b> ຄົນທີ່ມາລາວໃນປີ 2025.</p></div>
+  <div class="card hi"><h3>2. QR ຂອງ PhaJay ອາດຈະບໍ່ດີກວ່າສຳລັບນັກທ່ອງທ່ຽວ</h3><p>ເອກະສານ PhaJay ຂຽນວ່າ QR ຂອງ BCEL ທີ່ມັນສ້າງ <b>"ບໍ່ແມ່ນ Lao QR, ສະແກນ ແລະ ຈ່າຍໄດ້ດ້ວຍແອັບ BCEL One ເທົ່ານັ້ນ"</b>. ແອັບຂອງນັກທ່ອງທ່ຽວໄທ ຫຼື ຈີນ ອາດຈະຈ່າຍບໍ່ໄດ້. Alipay/WeChat Pay ມີໃນລາຄາຂອງ PhaJay (4.15%) ແຕ່ <b>ບໍ່ມີເອກະສານ API ແລະ ບໍ່ມີ sandbox</b>.</p></div>
+  <div class="card go"><h3>3. ແຕ່ PhaJay ມີທາງໃຫ້ພວກເຮົາຫາລາຍໄດ້ແລ້ວ</h3><p><b>Split Payment</b>: ບັນຊີແມ່ (Phalom) ມີບັນຊີຍ່ອຍ (ຮ້ານຄ້າ). PhaJay ແບ່ງເງິນແຕ່ລະລາຍການໃຫ້ເອງ, ບັນຊີແມ່ໄດ້ % ທີ່ຕັ້ງໄວ້ (ຫຼາຍກວ່າ 0 ແລະ ບໍ່ເກີນ 90%). ບໍ່ຕ້ອງເຈລະຈາແບ່ງລາຍໄດ້, ແລະ Phalom ບໍ່ເຄີຍຖືເງິນຂອງຮ້ານ.</p></div>
+  <div class="card wa"><h3>4. ອຸປະສັກໃຫຍ່ສຳລັບແມ່ຄ້າຂ້າງທາງ</h3><p>KYC ຂອງ PhaJay ຂໍຊື່ທຸລະກິດ/ທະບຽນ, ເອກະສານທຸລະກິດ ແລະ <b>ຕ້ອງມີການຈ່າຍເງິນແທ້ 5 ລາຍການກ່ອນ</b>. ການຖອນເງິນ <b>ເຮັດດ້ວຍມື</b> (ກົດຂໍຖອນ, ແລ້ວແອັດມິນໂອນໃຫ້) ແລະ ບໍ່ບອກວ່າໃຊ້ເວລາຈັກມື້. ຄືນເງິນໄດ້ເຕັມຈຳນວນເທົ່ານັ້ນ. ຍັງບໍ່ຮູ້ວ່າຮ້ານນ້ອຍທີ່ບໍ່ມີໃບອະນຸຍາດທຸລະກິດ ເປັນບັນຊີຍ່ອຍໄດ້ບໍ່.</p></div>
+</div>
+<p><b>ໝາຍຄວາມວ່າ:</b> "ນັກທ່ອງທ່ຽວຈ່າຍດ້ວຍແອັບຂອງຕົນເອງ" ບໍ່ສາມາດເປັນທຸລະກິດທັງໝົດໄດ້, ເພາະທະນາຄານ ແລະ LAPNet ໃຫ້ຮ້ານຄ້າຢູ່ແລ້ວແບບບໍ່ເສຍເງິນ. ຄຸນຄ່າຂອງ Phalom ຕ້ອງແມ່ນສິ່ງທີ່ທະນາຄານບໍ່ໄດ້ເຮັດ: <b>ໃຫ້ນັກທ່ອງທ່ຽວຊອກຫາຮ້ານເຫັນ</b> (ແຜນທີ່, ແນະນຳຮ້ານ, ເມນູ 5 ພາສາ), ເຄື່ອງມືເປັນພາສາລາວງ່າຍໆ, ແລະ ຮ້ານຮູ້ວ່າລູກຄ້າແມ່ນໃຜ. PhaJay ຄຸ້ມຄ່າສະເພາະການຈ່າຍທີ່ LAO QR <i>ບໍ່</i> ຮອງຮັບ (Alipay/WeChat, ບັດ) ແລະ ເປັນທາງເກັບຄ່າບໍລິການຂອງ Phalom, <b>ຖ້າ</b> ເງື່ອນໄຂບັນຊີຍ່ອຍໃຊ້ໄດ້ກັບຮ້ານນ້ອຍ.</p>
+
+<h2>6 ຂັ້ນຕອນຫຼັກ ຕັ້ງແຕ່ຕົ້ນຈົນຈົບ</h2>
+<div class="legend"><span>ຍັງບໍ່ຮູ້: ຕ້ອງຖາມ PhaJay</span><span class="g">ຊ່ອງຫວ່າງ ຫຼື ອຸປະສັກ</span></div>
+
+<div class="proc">
+<h3>① Phalom ເປັນຮ້ານຄ້າຂອງ PhaJay (ເທື່ອດຽວ)</h3>
+<div class="flow">
+  <div class="step"><b>ລົງທະບຽນ</b>portal.phajay.co, ລະຫັດ OTP. Sandbox ບໍ່ເສຍເງິນ. <span class="tag t-ok">ເຮັດແລ້ວ 23 ຕຸລາ</span></div>
+  <div class="step gap"><b>ບໍລິສັດ</b>KYC ຂໍຊື່ທຸລະກິດ, ທະບຽນ ແລະ ເອກະສານ. Phalom ຍັງບໍ່ໄດ້ຈົດທະບຽນ.</div>
+  <div class="step gap"><b>ຈ່າຍແທ້ 5 ລາຍການ</b>ຕ້ອງຈ່າຍຈາກແອັບທະນາຄານແທ້ ດ້ວຍເງິນແທ້ ກ່ອນເຮັດ KYC.</div>
+  <div class="step"><b>ກວດ KYC</b>ສົ່ງໃນ portal. PhaJay ອາດຈະຖາມເພີ່ມ. <span class="tag t-wa">ບໍ່ຮູ້ວ່າດົນປານໃດ</span></div>
+  <div class="step unk"><b>ບັນຊີແມ່ / agent</b>ເມນູ Sub Account ມີສະເພາະບັນຊີແມ່ທີ່ສະຖານະ agent "approved". ບໍ່ມີຂຽນວ່າສະໝັກແນວໃດ.</div>
+</div>
+<p class="note">ລຳດັບທີ່ໃຊ້ໄດ້: ຈົດທະບຽນບໍລິສັດ → ຈ່າຍແທ້ນ້ອຍໆ 5 ລາຍການ → KYC → ຂໍສະຖານະ agent (ບັນຊີແມ່).</p>
+</div>
+
+<div class="proc">
+<h3>② ຮ້ານຄ້າເຂົ້າຮ່ວມ Phalom (ແຕ່ລະຮ້ານ)</h3>
+<div class="flow">
+  <div class="step"><b>ສະໝັກ</b>ໃນ Phalom: ຊື່, ຕະຫຼາດ, ເບີໂທ. <span class="tag t-ok">ສ້າງແລ້ວ (demo, ບໍ່ມີ login)</span></div>
+  <div class="step unk"><b>ບັນຊີຍ່ອຍ</b>Phalom ສ້າງຮ້ານເປັນບັນຊີຍ່ອຍຂອງ PhaJay ໄດ້ບໍ່? ຜ່ານ API ຫຼື ໃນ portal ເທົ່ານັ້ນ? ບໍ່ມີຂຽນໄວ້.</div>
+  <div class="step gap"><b>KYC ຂອງຮ້ານ</b>ແມ່ຄ້າແຕ່ລະຄົນຕ້ອງມີເອກະສານທຸລະກິດ + ຈ່າຍແທ້ 5 ລາຍການບໍ່? ແມ່ຄ້າຂ້າງທາງສ່ວນຫຼາຍມີບັດປະຈຳຕົວ ແລະ ບັນຊີທະນາຄານ, ບໍ່ມີໃບອະນຸຍາດທຸລະກິດ.</div>
+  <div class="step"><b>ບັນຊີທະນາຄານ</b>ເງິນຈະໂອນເຂົ້າ "ບັນຊີທະນາຄານທີ່ໃຊ້ເຮັດ KYC".</div>
+  <div class="step"><b>ປ້າຍ + ເມນູ</b>Phalom ພິມປ້າຍ QR ແລະ ແປເມນູໃຫ້. <span class="tag t-ok">ສ້າງແລ້ວ</span></div>
+</div>
+</div>
+
+<div class="proc">
+<h3>③ ນັກທ່ອງທ່ຽວຈ່າຍເງິນ (ຊ່ວງເວລາສຳຄັນທີ່ສຸດ)</h3>
+<div class="flow">
+  <div class="step"><b>ຮ້ານໃສ່ຈຳນວນເງິນ</b>Phalom ຂໍ QR (ແຕ່ລະທະນາຄານ) ຫຼື ລິ້ງຈ່າຍເງິນຈາກ PhaJay. tag1–3 ເກັບລະຫັດການຈ່າຍຂອງພວກເຮົາ.</div>
+  <div class="step gap"><b>ນັກທ່ອງທ່ຽວສະແກນ</b>QR ຂອງ BCEL: BCEL One ເທົ່ານັ້ນ. QR ທະນາຄານອື່ນ: ເປັນ LAO QR ຫຼື ບໍ່? ແອັບໄທ / VietQR / UnionPay: ບໍ່ຮູ້, ອາດຈະບໍ່ໄດ້.</div>
+  <div class="step unk"><b>Alipay / WeChat</b>ມີໃນລາຄາ (4.15%). ບໍ່ມີ API, ບໍ່ມີ sandbox, ບໍ່ມີຂັ້ນຕອນສະໝັກ.</div>
+  <div class="step"><b>ຢືນຢັນ</b>Webhook ຂອງ PhaJay, <code>X-Signature</code> HMAC-SHA256, ສະຖານະ <code>PAYMENT_COMPLETED</code>. <span class="tag t-ok">ມີໃນເອກະສານ</span></div>
+  <div class="step"><b>ຮ້ານໄດ້ຍິນ</b>Phalom ຈັບຄູ່ tag → "ໄດ້ຮັບເງິນ 50,000 ກີບ". <span class="tag t-ok">ສ້າງແລ້ວ, ຕ້ອງເຊື່ອມຕໍ່</span></div>
+</div>
+<p class="note">ໜ້າລິ້ງຈ່າຍເງິນສະແດງແຕ່ທະນາຄານລາວ (JDB, LDB, IB, BCEL, STB, APB): ບໍ່ມີທາງເລືອກບັດ, Alipay ຫຼື WeChat.</p>
+</div>
+
+<div class="proc">
+<h3>④ ເງິນເຂົ້າຮອດຮ້ານ (ການໂອນເງິນໃຫ້ຮ້ານ)</h3>
+<div class="flow">
+  <div class="step"><b>ແບ່ງເງິນ</b>ແຕ່ລະລາຍການຖືກແບ່ງເອງ ລະຫວ່າງບັນຊີແມ່ (% ຂອງ Phalom) ແລະ ບັນຊີຍ່ອຍ (ສ່ວນທີ່ເຫຼືອ). ການຕັ້ງຄ່າໃຊ້ກັບລາຍການໃໝ່ເທົ່ານັ້ນ.</div>
+  <div class="step gap"><b>ກົດຂໍຖອນ</b>ແຕ່ລະບັນຊີເປີດ Payment History ແລ້ວກົດ Claim. ແມ່ຄ້າຕ້ອງເຮັດເອງໃນ portal ຂອງ PhaJay (ຫຼື Phalom ກົດແທນໄດ້ບໍ່?).</div>
+  <div class="step unk"><b>ແອັດມິນໂອນ</b>ແອັດມິນ PhaJay ອະນຸມັດ ແລະ ໂອນ. ຈັກມື້? ຄ່າຖອນ? ຂັ້ນຕ່ຳ? ບໍ່ໄດ້ບອກ.</div>
+  <div class="step"><b>ທະນາຄານ</b>ເຂົ້າບັນຊີທີ່ໃຊ້ເຮັດ KYC, ເປັນກີບ <span class="tag t-wa">ຄາດວ່າເປັນກີບ</span></div>
+</div>
+<p class="note">ຖ້າໃຊ້ LAO QR ທຳມະດາຂອງທະນາຄານ ເງິນເຂົ້າບັນຊີຮ້ານທັນທີ. ການກົດຂໍຖອນດ້ວຍມື ແມ່ນຖອຍຫຼັງຫຼາຍ ສຳລັບແມ່ຄ້າທີ່ຕ້ອງການເງິນສົດມື້ນີ້.</p>
+</div>
+
+<div class="proc">
+<h3>⑤ ການຄືນເງິນ ແລະ ຂໍ້ຂັດແຍ່ງ</h3>
+<div class="flow">
+  <div class="step"><b>ຂໍຄືນເງິນ</b><code>POST /v1/api/refund {transactionId}</code> ຫຼື ໃນ portal ພ້ອມເຫດຜົນ. ສະເພາະບັນຊີທີ່ຜ່ານ KYC.</div>
+  <div class="step"><b>ເຕັມຈຳນວນເທົ່ານັ້ນ</b>ບໍ່ມີຊ່ອງໃສ່ຈຳນວນ, ສະນັ້ນບໍ່ມີການຄືນບາງສ່ວນ.</div>
+  <div class="step"><b>ຄືນໃຫ້ລູກຄ້າ</b>BCEL: ຄືນເຂົ້າລູກຄ້າໂດຍກົງ. JDB/IB: ແອັດມິນຄືນໃຫ້ພາຍໃນ 24 ຊົ່ວໂມງ.</div>
+  <div class="step gap"><b>ບໍ່ຄືນຄ່າທຳນຽມ</b>ລາຍການ BCEL ບໍ່ຄືນຄ່າທຳນຽມ. ໃຜຈ່າຍ: ຮ້ານ ຫຼື Phalom?</div>
+</div>
+</div>
+
+<div class="proc">
+<h3>⑥ Phalom ຫາລາຍໄດ້</h3>
+<div class="flow">
+  <div class="step"><b>ຄ່າທຳນຽມ PhaJay</b>1.60% QR / ລິ້ງ ທະນາຄານລາວ; 4.15% Alipay, WeChat, Visa; 5.15% Mastercard. ເກັບສະເພາະລາຍການທີ່ຈ່າຍສຳເລັດ. <span class="tag t-ok">ໜ້າລາຄາ</span></div>
+  <div class="step"><b>ສ່ວນຂອງ Phalom</b>% ທີ່ແບ່ງເພີ່ມຈາກນັ້ນ, ເຊັ່ນ 0.5% <span class="tag t-est">ຄາດຄະເນ</span></div>
+  <div class="step unk"><b>ໃຫ້ນັກທ່ອງທ່ຽວຈ່າຍຄ່າທຳນຽມ?</b>ຮ້ານບວກຄ່າທຳນຽມໃສ່ລາຄາໄດ້ບໍ່? ກົດຂອງບັດ/Alipay ມັກຫ້າມເກັບເພີ່ມ.</div>
+  <div class="step"><b>ຈຸດຄຸ້ມທຶນ</b>ຕ້ອງການປະມານ 38,000 ກີບ ຕໍ່ຮ້ານ ຕໍ່ເດືອນ ໃນປີທຳອິດ <span class="tag t-est">ຄາດຄະເນ</span></div>
+</div>
+</div>
+
+<h2>ສິ່ງທີ່ນັກທ່ອງທ່ຽວເຮັດໄດ້ແລ້ວມື້ນີ້ ໂດຍບໍ່ຕ້ອງມີ Phalom</h2>
+<div class="tw"><table>
+<tr><th>ນັກທ່ອງທ່ຽວ (ຈຳນວນມາລາວ ປີ 2025)</th><th>ຈ່າຍ LAO QR ທຳມະດາຂອງຮ້ານແນວໃດ</th><th>ຈ່າຍ QR ຂອງ PhaJay ໄດ້ບໍ່?</th></tr>
+<tr><td><b>ໄທ</b> 1,484,319</td><td>ແອັບທະນາຄານໄທສະແກນ LAO QR (ການເຊື່ອມຕໍ່ BOT–BOL, ຄົນໄທໃຊ້ໄດ້ຕັ້ງແຕ່ກາງປີ 2024). <span class="tag t-ok">ຢືນຢັນແລ້ວ</span> ທະນາຄານໄທໃດແດ່ມື້ນີ້: <span class="tag t-wa">ຕ້ອງກວດ</span></td><td>QR ຂອງ BCEL: ບໍ່ໄດ້. ອື່ນໆ: <span class="tag t-wa">ຍັງບໍ່ຮູ້</span></td></tr>
+<tr><td><b>ຈີນ</b> 1,157,278</td><td>UnionPay QR ຜ່ານ LAPNet (8 ທະນາຄານ ລວມທັງ BCEL, JDB, APB), ຕັ້ງແຕ່ ທັນວາ 2024. Alipay/WeChat ຢູ່ຫຼາຍຮ້ານ ຜ່ານການຮ່ວມມືເກົ່າຂອງ BCEL. LOCA Pay.</td><td>Alipay/WeChat 4.15% ມີໃນລາຄາ, ບໍ່ມີເອກະສານ <span class="tag t-wa">ຍັງບໍ່ຮູ້</span></td></tr>
+<tr><td><b>ຫວຽດນາມ</b> 1,129,109</td><td>ການເຊື່ອມຕໍ່ VietQR ↔ LAO QR (ປະມານຕົ້ນປີ 2025). <span class="tag t-ok">ມີຂ່າວລາຍງານ</span></td><td><span class="tag t-wa">ຍັງບໍ່ຮູ້</span></td></tr>
+<tr><td><b>ເກົາຫຼີ, ຍີ່ປຸ່ນ, ຕາເວັນຕົກ</b> ~0.8 ລ້ານ</td><td>LOCA Pay (Visa, Mastercard, Kakao Pay, Apple Pay…; ນັກທ່ອງທ່ຽວຈ່າຍ 3% + 5,000 ກີບ) ຫຼື BCEL EzyKip (ກະເປົາເງິນເຕີມເງິນ).</td><td>Visa 4.15% / Mastercard 5.15% (USD, 3-D Secure)</td></tr>
+</table></div>
+<p class="sub">ແອັບ <b>OnePay Shop</b> ຂອງ BCEL ເອງ (ບໍ່ເສຍເງິນ, ຕັ້ງແຕ່ ພະຈິກ 2025) ໃຫ້ຮ້ານມີ QR, <b>ສຽງແຈ້ງເຕືອນເມື່ອເງິນເຂົ້າ</b>, login ສຳລັບພະນັກງານ, ຄືນເງິນ ແລະ ລາຍງານແລ້ວ. ຊ້ຳກັບຟີເຈີສຽງແຈ້ງເຕືອນຂອງ Phalom. ໜ້າແອັບມີແຕ່ພາສາອັງກິດ, ສະນັ້ນແອັບພາສາລາວງ່າຍໆ ຍັງເປັນຈຸດແຕກຕ່າງ.</p>
+
+<h2>4 ຮູບແບບທຸລະກິດ ປຽບທຽບກັນ</h2>
+<div class="tw"><table>
+<tr><th>ຮູບແບບ</th><th>Phalom ຫາລາຍໄດ້ແນວໃດ</th><th>ຂໍ້ດີ</th><th>ຄວາມສ່ຽງ</th><th>ຂຶ້ນກັບ PhaJay?</th></tr>
+<tr><td><b>A. ແບ່ງເງິນຜ່ານ PhaJay</b><br>(ແນວຄິດໃນ pitch, ທາງໃໝ່)</td><td>% ທີ່ແບ່ງຈາກແຕ່ລະລາຍການ, ເຊັ່ນ 0.5% ≈ 45,000 ກີບ/ຮ້ານ/ເດືອນ ຖ້າຂາຍໄດ້ 9 ລ້ານ <span class="tag t-est">ຄາດຄະເນ</span></td><td>ເຮັດເອງອັດຕະໂນມັດ, Phalom ບໍ່ຖືເງິນ, ບໍ່ຕ້ອງເຈລະຈາແບ່ງລາຍໄດ້</td><td>ນັກທ່ອງທ່ຽວອາດຈ່າຍ QR ຂອງ PhaJay ບໍ່ໄດ້; KYC ຂອງແມ່ຄ້າ; ຖອນເງິນດ້ວຍມື; ນັກທ່ອງທ່ຽວຈ່າຍແພງກວ່າ QR ທະນາຄານ 1.6–4.15%</td><td><span class="tag t-bad">ທັງໝົດ</span></td></tr>
+<tr><td><b>B. ຮ້ານຈ່າຍລາຍເດືອນ</b><br>(ຮ້ານໃຊ້ LAO QR ຂອງທະນາຄານຕົນເອງ)</td><td>ຄ່າລາຍເດືອນສຳລັບເຄື່ອງມືຂອງ Phalom: ເມນູ 5 ພາສາ, ປ້າຍ, ຍອດຂາຍຕາມສັນຊາດ, ສຽງພາສາລາວ</td><td>ໃຊ້ໄດ້ກັບນັກທ່ອງທ່ຽວທຸກຄົນທີ່ LAO QR ຮອງຮັບມື້ນີ້; ບໍ່ມີຄຳຖາມເລື່ອງໃບອະນຸຍາດການຈ່າຍເງິນ; ເລີ່ມໄດ້ເລີຍ</td><td>ແມ່ຄ້າຈະຍອມຈ່າຍລາຍເດືອນບໍ່? Phalom ເບິ່ງການຈ່າຍເງິນເອງບໍ່ໄດ້ (ບໍ່ມີຂໍ້ມູນຈາກທະນາຄານ), ສະນັ້ນບໍ່ມີແຈ້ງເຕືອນ "ຈ່າຍແລ້ວ" ອັດຕະໂນມັດ</td><td><span class="tag t-ok">ບໍ່</span></td></tr>
+<tr><td><b>C. ໃຫ້ນັກທ່ອງທ່ຽວຊອກຫາຮ້ານ</b><br>(ແຜນທີ່ + ແນະນຳຮ້ານ)</td><td>ບໍ່ເສຍເງິນສຳລັບຮ້ານ. ລາຍການແນະນຳພິເສດ, ຄູ່ຮ່ວມມືທົວ/ໂຮງແຮມ, ຄ່າແນະນຳຈາກເຮືອນພັກ</td><td>ໃຊ້ສິ່ງທີ່ສ້າງແລ້ວ (ແຜນທີ່, ການຈັດອັນດັບ, 5 ພາສາ); ທະນາຄານບໍ່ໄດ້ເຮັດສິ່ງນີ້</td><td>ຕ້ອງມີນັກທ່ອງທ່ຽວໃຊ້ແອັບຫຼາຍກ່ອນຈະມີຄົນຈ່າຍ; ຫາລາຍໄດ້ຊ້າ</td><td><span class="tag t-ok">ບໍ່</span></td></tr>
+<tr><td><b>D. ປະສົມ</b> (ແນະນຳໃຫ້ທົດລອງ)</td><td>B ຫຼື C ກ່ອນ; ເພີ່ມ A ສະເພາະ Alipay/WeChat/ບັດ ເມື່ອ PhaJay ຢືນຢັນເງື່ອນໄຂ</td><td>ທົດລອງເລີ່ມໄດ້ໂດຍບໍ່ຕ້ອງມີ PhaJay ຫຼື ໃບອະນຸຍາດ; PhaJay ເປັນສ່ວນເສີມ</td><td>ຕ້ອງສ້າງສອງຢ່າງ; ເລື່ອງໃນ pitch ປ່ຽນຈາກ "ການຈ່າຍເງິນ" ເປັນ "ຂາຍໃຫ້ນັກທ່ອງທ່ຽວ"</td><td><span class="tag t-wa">ບາງສ່ວນ</span></td></tr>
+</table></div>
+
+<h2>ລະບຽບ (ທະນາຄານແຫ່ງ ສປປ ລາວ)</h2>
+<ul>
+  <li><b>ຂໍ້ຕົກລົງ 511/ທຫລ (19 ມິຖຸນາ 2025)</b> ວ່າດ້ວຍການບໍລິການຊຳລະ ແທນຂໍ້ຕົກລົງ 1058 (2016). ການບໍລິການຂ້າມແດນ (ຮັບເຄື່ອງມືຊຳລະຈາກຕ່າງປະເທດ, ໂອນເງິນຂ້າມແດນ) ຕ້ອງໄດ້ຮັບອະນຸຍາດຈາກ ທຫລ ແລະ ມີທຶນຢ່າງໜ້ອຍ <b>1 ຕື້ກີບ</b>, ແລະ ຕ້ອງມີໃບອະນຸຍາດຊຳລະພາຍໃນປະເທດກ່ອນ. <span class="tag t-ok">ແຫຼ່ງຂໍ້ມູນທີສອງ</span></li>
+  <li>ກົດໝາຍວ່າດ້ວຍລະບົບການຊຳລະ ໄດ້ຖືກປັບປຸງ (ສະບັບພາສາອັງກິດບໍ່ເປັນທາງການ, ທັນວາ 2025). ພວກເຮົາ <b>ບໍ່ພົບຫຍັງກ່ຽວກັບ "ຜູ້ໃຫ້ບໍລິການດ້ານເຕັກນິກ"</b> ຫຼື ແພລດຟອມທີ່ບໍ່ແຕະເງິນເລີຍ.</li>
+  <li>ສະນັ້ນ: ຖ້າ Phalom <b>ຮັບເງິນຂອງນັກທ່ອງທ່ຽວ ແລ້ວໂອນໃຫ້ຮ້ານ</b>, ກໍ່ເກືອບແນ່ນອນວ່າເປັນການບໍລິການຊຳລະທີ່ຕ້ອງມີໃບອະນຸຍາດ. ຮູບແບບ A (PhaJay ແບ່ງເງິນເຂົ້າບັນຊີຍ່ອຍຂອງຮ້ານໂດຍກົງ) ແລະ ຮູບແບບ B/C (QR ທະນາຄານຂອງຮ້ານເອງ) ເຮັດໃຫ້ Phalom ບໍ່ຢູ່ໃນເສັ້ນທາງເງິນ. ຕ້ອງຢືນຢັນກັບ ທຫລ ຫຼື ທະນາຍຄວາມ (ເລື່ອງທີ່ຍັງບໍ່ໄດ້ຕັດສິນໃຈ ຂໍ້ 5 ໃນ BUSINESS.md).</li>
+</ul>
+
+<h2>ຄຳຖາມທີ່ PhaJay ເທົ່ານັ້ນຕອບໄດ້ (ຖາມກ່ອນເລືອກ)</h2>
+<ol>
+  <li><b>ນັກທ່ອງທ່ຽວ:</b> QR ຂອງ PhaJay (JDB, LDB, IB, STB, APB, M-Money) ເປັນ LAO QR ແທ້ ທີ່ແອັບທະນາຄານໄທ, VietQR ແລະ UnionPay ຈ່າຍໄດ້ບໍ່? ເອກະສານຂອງທ່ານບອກວ່າ QR ຂອງ BCEL ໃຊ້ໄດ້ກັບ BCEL One ເທົ່ານັ້ນ.</li>
+  <li><b>Alipay / WeChat Pay:</b> ເປີດໃຊ້ແນວໃດ, ມີ API ແລະ sandbox ບໍ່, ແລະ ຮ້ານໄດ້ຮັບເປັນກີບບໍ່?</li>
+  <li><b>ບັນຊີຍ່ອຍ:</b> Phalom ໄດ້ສະຖານະ agent (ບັນຊີແມ່) ແນວໃດ? ສ້າງບັນຊີຍ່ອຍຂອງຮ້ານຜ່ານ API ໄດ້ບໍ່?</li>
+  <li><b>ຮ້ານນ້ອຍ:</b> ແມ່ຄ້າທີ່ມີແຕ່ບັດປະຈຳຕົວ ແລະ ບັນຊີທະນາຄານ ເປັນບັນຊີຍ່ອຍໄດ້ບໍ່ ໂດຍບໍ່ຕ້ອງມີໃບອະນຸຍາດທຸລະກິດ ຫຼື ຈ່າຍແທ້ 5 ລາຍການ?</li>
+  <li><b>ການຖອນເງິນ:</b> ຈາກກົດ Claim ຮອດບັນຊີທະນາຄານຂອງຮ້ານ ຈັກມື້? ມີຄ່າຖອນບໍ່? ຖອນອັດຕະໂນມັດໄດ້ບໍ່? ບັນຊີແມ່ກົດຂໍຖອນແທນບັນຊີຍ່ອຍໄດ້ບໍ່?</li>
+  <li><b>ຄ່າທຳນຽມ:</b> ຮ້ານບວກຄ່າທຳນຽມໃສ່ລາຄາຂອງນັກທ່ອງທ່ຽວໄດ້ບໍ່? ມີອັດຕາຕ່ຳກວ່າສຳລັບແພລດຟອມທີ່ມີຮ້ານນ້ອຍຫຼາຍໆບໍ່?</li>
+</ol>
+
+<h2>ຂັ້ນຕອນຕໍ່ໄປ</h2>
+<ol>
+  <li><b>ສົ່ງຄຳຖາມຂ້າງເທິງໃຫ້ PhaJay</b> (ຮ່າງເປັນພາສາລາວຢູ່ໃນ HUMAN_TODO.md). ຄຳຕອບຂໍ້ 1 ຈະຕັດສິນວ່າຮູບແບບ A ຄຸ້ມຄ່າທີ່ຈະສ້າງບໍ່.</li>
+  <li><b>ໄປຢາມແມ່ຄ້າແທ້ 5–10 ຄົນ</b> ໃນຕະຫຼາດທີ່ຈະທົດລອງ. ຖາມ: ມີ QR ທະນາຄານແລ້ວບໍ່? ນັກທ່ອງທ່ຽວໄທ ຫຼື ຈີນ ຈ່າຍ QR ນັ້ນບໍ່? ຈະຍອມຈ່າຍ X ກີບຕໍ່ເດືອນ ສຳລັບເມນູ 5 ພາສາ ແລະ ບ່ອນຢູ່ໃນແຜນທີ່ນັກທ່ອງທ່ຽວບໍ່? ຈົດຄຳຕອບໄວ້. ນີ້ແມ່ນຫຼັກຖານທີ່ຮູບແບບທຸລະກິດຍັງຂາດຢູ່.</li>
+  <li><b>ຖາມ BCEL</b> ວ່າ OnePay Shop / LAO QR ຮ້ານຄ້າຕ້ອງເສຍຄ່າເທົ່າໃດ (ບໍ່ພົບອັດຕາທີ່ເປີດເຜີຍ).</li>
+  <li><b>ຢ່າຫາກໍ່ສ້າງການເຊື່ອມຕໍ່ PhaJay.</b> ເລີ່ມທົດລອງດ້ວຍຮູບແບບ D: ຮ້ານໃຊ້ QR ທະນາຄານຂອງຕົນ, Phalom ເພີ່ມເມນູ, ປ້າຍ, ແຜນທີ່ ແລະ ສະຖິຕິ.</li>
+</ol>
+
+<h2>ແຫຼ່ງຂໍ້ມູນ</h2>
+<ul class="src">
+  <li>ເວັບໄຊ ແລະ ລາຄາ PhaJay: <a href="https://www.phajay.co/en">phajay.co/en</a>, <a href="https://www.phajay.co/en/pricing">phajay.co/en/pricing</a></li>
+  <li>ເອກະສານ PhaJay: <a href="https://payment-doc.phajay.co/v1/how-to-kyc">KYC</a>, <a href="https://payment-doc.phajay.co/v1/split-payment">Split Payment</a>, <a href="https://payment-doc.phajay.co/v1/withdraw-money">Withdraw</a>, <a href="https://payment-doc.phajay.co/v1/refund">Refund</a>, <a href="https://payment-doc.phajay.co/v1/connect-payment-QR/generateQR">Generate QR</a>, <a href="https://payment-doc.phajay.co/v1/payment-link">Payment Link</a>, <a href="https://payment-doc.phajay.co/v1/connect-credit-card">Credit card</a>, <a href="https://payment-doc.phajay.co/v1/registration">Registration</a></li>
+  <li>ການທົດສອບ sandbox ຂອງພວກເຮົາ: winner-agreement/PhaJay_Sandbox_Test.md. ການກວດຄ່າທຳນຽມ: winner-agreement/PhaJay_Real_Fee_Check.md</li>
+  <li>QR ໄທ–ລາວ: <a href="https://www.bot.or.th/en/news-and-media/news/news-20240403.html">ທະນາຄານແຫ່ງປະເທດໄທ</a>, <a href="https://www.tourismlaos.org/2024/07/17/thai-tourists-go-cashless-in-laos-with-new-qr-payments/">Tourism Laos, ກໍລະກົດ 2024</a></li>
+  <li>UnionPay ຈີນ ↔ LAPNet: <a href="https://www.tourismlaos.org/2025/01/17/laos-china-launch-qr-payment-system-for-cashless-tourism/">Tourism Laos, ມັງກອນ 2025</a>, <a href="https://www.caixinglobal.com/2024-12-20/unionpay-takes-its-qr-payment-network-into-laos-making-shopping-by-mobile-easier-102270004.html">Caixin</a></li>
+  <li>ປະຫວັດ Lao QR ແລະ ການເຊື່ອມຕໍ່: <a href="https://moretapay.com/blog/how-laos-learned-to-scan">Moreta Pay, ມິຖຸນາ 2026</a>; ຄູ່ມືນັກທ່ອງທ່ຽວ <a href="https://terralao.la/blog/qr-code-payments-laos-tourist-guide-loca-ezykip-2026">Terra Lao, ມັງກອນ 2026</a></li>
+  <li>LOCA Pay: <a href="https://loca.la/locapay/">loca.la/locapay</a>. BCEL OnePay Shop: <a href="https://apps.apple.com/app/id6752244322">App Store</a>. ຄ່າທຳນຽມ gateway ຂອງ BCEL: <a href="https://www.bcel.com.la/bcel/product-review.html?prd=e-banking&id=online-payment&lang=en">bcel.com.la</a></li>
+  <li>ຈຳນວນນັກທ່ອງທ່ຽວ 2025: <a href="https://kpl.gov.la/detail.aspx?id=96974">KPL, ກຸມພາ 2026</a></li>
+  <li>ລະບຽບ ທຫລ: <a href="https://ilawasia.com/blogs/a-new-legislation-regarding-the-payment-service-system-in-lao-pdr">ILAW Asia ກ່ຽວກັບຂໍ້ຕົກລົງ 511/ທຫລ</a>, <a href="https://www.rajahtannasia.com/viewpoints/regional-round-up-lao-pdr-q2-2025/">Rajah &amp; Tann Q2 2025</a>, <a href="https://www.bol.gov.la/en/law">ກົດໝາຍ ທຫລ</a></li>
+</ul>
+</div>
+</body>
+</html>
