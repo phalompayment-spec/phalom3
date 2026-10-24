@@ -3,117 +3,124 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Phalom: ແນວທາງໃໝ່ (ຂໍ້ສະເໜີ 25 ຕຸລາ 2026, ສະບັບ 2)</title>
+<title>Phalom: ແນວທາງໃໝ່ (ສະບັບ 3, 25 ຕຸລາ 2026)</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root { --fg: var(--foreground, #1c1b1a); --mut: var(--muted-foreground, #6b6760); --bd: var(--border, #e3dfd8); --cardbg: var(--card, #faf8f4); --ok: var(--success, #2f8f5b); --warn: var(--warning, #c98a12); --bad: var(--destructive, #c2410c); --acc: var(--accent, #3b5bdb); --r: var(--radius, 10px); }
   body { margin: 0; color: var(--fg); font: 14px/1.7 "Noto Sans Lao", var(--font-sans, system-ui, sans-serif); }
-  h1 { font-size: 21px; margin: 0 0 2px; } h2 { font-size: 16px; margin: 26px 0 8px; } h3 { font-size: 14px; margin: 0 0 6px; } p { margin: 6px 0; }
+  h1 { font-size: 21px; margin: 0 0 2px; } h2 { font-size: 16px; margin: 24px 0 8px; } h3 { font-size: 14px; margin: 0 0 6px; } p { margin: 6px 0; }
   .sub { color: var(--mut); font-size: 12.5px; }
-  .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
   .grid3 { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
   .card { background: var(--cardbg); border: 1px solid var(--bd); border-radius: var(--r); padding: 12px 14px; }
-  .card.hi { border-left: 4px solid var(--bad); } .card.go { border-left: 4px solid var(--ok); } .card.wa { border-left: 4px solid var(--warn); } .card.ac { border-left: 4px solid var(--acc); }
-  .idea { font-size: 15px; }
+  .card.go { border-left: 4px solid var(--ok); } .card.wa { border-left: 4px solid var(--warn); } .card.ac { border-left: 4px solid var(--acc); } .card.hi { border-left: 4px solid var(--bad); }
+  .big { font-size: 26px; font-weight: 700; line-height: 1.2; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; } th, td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--bd); } th { color: var(--mut); font-size: 12px; font-weight: 600; }
+  td.n, th.n { text-align: right; white-space: nowrap; }
   .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 99px; white-space: nowrap; }
   .t-ok { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); } .t-wa { background: color-mix(in srgb, var(--warn) 20%, transparent); color: var(--warn); } .t-bad { background: color-mix(in srgb, var(--bad) 16%, transparent); color: var(--bad); } .t-est { background: color-mix(in srgb, var(--acc) 16%, transparent); color: var(--acc); }
   .flow { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px; }
   .step { flex: 1 1 150px; background: var(--cardbg); border: 1px solid var(--bd); border-radius: var(--r); padding: 9px 10px; font-size: 12.5px; }
-  .step b { display: block; font-size: 12px; margin-bottom: 2px; }
-  .step.unk { border: 1.5px dashed var(--warn); }
+  .step b { display: block; font-size: 12px; margin-bottom: 2px; } .step.unk { border: 1.5px dashed var(--warn); }
   .money { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; margin: 8px 0; }
   .money .box { background: var(--cardbg); border: 1px solid var(--bd); border-radius: var(--r); padding: 6px 10px; }
-  .money .box.v { border: 2px solid var(--ok); font-weight: 700; }
-  .money .arr { color: var(--mut); font-size: 12px; }
-  ol, ul { margin: 6px 0; padding-left: 20px; } li { margin: 3px 0; }
-  .tw { overflow-x: auto; } a { color: var(--acc); }
+  .money .box.v { border: 2px solid var(--ok); font-weight: 700; } .money .arr { color: var(--mut); font-size: 12px; }
+  ol, ul { margin: 6px 0; padding-left: 20px; } li { margin: 3px 0; } .tw { overflow-x: auto; } a { color: var(--acc); }
   .src { font-size: 12px; color: var(--mut); } .src li { word-break: break-word; }
 </style>
 </head>
 <body>
 
 <h1>Phalom: ແນວທາງໃໝ່</h1>
-<p class="sub">ຂໍ້ສະເໜີວັນທີ 25 ຕຸລາ 2026, ສະບັບ 2 (ເພີ່ມເງື່ອນໄຂ: Phalom ບໍ່ຖືເງິນຂອງແມ່ຄ້າ ແລະ ເງິນຕ້ອງເຂົ້າບັນຊີແມ່ຄ້າທັນທີ). ຍັງບໍ່ໄດ້ຕົກລົງກັບຄູ່ຮ່ວມໃດ, ບໍ່ມີຮ້ານແທ້ເທື່ອ. ປ້າຍ <span class="tag t-est">ຄາດຄະເນ</span> = ພວກເຮົາຄາດເອງ.</p>
+<p class="sub">ຂໍ້ສະເໜີ 25 ຕຸລາ 2026, ສະບັບ 3: ນັກທ່ອງທ່ຽວຈ່າຍຄ່າທຳນຽມຕອນຈ່າຍເງິນ, ຖືກກວ່າ LOCA Pay. ຍັງບໍ່ໄດ້ຕົກລົງກັບຄູ່ຮ່ວມໃດ, ບໍ່ມີຮ້ານແທ້ເທື່ອ. <span class="tag t-est">ຄາດຄະເນ</span> = ພວກເຮົາຄາດເອງ, ຕ້ອງກວດ.</p>
 
-<h2>ເງື່ອນໄຂທີ່ທີມກຳນົດ</h2>
+<h2>3 ຄຳໝັ້ນສັນຍາ</h2>
 <div class="grid3">
-  <div class="card go"><b>1. ແມ່ຄ້າສະໝັກງ່າຍ</b><p class="sub">ສະແກນ QR ທະນາຄານທີ່ຮ້ານມີຢູ່ແລ້ວ + ເບີໂທ: ປະມານ 1 ນາທີ</p></div>
-  <div class="card go"><b>2. ບໍ່ຕ້ອງມີໃບອະນຸຍາດ</b><p class="sub">ທະນາຄານຂອງແມ່ຄ້າ ກວດບັດປະຈຳຕົວໄປແລ້ວ ຕອນເປີດບັນຊີ</p></div>
-  <div class="card go"><b>3. ລາຍໄດ້ທາງດຽວ</b><p class="sub">ຄ່າທຳນຽມຕໍ່ລາຍການ</p></div>
-  <div class="card go"><b>4. ແມ່ຄ້າຈ່າຍແຕ່ຄ່າທຳນຽມ</b><p class="sub">ຫັກອອກກ່ອນເງິນເຂົ້າ. ບໍ່ມີຄ່າລາຍເດືອນ</p></div>
-  <div class="card go"><b>5. Phalom ບໍ່ຖືເງິນ</b><p class="sub">ເງິນຂອງນັກທ່ອງທ່ຽວ ບໍ່ເຄີຍຜ່ານບັນຊີ Phalom</p></div>
-  <div class="card wa"><b>6. ເງິນເຂົ້າບັນຊີແມ່ຄ້າທັນທີ</b><p class="sub">ໂອນຜ່ານ LAO QR (LAPNet). ຕ້ອງຢືນຢັນກັບຄູ່ຮ່ວມ</p></div>
+  <div class="card go"><div class="big">1 QR</div><p>ປ້າຍດຽວ ຮັບເງິນຈາກນັກທ່ອງທ່ຽວທຸກປະເທດ</p></div>
+  <div class="card go"><div class="big">0 ແອັບ</div><p>ນັກທ່ອງທ່ຽວບໍ່ຕ້ອງດາວໂຫຼດຫຍັງ</p></div>
+  <div class="card go"><div class="big">0 ເງິນ</div><p>Phalom ບໍ່ຖືເງິນຂອງແມ່ຄ້າ. ເງິນເຂົ້າບັນຊີແມ່ຄ້າທັນທີ</p></div>
 </div>
+<p class="sub">ເງື່ອນໄຂອື່ນ: ແມ່ຄ້າສະໝັກງ່າຍ, ບໍ່ຕ້ອງມີໃບອະນຸຍາດທຸລະກິດ, ແມ່ຄ້າບໍ່ຈ່າຍຫຍັງ, ລາຍໄດ້ທາງດຽວຂອງ Phalom ແມ່ນຄ່າທຳນຽມທີ່ນັກທ່ອງທ່ຽວຈ່າຍ, ແລະ ຄ່າທຳນຽມຕ້ອງຖືກກວ່າ LOCA Pay.</p>
 
-<h2>ແນວຄິດໃນປະໂຫຍກດຽວ</h2>
-<div class="card ac idea"><p><b>"Phalom ເປັນປະຕູໃຫ້ນັກທ່ອງທ່ຽວ, ຄູ່ຮ່ວມທີ່ມີໃບອະນຸຍາດ ເປັນຜູ້ຈ່າຍເງິນເຂົ້າ QR ທະນາຄານຂອງແມ່ຄ້າ."</b></p>
-<p>ນັກທ່ອງທ່ຽວທີ່ຈ່າຍ QR ທະນາຄານລາວບໍ່ໄດ້ (ບັດ Visa / Mastercard, Apple Pay, Alipay, WeChat Pay) ສະແກນປ້າຍ Phalom ແລ້ວຈ່າຍດ້ວຍບັດຂອງຕົນ. ຄູ່ຮ່ວມທີ່ມີໃບອະນຸຍາດ ທຫລ ເກັບເງິນຈາກບັດ ແລະ <b>ໂອນເຂົ້າ LAO QR ຂອງແມ່ຄ້າທັນທີ</b> ຄືກັບລູກຄ້າລາວສະແກນຈ່າຍ, ຫັກຄ່າທຳນຽມ (ເຊັ່ນ 8%) <span class="tag t-est">ຄາດຄະເນ</span> ອອກກ່ອນ. ຄູ່ຮ່ວມແບ່ງສ່ວນໜຶ່ງໃຫ້ Phalom ທຸກເດືອນ. ນີ້ແມ່ນວິທີທີ່ LOCA Pay ເຮັດຢູ່ແລ້ວ, ແຕ່ LOCA ເກັບຄ່າທຳນຽມຈາກນັກທ່ອງທ່ຽວ, Phalom ເກັບຈາກແມ່ຄ້າ.</p></div>
+<h2>ແນວຄິດ</h2>
+<div class="card ac"><p><b>"LOCA Pay ທີ່ບໍ່ຕ້ອງດາວໂຫຼດແອັບ, ຖືກກວ່າ, ແລະ ພານັກທ່ອງທ່ຽວມາຫາຮ້ານ."</b></p>
+<p>ປ້າຍ Phalom ເປັນ QR ລິ້ງເວັບ. ນັກທ່ອງທ່ຽວສະແກນດ້ວຍກ້ອງ (ຫຼື ດ້ວຍ Alipay / WeChat) → ໜ້າເວັບເປັນພາສາຂອງເຂົາ → ຈ່າຍດ້ວຍບັດ, Apple Pay, Google Pay, Alipay ຫຼື WeChat Pay. <b>ຄູ່ຮ່ວມທີ່ມີໃບອະນຸຍາດ ທຫລ</b> ເກັບເງິນຈາກນັກທ່ອງທ່ຽວ (ລາຄາ + ຄ່າທຳນຽມ) ແລະ ໂອນ <b>ລາຄາເຕັມ</b> ເຂົ້າ LAO QR ຂອງແມ່ຄ້າທັນທີ. Phalom ໄດ້ສ່ວນແບ່ງຄ່າທຳນຽມ ທຸກເດືອນ.</p></div>
 
-<h2>ເງິນໄປທາງໃດ</h2>
+<h2>ເງິນໄປທາງໃດ (ການຂາຍ 50,000 ກີບ)</h2>
 <div class="card">
-  <div class="money"><span class="box">ນັກທ່ອງທ່ຽວ<br><span class="sub">ບັດ / Alipay / WeChat: 50,000 ກີບ</span></span><span class="arr">→</span><span class="box">ຄູ່ຮ່ວມທີ່ມີໃບອະນຸຍາດ ທຫລ<br><span class="sub">ເຊັ່ນ LOCA Pay ຫຼື BCEL</span></span><span class="arr">→ LAO QR, ທັນທີ →</span><span class="box v">ບັນຊີທະນາຄານຂອງແມ່ຄ້າ<br>46,000 ກີບ</span></div>
-  <div class="money"><span class="box">ຄູ່ຮ່ວມເກັບ 4,000 ກີບ (8%)</span><span class="arr">→ ທຸກເດືອນ →</span><span class="box">Phalom: ສ່ວນແບ່ງ (ຕ້ອງເຈລະຈາ)</span></div>
-  <p class="sub">ເງິນທີ່ Phalom ໄດ້ຮັບ ແມ່ນລາຍໄດ້ຂອງ Phalom ເອງ ບໍ່ແມ່ນເງິນຂອງແມ່ຄ້າ. ສະນັ້ນ Phalom ເປັນພຽງບໍລິສັດເຕັກໂນໂລຊີ ທີ່ພານັກທ່ອງທ່ຽວມາຫາຮ້ານ (ຕ້ອງຢືນຢັນກັບທະນາຍຄວາມ).</p>
+  <div class="money"><span class="box">ນັກທ່ອງທ່ຽວຈ່າຍ<br>52,450 ກີບ</span><span class="arr">→</span><span class="box">ຄູ່ຮ່ວມທີ່ມີໃບອະນຸຍາດ ທຫລ<br><span class="sub">ເຊັ່ນ BCEL ຫຼື LOCA</span></span><span class="arr">→ LAO QR, ທັນທີ →</span><span class="box v">ບັນຊີແມ່ຄ້າ 50,000 ກີບ (ເຕັມ)</span></div>
+  <div class="money"><span class="box">ຄ່າທຳນຽມ 2,450 ກີບ</span><span class="arr">→</span><span class="box">ຄູ່ຮ່ວມ ~1,200</span><span class="box">Phalom ~1,250 (ທຸກເດືອນ)</span></div>
+  <p class="sub">ເງິນຂອງນັກທ່ອງທ່ຽວ ແລະ ແມ່ຄ້າ ບໍ່ເຄີຍຜ່ານບັນຊີ Phalom. ເງິນທີ່ Phalom ໄດ້ ແມ່ນສ່ວນແບ່ງຄ່າທຳນຽມ (ລາຍໄດ້ຂອງ Phalom ເອງ). ການແບ່ງ ແມ່ນ <span class="tag t-est">ຄາດຄະເນ</span> ຕ້ອງເຈລະຈາ.</p>
 </div>
 
-<h2>ຂັ້ນຕອນທັງໝົດ ຕັ້ງແຕ່ຕົ້ນຈົນຈົບ</h2>
-<div class="flow">
-  <div class="step"><b>① ສະໝັກ (ປະມານ 1 ນາທີ)</b>ພະນັກງານ Phalom ສະແກນ QR ທະນາຄານທີ່ຮ້ານໃຊ້ຢູ່ແລ້ວ, ຢືນຢັນເບີໂທດ້ວຍ OTP, ຕິດປ້າຍ Phalom. ບໍ່ຕ້ອງມີເອກະສານທຸລະກິດ.</div>
-  <div class="step"><b>② ນັກທ່ອງທ່ຽວຈ່າຍ</b>ສະແກນປ້າຍດ້ວຍກ້ອງ → ໜ້າເວັບເປັນພາສາຂອງເຂົາ → ລາຄາເປັນກີບ → ຈ່າຍດ້ວຍບັດ, Apple Pay, Alipay ຫຼື WeChat. ບໍ່ຕ້ອງຕິດຕັ້ງແອັບ.</div>
-  <div class="step unk"><b>③ ເງິນເຂົ້າທັນທີ</b>ຄູ່ຮ່ວມໂອນເຂົ້າ LAO QR ຂອງຮ້ານ (ຫັກຄ່າທຳນຽມແລ້ວ). ແອັບທະນາຄານຂອງຮ້ານແຈ້ງເຕືອນຄືປົກກະຕິ. <span class="tag t-wa">ຕ້ອງຢືນຢັນວ່າທັນທີແທ້</span></div>
-  <div class="step"><b>④ ຮ້ານໄດ້ຍິນ</b>Phalom ປະກາດ "ໄດ້ຮັບເງິນ 46,000 ກີບ" ເປັນພາສາລາວ <span class="tag t-ok">ມີແລ້ວໃນແອັບ</span></div>
-  <div class="step unk"><b>⑤ ຄືນເງິນ / chargeback</b>ເງິນຢູ່ບັນຊີແມ່ຄ້າແລ້ວ, ສະນັ້ນການຄືນເງິນຕ້ອງໃຫ້ແມ່ຄ້າໂອນຄືນ ຫຼື ຄູ່ຮ່ວມຮັບຄວາມສ່ຽງ. <span class="tag t-wa">ຕ້ອງເຈລະຈາ</span></div>
-  <div class="step"><b>⑥ Phalom ໄດ້ລາຍໄດ້</b>ຄູ່ຮ່ວມໂອນສ່ວນແບ່ງຄ່າທຳນຽມໃຫ້ Phalom ທຸກເດືອນ ພ້ອມລາຍງານ.</div>
-</div>
-<p class="sub">ລູກຄ້າລາວ, ໄທ, ຫວຽດນາມ ແລະ UnionPay ຍັງສະແກນ QR ທະນາຄານຂອງຮ້ານໂດຍກົງຄືເກົ່າ, ບໍ່ມີຄ່າທຳນຽມ ແລະ Phalom ບໍ່ໄດ້ຫຍັງ. Phalom ເກັບເງິນສະເພາະການຂາຍທີ່ຮ້ານຂາຍບໍ່ໄດ້ຖ້າບໍ່ມີ Phalom.</p>
-
-<h2>ທຽບກັບທາງເລືອກອື່ນ</h2>
+<h2>ຄ່າທຳນຽມ: ຖືກກວ່າ LOCA Pay ທຸກລາຍການ</h2>
+<p>ສະເໜີ: <b>2.9% + 1,000 ກີບ</b> ຕໍ່ລາຍການ <span class="tag t-est">ຄາດຄະເນ</span>. LOCA Pay ເກັບ 3% + 5,000 ກີບ. ເພາະວ່າທັງສອງສ່ວນຕ່ຳກວ່າ, Phalom ຖືກກວ່າສະເໝີ ບໍ່ວ່າລາຄາເທົ່າໃດ.</p>
 <div class="tw"><table>
-<tr><th></th><th>PhaJay Split Payment</th><th>Phalom ຮັບເງິນເອງ ແລ້ວໂອນ</th><th>ຄູ່ຮ່ວມຈ່າຍເຂົ້າ LAO QR (ແນະນຳ)</th></tr>
-<tr><td>ເງິນເຂົ້າຮ້ານທັນທີ</td><td><span class="tag t-bad">ບໍ່</span> ຕ້ອງກົດ Claim, ແອັດມິນໂອນ</td><td><span class="tag t-wa">ໄດ້ ຖ້າ Phalom ໂອນເອງ</span></td><td><span class="tag t-ok">ໄດ້</span> ຖ້າຄູ່ຮ່ວມຢືນຢັນ</td></tr>
-<tr><td>Phalom ບໍ່ຖືເງິນ</td><td><span class="tag t-ok">ບໍ່ຖື</span></td><td><span class="tag t-bad">ຖື</span> ຕ້ອງມີໃບອະນຸຍາດ ທຫລ</td><td><span class="tag t-ok">ບໍ່ຖື</span></td></tr>
-<tr><td>ແມ່ຄ້າບໍ່ຕ້ອງມີໃບອະນຸຍາດ</td><td><span class="tag t-wa">ບໍ່ຮູ້</span> KYC ຂໍເອກະສານທຸລະກິດ</td><td><span class="tag t-ok">ໄດ້</span></td><td><span class="tag t-ok">ໄດ້</span> ໃຊ້ບັນຊີທະນາຄານທີ່ມີຢູ່ແລ້ວ</td></tr>
-<tr><td>ສະໝັກງ່າຍ</td><td><span class="tag t-wa">ບໍ່ຮູ້</span></td><td><span class="tag t-ok">ງ່າຍ</span></td><td><span class="tag t-ok">ງ່າຍທີ່ສຸດ</span> ສະແກນ QR ຂອງຮ້ານ</td></tr>
-<tr><td>ສະຫຼຸບ</td><td>ບໍ່ຜ່ານເງື່ອນໄຂ 6</td><td>ບໍ່ຜ່ານເງື່ອນໄຂ 5</td><td>ຜ່ານທັງໝົດ ຖ້າຄູ່ຮ່ວມຕົກລົງ</td></tr>
+<tr><th>ລາຄາສິນຄ້າ</th><th class="n">Phalom (2.9% + 1,000)</th><th class="n">LOCA Pay (3% + 5,000)</th><th class="n">ນັກທ່ອງທ່ຽວປະຢັດ</th></tr>
+<tr><td>20,000 ກີບ (ເຂົ້າໜົມ, ນ້ຳ)</td><td class="n">1,580</td><td class="n">5,600</td><td class="n">4,020</td></tr>
+<tr><td>50,000 ກີບ (ອາຫານ)</td><td class="n">2,450</td><td class="n">6,500</td><td class="n">4,050</td></tr>
+<tr><td>200,000 ກີບ (ຫັດຖະກຳ)</td><td class="n">6,800</td><td class="n">11,000</td><td class="n">4,200</td></tr>
+<tr><td>1,000,000 ກີບ (ຜ້າໄໝ)</td><td class="n">30,000</td><td class="n">35,000</td><td class="n">5,000</td></tr>
 </table></div>
+<p class="sub">ຄ່າທຳນຽມສະແດງໃຫ້ນັກທ່ອງທ່ຽວເຫັນ ກ່ອນກົດຈ່າຍ. ແມ່ຄ້າບໍ່ໄດ້ເກັບເພີ່ມ: ຄ່າທຳນຽມແມ່ນຂອງບໍລິການຈ່າຍເງິນ ທີ່ນັກທ່ອງທ່ຽວໃຊ້ (ຄືກັບ LOCA). ຕ້ອງຢືນຢັນວ່າກົດຂອງບັດ ແລະ Alipay ອະນຸຍາດ. ທະນາຄານຂອງນັກທ່ອງທ່ຽວອາດເກັບຄ່າແລກເງິນເພີ່ມ ຄືກັນກັບ LOCA.</p>
+
+<div class="grid">
+  <div class="card wa"><h3>ເປັນໄປໄດ້ບໍ່?</h3><p>EzyKip ຂອງ BCEL ເກັບພຽງ <b>2.1%</b> ຕອນເຕີມເງິນຈາກບັດຕ່າງປະເທດ ແລ້ວຈ່າຍ LAO QR ບໍ່ເສຍຄ່າ (ຕາມຄູ່ມືທ່ອງທ່ຽວ, ຍັງບໍ່ໄດ້ກວດກັບ BCEL). ສະແດງວ່າທະນາຄານລາວ ເຮັດໄດ້ຕ່ຳກວ່າ 3%. ຖ້າຄູ່ຮ່ວມເອົາ ~2.4%, Phalom ຍັງເຫຼືອ ~0.5% + 1,000 ກີບ.</p></div>
+  <div class="card wa"><h3>Phalom ຄຸ້ມທຶນບໍ່?</h3><p>Phalom ໄດ້ ~1,250 ກີບ ຕໍ່ລາຍການ 50,000 ກີບ. ເພື່ອໃຫ້ໄດ້ 38,000 ກີບ ຕໍ່ຮ້ານ ຕໍ່ເດືອນ (ຄາດຄະເນເກົ່າ) ຕ້ອງການ <b>ປະມານ 30 ລາຍການ ຕໍ່ຮ້ານ ຕໍ່ເດືອນ</b>, ປະມານ 1 ລາຍການຕໍ່ມື້. <span class="tag t-est">ຄາດຄະເນ</span></p></div>
+</div>
+
+<h2>1 QR ສຳລັບທຸກຄົນ: ແຕ່ລະປະເທດຈ່າຍແນວໃດ</h2>
+<div class="tw"><table>
+<tr><th>ນັກທ່ອງທ່ຽວ</th><th>ສະແກນປ້າຍ Phalom ດ້ວຍ</th><th>ຈ່າຍດ້ວຍ</th><th>Phalom ໄດ້ຄ່າທຳນຽມ?</th></tr>
+<tr><td><b>ຕາເວັນຕົກ, ເກົາຫຼີ, ຍີ່ປຸ່ນ</b></td><td>ກ້ອງໂທລະສັບ</td><td>ບັດ Visa / Mastercard, Apple Pay, Google Pay</td><td><span class="tag t-ok">ໄດ້</span></td></tr>
+<tr><td><b>ຈີນ</b></td><td>Alipay ຫຼື WeChat (ເປີດລິ້ງໃນແອັບ)</td><td>Alipay / WeChat Pay <span class="tag t-wa">ຖ້າຄູ່ຮ່ວມມີ</span>, ຫຼື ບັດ UnionPay</td><td><span class="tag t-ok">ໄດ້</span></td></tr>
+<tr><td><b>ໄທ, ຫວຽດນາມ</b></td><td>ກ້ອງໂທລະສັບ</td><td>ບັດ, ຫຼື ກົດ "ຈ່າຍດ້ວຍແອັບທະນາຄານ": ບັນທຶກຮູບ QR ທີ່ມີລາຄາແລ້ວ → ເປີດແອັບທະນາຄານ → ສະແກນຈາກຮູບ (ບໍ່ມີຄ່າທຳນຽມ Phalom)</td><td><span class="tag t-wa">ສະເພາະບັດ</span></td></tr>
+</table></div>
+<div class="card hi" style="margin-top:8px"><p><b>ຂໍ້ຈຳກັດທາງເຕັກນິກ:</b> QR ອັນດຽວ ບໍ່ສາມາດເປັນທັງ LAO QR (ສຳລັບແອັບທະນາຄານ) ແລະ ລິ້ງເວັບ (ສຳລັບກ້ອງໂທລະສັບ) ໄດ້ພ້ອມກັນ. ແອັບທະນາຄານອ່ານລິ້ງເວັບບໍ່ໄດ້, ກ້ອງໂທລະສັບເປີດ LAO QR ບໍ່ໄດ້. ສະນັ້ນ "1 QR" ແມ່ນປ້າຍ Phalom ສຳລັບ <b>ນັກທ່ອງທ່ຽວທຸກຄົນ</b>. QR ທະນາຄານເກົ່າຂອງຮ້ານ ຍັງໃຊ້ກັບລູກຄ້າລາວຄືເກົ່າ (ແລະ ຄົນໄທ/ຫວຽດ/UnionPay ກໍສະແກນມັນໂດຍກົງໄດ້ຄືເກົ່າ).</p></div>
+
+<h2>ຂັ້ນຕອນທັງໝົດ</h2>
+<div class="flow">
+  <div class="step"><b>① ແມ່ຄ້າສະໝັກ ~1 ນາທີ</b>ພະນັກງານ Phalom ສະແກນ QR ທະນາຄານທີ່ຮ້ານມີ, ຢືນຢັນເບີໂທ, ຕິດປ້າຍ. ບໍ່ມີເອກະສານ, ບໍ່ມີຄ່າໃຊ້ຈ່າຍ.</div>
+  <div class="step"><b>② ແມ່ຄ້າໃສ່ລາຄາ</b>ໃນແອັບ Phalom (ຫຼື ນັກທ່ອງທ່ຽວໃສ່ເອງ / ເລືອກຈາກເມນູ).</div>
+  <div class="step"><b>③ ນັກທ່ອງທ່ຽວສະແກນ</b>ເຫັນລາຄາເປັນກີບ + ຄ່າທຳນຽມ ກ່ອນຈ່າຍ. ພາສາຂອງເຂົາ.</div>
+  <div class="step unk"><b>④ ຄູ່ຮ່ວມເກັບເງິນ ແລະ ໂອນທັນທີ</b>ລາຄາເຕັມເຂົ້າ LAO QR ຂອງແມ່ຄ້າ. <span class="tag t-wa">ຢືນຢັນກັບຄູ່ຮ່ວມ</span></div>
+  <div class="step"><b>⑤ ຮ້ານໄດ້ຍິນ</b>"ໄດ້ຮັບເງິນ 50,000 ກີບ" ໃນແອັບ Phalom + ແຈ້ງເຕືອນຈາກແອັບທະນາຄານ. <span class="tag t-ok">ມີແລ້ວ</span></div>
+  <div class="step unk"><b>⑥ ຄືນເງິນ / chargeback</b>ເງິນຢູ່ບັນຊີແມ່ຄ້າແລ້ວ. ໃຜຮັບຜິດຊອບ? <span class="tag t-wa">ເຈລະຈາ</span></div>
+</div>
 
 <h2>ຄູ່ຮ່ວມທີ່ເປັນໄປໄດ້</h2>
 <div class="tw"><table>
-<tr><th>ຄູ່ຮ່ວມ</th><th>ມີຫຍັງແລ້ວ</th><th>ຕ້ອງຖາມ</th></tr>
-<tr><td><b>LOCA Pay</b> (ອັນດັບ 1)</td><td>ມີໃບອະນຸຍາດ ທຫລ, ເປັນສະມາຊິກ LAPNet. ນັກທ່ອງທ່ຽວຈ່າຍ LAO QR ໃດກໍໄດ້ ດ້ວຍບັດ ຫຼື wallet. ມື້ນີ້ເກັບ 3% + 5,000 ກີບ ຈາກນັກທ່ອງທ່ຽວ.</td><td>ເງິນເຂົ້າຮ້ານທັນທີບໍ່? ໃຫ້ຮ້ານເປັນຜູ້ຈ່າຍຄ່າທຳນຽມ (ຫັກກ່ອນໂອນ) ໄດ້ບໍ່? ມີ API ໃຫ້ Phalom ເອີ້ນຈາກໜ້າເວັບບໍ່ (ນັກທ່ອງທ່ຽວບໍ່ຕ້ອງຕິດຕັ້ງແອັບ LOCA)? ແບ່ງຄ່າທຳນຽມໃຫ້ Phalom ໄດ້ບໍ່? Alipay/WeChat ໄດ້ບໍ່?</td></tr>
-<tr><td><b>BCEL</b> (EzyKip, OnePay)</td><td>EzyKip: ນັກທ່ອງທ່ຽວເຕີມເງິນຈາກບັດ ແລ້ວຈ່າຍ LAO QR. ຮັບ Alipay/WeChat ໃຫ້ຮ້ານມາດົນແລ້ວ.</td><td>ຄຳຖາມດຽວກັນ. ມີໂປຣແກຣມ partner ສຳລັບ platform ບໍ່?</td></tr>
-<tr><td><b>PhaJay</b></td><td>ຮັບບັດ, ລາຄາ Alipay/WeChat 4.15%, Split Payment</td><td>ໂອນເຂົ້າບັນຊີຮ້ານອັດຕະໂນມັດ ທັນທີ ໄດ້ບໍ່? ຖ້າບໍ່ໄດ້ ໃຊ້ບໍ່ໄດ້.</td></tr>
+<tr><th>ຄູ່ຮ່ວມ</th><th>ເປັນຫຍັງ</th><th>ບັນຫາ</th></tr>
+<tr><td><b>BCEL</b> (ອັນດັບ 1)</td><td>ທະນາຄານໃຫຍ່ທີ່ສຸດ. EzyKip ຮັບບັດຕ່າງປະເທດ ແລະ ຈ່າຍ LAO QR ແລ້ວ (~2.1%). ຮັບ Alipay / WeChat ມາດົນແລ້ວ. ມີໃບອະນຸຍາດ.</td><td>ທະນາຄານໃຫຍ່ ອາດຊ້າ ຫຼື ບໍ່ສົນໃຈ startup. ມີ API ສຳລັບໜ້າເວັບບໍ່?</td></tr>
+<tr><td><b>LOCA Pay</b></td><td>ມີໃບອະນຸຍາດ ທຫລ, ສະມາຊິກ LAPNet, ຈ່າຍ LAO QR ຈາກບັດຕ່າງປະເທດຢູ່ແລ້ວ.</td><td>ເປັນຄູ່ແຂ່ງໂດຍກົງ. ຕ້ອງໃຫ້ລາຄາຕ່ຳກວ່າລາຄາຂອງຕົນເອງ, ອາດບໍ່ຍອມ.</td></tr>
+<tr><td><b>LDB, JDB</b> ຫຼື ທະນາຄານອື່ນ</td><td>LDB ຮັບ Alipay (ຮ່ວມກັບ KIWI). ທະນາຄານນ້ອຍອາດຢາກໄດ້ລູກຄ້ານັກທ່ອງທ່ຽວ.</td><td>ບໍ່ຮູ້ວ່າມີບໍລິການບັດ → LAO QR ບໍ່.</td></tr>
+<tr><td><b>PhaJay</b></td><td>ຮັບບັດ ແລະ ມີ API.</td><td><span class="tag t-bad">ບໍ່ເໝາະ</span> ເງິນບໍ່ເຂົ້າຮ້ານທັນທີ (ກົດ Claim, ແອັດມິນໂອນ) ແລະ ຄ່າບັດ 4.15% ສູງກວ່າລາຄາທີ່ເຮົາຕ້ອງການ.</td></tr>
 </table></div>
-
-<h2>ຕົວເລກ <span class="tag t-est">ຄາດຄະເນ</span></h2>
-<p>ການຂາຍ 50,000 ກີບ (ປະມານ 2 ໂດລາ) ທີ່ຄ່າທຳນຽມ 8%: ແມ່ຄ້າໄດ້ <b>46,000 ກີບ</b>, ຄ່າທຳນຽມ 4,000 ກີບ ແບ່ງລະຫວ່າງຄູ່ຮ່ວມ ແລະ Phalom. ຕົ້ນທຶນຮັບບັດໃນລາວ ປະມານ 4–5% (ລາຄາ PhaJay), ແລະ ລາຍການນ້ອຍມັກມີຄ່າຄົງທີ່ (LOCA ເກັບ 5,000 ກີບຕໍ່ລາຍການ), ສະນັ້ນ Phalom ອາດໄດ້ພຽງ 1–3%.</p>
-<p>ຖ້າ Phalom ໄດ້ 2% ຂອງຍອດຂາຍ: ເພື່ອໃຫ້ຄຸ້ມທຶນປະມານ 38,000 ກີບ ຕໍ່ຮ້ານ ຕໍ່ເດືອນ (ຄາດຄະເນເກົ່າ), ແຕ່ລະຮ້ານຕ້ອງຂາຍຜ່ານ Phalom <b>ປະມານ 1.9 ລ້ານກີບ ຕໍ່ເດືອນ</b>. ເໝາະກັບຮ້ານທີ່ມີນັກທ່ອງທ່ຽວຫຼາຍ (ຕະຫຼາດກາງຄືນ, ຮ້ານອາຫານ, ກາເຟ, ຫັດຖະກຳ).</p>
-<p class="sub">ນັກທ່ອງທ່ຽວຈ່າຍໜ້ອຍກວ່າ LOCA Pay ໂດຍກົງ (ບໍ່ມີ 3% + 5,000 ກີບ), ນີ້ແມ່ນເຫດຜົນທີ່ນັກທ່ອງທ່ຽວຈະເລືອກປ້າຍ Phalom. ອັດຕາ 8% ເປັນຕົວຢ່າງ, ທົດສອບກັບແມ່ຄ້າ 5–10%.</p>
 
 <h2>ຄວາມສ່ຽງ</h2>
 <ul>
-  <li><b>ທັງໝົດຂຶ້ນກັບຄູ່ຮ່ວມໜຶ່ງຄົນ.</b> ຖ້າ LOCA ແລະ BCEL ບໍ່ຍອມ (ໃຫ້ຮ້ານຈ່າຍຄ່າທຳນຽມ, ມີ API, ແບ່ງລາຍໄດ້), ແຜນນີ້ບໍ່ມີທາງເຮັດໄດ້ ໂດຍບໍ່ມີໃບອະນຸຍາດ.</li>
-  <li><b>LOCA ອາດເຫັນ Phalom ເປັນຄູ່ແຂ່ງ</b> ເພາະມີລູກຄ້າດຽວກັນ. ສິ່ງທີ່ Phalom ໃຫ້ LOCA ໄດ້: ຮ້ານເພີ່ມ, ນັກທ່ອງທ່ຽວທີ່ບໍ່ຕ້ອງຕິດຕັ້ງແອັບ, ແຜນທີ່ ແລະ ເມນູ 5 ພາສາ.</li>
-  <li><b>Chargeback ບັດ:</b> ເງິນເຂົ້າຮ້ານທັນທີແລ້ວ, ຖ້າເຈົ້າຂອງບັດຂໍເງິນຄືນ ໃຜຈ່າຍ? ຕ້ອງຕົກລົງກ່ອນເລີ່ມ.</li>
-  <li><b>ລູກຄ້າກຸ່ມນີ້ອາດມີໜ້ອຍ:</b> ເກົາຫຼີ, ຍີ່ປຸ່ນ, ຕາເວັນຕົກ ປະມານ 0.8 ລ້ານຄົນ ໃນປີ 2025 ບວກກັບຄົນຈີນທີ່ໃຊ້ Alipay/WeChat. ຫຼາຍຄົນຍັງໃຊ້ເງິນສົດ.</li>
-  <li><b>ຄ່າທຳນຽມ 8% ອາດເບິ່ງຄືແພງ</b> ສຳລັບແມ່ຄ້າ. ຕ້ອງຖາມແມ່ຄ້າແທ້.</li>
+  <li><b>ທຸກຢ່າງຂຶ້ນກັບຄູ່ຮ່ວມໜຶ່ງຄົນ</b> ທີ່ຍອມ: ໂອນເຂົ້າ LAO QR ທັນທີ, ເກັບຄ່າທຳນຽມຕ່ຳກວ່າ 2.9% + 1,000 ກີບ, ມີ API ສຳລັບໜ້າເວັບ, ແລະ ແບ່ງໃຫ້ Phalom. ຖ້າບໍ່ມີ, ແຜນນີ້ເຮັດບໍ່ໄດ້ ໂດຍບໍ່ມີໃບອະນຸຍາດ.</li>
+  <li><b>ກຳໄລບາງ:</b> ລາຄາຕ່ຳກວ່າ LOCA ເຮັດໃຫ້ Phalom ໄດ້ພຽງ ~1,000–1,500 ກີບຕໍ່ລາຍການ. ຕ້ອງມີຫຼາຍຮ້ານ ແລະ ຫຼາຍລາຍການ.</li>
+  <li><b>LOCA ອາດລົດລາຄາ</b> ເມື່ອເຫັນ Phalom. ຈຸດແຂງທີ່ LOCA ບໍ່ມີ: ບໍ່ຕ້ອງດາວໂຫຼດ, ແຜນທີ່ ແລະ ເມນູ 5 ພາສາ.</li>
+  <li><b>ລາຍການ "ຕັ້ງລາຄາເອງ"</b>: ນັກທ່ອງທ່ຽວໃສ່ລາຄາຜິດ ຫຼື ແມ່ຄ້າບໍ່ໄດ້ຢືນຢັນ. ແອັບ Phalom ຕ້ອງໃຫ້ແມ່ຄ້າໃສ່ລາຄາ ຫຼື ກວດກ່ອນ.</li>
+  <li><b>QR ທີ່ມີລາຄາສຳລັບແອັບໄທ/ຫວຽດ</b>: ຕ້ອງທົດສອບວ່າແອັບທະນາຄານຮັບ LAO QR ທີ່ Phalom ເພີ່ມລາຄາໃສ່ໄດ້ບໍ່.</li>
+  <li><b>ໃບອະນຸຍາດຂອງ Phalom</b>: ຖ້າຄູ່ຮ່ວມເປັນຜູ້ເກັບ ແລະ ໂອນເງິນທັງໝົດ, Phalom ໜ້າຈະເປັນພຽງບໍລິສັດເຕັກໂນໂລຊີ. ຕ້ອງຢືນຢັນກັບທະນາຍຄວາມ ຫຼື ທຫລ.</li>
 </ul>
 
 <h2>ຂັ້ນຕອນຕໍ່ໄປ (ບໍ່ເສຍເງິນ)</h2>
 <ol>
-  <li><b>ຕິດຕໍ່ LOCA</b> (ທີມ LOCA Pay) ແລະ <b>BCEL</b> (EzyKip / OnePay) ດ້ວຍຄຳຖາມໃນຕາຕະລາງຂ້າງເທິງ. ຮ່າງເປັນພາສາລາວຢູ່ໃນ HUMAN_TODO.md.</li>
-  <li><b>ຖາມ PhaJay</b> ວ່າໂອນເງິນເຂົ້າບັນຊີຮ້ານອັດຕະໂນມັດ ແລະ ທັນທີ ໄດ້ບໍ່.</li>
-  <li><b>ໄປຢາມແມ່ຄ້າ 5–10 ຄົນ</b>: ນັກທ່ອງທ່ຽວຍ່າງໜີ ເພາະຈ່າຍບໍ່ໄດ້ ເລື້ອຍປານໃດ? ຍອມຈ່າຍ 5%, 8% ຫຼື 10% ສະເພາະການຂາຍນັ້ນບໍ່?</li>
-  <li><b>ຖາມທະນາຍຄວາມ ຫຼື ທຫລ</b>: ຖ້າຄູ່ຮ່ວມເປັນຜູ້ຖື ແລະ ໂອນເງິນທັງໝົດ, Phalom ບໍ່ຕ້ອງມີໃບອະນຸຍາດແທ້ບໍ່?</li>
-  <li><b>ຢ່າຫາກໍ່ຂຽນໂຄ້ດ</b> ຈົນກວ່າຄູ່ຮ່ວມຕອບວ່າ "ໄດ້". ຫຼັງຈາກນັ້ນ ສິ່ງທີ່ຕ້ອງສ້າງມີໜ້ອຍ: ການສະໝັກດ້ວຍການສະແກນ QR ທະນາຄານຂອງຮ້ານ, ໜ້າຈ່າຍເງິນໃນແອັບນັກທ່ອງທ່ຽວ ທີ່ເອີ້ນ API ຂອງຄູ່ຮ່ວມ.</li>
+  <li><b>ໄປຖາມ BCEL</b> (ທີມ EzyKip / OnePay), ແລ້ວ LOCA ແລະ LDB. ຮ່າງເປັນພາສາລາວຢູ່ໃນ HUMAN_TODO.md.</li>
+  <li><b>ກວດລາຄາ EzyKip ແລະ LOCA Pay ດ້ວຍຕົນເອງ</b>: ເປີດແອັບ ເບິ່ງໜ້າຄ່າທຳນຽມ (ແຫຼ່ງຂໍ້ມູນບອກຕ່າງກັນ: LOCA 3% + 5,000 ຫຼື 1.5%).</li>
+  <li><b>ຢາມແມ່ຄ້າ 5–10 ຄົນ</b>: ຍອມຕິດປ້າຍ Phalom ບໍ່? ນັກທ່ອງທ່ຽວຍ່າງໜີ ເພາະຈ່າຍບໍ່ໄດ້ ເລື້ອຍປານໃດ?</li>
+  <li><b>ຖາມທະນາຍຄວາມ ຫຼື ທຫລ</b> ເລື່ອງໃບອະນຸຍາດຂອງ Phalom.</li>
+  <li><b>ຢ່າຫາກໍ່ຂຽນໂຄ້ດ</b> ຈົນກວ່າຄູ່ຮ່ວມຕອບວ່າ "ໄດ້". ສິ່ງທີ່ຕ້ອງສ້າງຫຼັງຈາກນັ້ນ: ການສະໝັກດ້ວຍການສະແກນ QR ຂອງຮ້ານ, ໜ້າຈ່າຍເງິນທີ່ເອີ້ນ API ຂອງຄູ່ຮ່ວມ, ປຸ່ມ "ບັນທຶກ QR" ສຳລັບແອັບທະນາຄານ.</li>
 </ol>
 
 <h2>ແຫຼ່ງຂໍ້ມູນ</h2>
 <ul class="src">
-  <li>LOCA Pay (ໃບອະນຸຍາດ ທຫລ, ສະມາຊິກ LAPNet, 3% + 5,000 ກີບ): <a href="https://loca.la/locapay/">loca.la/locapay</a></li>
-  <li>LOCA Pay ແລະ EzyKip ສຳລັບນັກທ່ອງທ່ຽວ: <a href="https://terralao.la/blog/qr-code-payments-laos-tourist-guide-loca-ezykip-2026">Terra Lao, 2026</a>, <a href="https://moretapay.com/supported-countries/laos">Moreta Pay</a></li>
-  <li>PhaJay: <a href="https://payment-doc.phajay.co/v1/withdraw-money">Withdraw (ກົດ Claim, ແອັດມິນໂອນ)</a>, <a href="https://payment-doc.phajay.co/v1/split-payment">Split Payment</a>, <a href="https://payment-doc.phajay.co/v1/how-to-kyc">KYC</a>, <a href="https://www.phajay.co/en/pricing">ລາຄາ</a></li>
+  <li>LOCA Pay (3% + 5,000 ກີບ, ໃບອະນຸຍາດ ທຫລ, ສະມາຊິກ LAPNet): <a href="https://loca.la/locapay/">loca.la/locapay</a></li>
+  <li>EzyKip (ເຕີມເງິນ 2.1%) ແລະ LOCA (1.5%, ຂໍ້ມູນຕ່າງກັນ): <a href="https://terralao.la/blog/qr-code-payments-laos-tourist-guide-loca-ezykip-2026">Terra Lao, 2026</a>, <a href="https://moretapay.com/supported-countries/laos">Moreta Pay</a></li>
+  <li>PhaJay: <a href="https://payment-doc.phajay.co/v1/withdraw-money">Withdraw</a>, <a href="https://www.phajay.co/en/pricing">ລາຄາ</a></li>
   <li>BCEL + Alipay/WeChat: <a href="https://www.theasianbanker.com/press-releases/bcel-and-wallyt-partner-to-enable-alipay-and-wechat-pay-acceptance-in-laos">The Asian Banker</a>. LDB + Alipay: <a href="https://laos.opendevelopmentmekong.net/news/ldb-partners-with-kiwi-for-transactions-through-alipay/">Open Development Mekong</a></li>
   <li>ລະບຽບ ທຫລ ແລະ ຈຳນວນນັກທ່ອງທ່ຽວ: ເບິ່ງ PhaJay_E2E_Business_Process_lo.html</li>
 </ul>
