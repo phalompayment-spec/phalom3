@@ -4,7 +4,7 @@ Things only a person on the team can do: sign in, pay, phone someone, sign, deci
 
 Rules: never paste keys, ID cards, bank details or contracts into this file (the repo is public). Ask before paying for anything.
 
-Last updated: 23 Oct 2026.
+Last updated: 25 Oct 2026.
 
 ## 🔴 Urgent (security)
 
@@ -14,8 +14,8 @@ Last updated: 23 Oct 2026.
 
 ## 🟠 Winner agreement (dates from the organizer, SPK)
 
-- [ ] **24 Oct:** receive the draft agreement. Don't put it in this repo; give Claude the text in chat if you want it checked against `winner-agreement/Phalom_Agreement_Prep.md`.
-- [ ] **By 31 Oct:** team decides who signs and which bank account gets the prize, then sends comments to SPK.
+- [x] 25 Oct 2026: received the draft agreement (PDF, kept out of the repo). Claude's review and draft comments: `winner-agreement/Phalom_Agreement_Review.md`.
+- [ ] **By 31 Oct:** team decides who signs, which bank account gets the prize, and how many ambassador posts/events per month you can accept (fill the blanks in comment 4), then sends the Lao comments in the review to SPK.
 - [ ] 2 Nov: final version. 15 Nov: signing and prize money.
 
 ## 🟢 PhaJay test (free, test money only)

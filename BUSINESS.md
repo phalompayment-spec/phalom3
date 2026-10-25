@@ -13,7 +13,7 @@ Tasks waiting on a person: [HUMAN_TODO.md](HUMAN_TODO.md).
 | PhaJay | Chosen as the partner route (tourist's app → PhaJay → shop's Lao bank). **No contract.** Free portal test account opened 23 Oct 2026: sandbox QR and payment link work (test money only, mock bank, no foreign wallets). See `winner-agreement/PhaJay_Sandbox_Test.md`. No live API access (needs KYC). |
 | Company | Not registered yet (pitch budget had 3M kip for registration in quarter 1). |
 | Shops | No real shops signed up. Real field visits with shop owners still need to be written down. |
-| Prize / winner agreement | Organizer (SPK) timeline: draft to the team 24 Oct, comments by about 31 Oct, final 2 Nov, signing + prize money 15 Nov. Prep: `winner-agreement/Phalom_Agreement_Prep.md`. |
+| Prize / winner agreement | Draft received 25 Oct 2026 (PDF kept out of the repo). No conditions on the money, no reports or targets, no repayment, no equity; the team keeps Phalom. Duties: 12 months Brand Ambassador, IBC 2027 committee/mentor, 2 videos (CATZ owns them). Gaps: prize amount not written, no end date, blank video deadlines. Review + Lao comments: `winner-agreement/Phalom_Agreement_Review.md`. Comments due about 31 Oct, final 2 Nov, signing + prize 15 Nov. |
 
 ## Pitch numbers that are estimates, not facts
 
