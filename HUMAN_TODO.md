@@ -4,7 +4,7 @@ Things only a person on the team can do: sign in, pay, phone someone, sign, deci
 
 Rules: never paste keys, ID cards, bank details or contracts into this file (the repo is public). Ask before paying for anything.
 
-Last updated: 25 Oct 2026.
+Last updated: 27 Oct 2026.
 
 ## 🔴 Urgent (security)
 
@@ -54,6 +54,7 @@ The sandbox already works. See `winner-agreement/PhaJay_Sandbox_Test.md`.
 
 - [ ] Where the pilot starts: Vientiane or Luang Prabang.
 - [x] 25 Oct 2026: How Phalom earns money: **transaction fee only**, paid by the **tourist** at payment time, cheaper than LOCA Pay. Vendors pay nothing. Proposal: `winner-agreement/Phalom_New_Solution_lo.html`.
+- [ ] **Confirm the partner choice: BCEL first, LOCA Pay as backup, NewPay asked in parallel for Alipay/WeChat only.** Why and what to ask: `winner-agreement/Partner_Choice_lo.md` (27 Oct). No partner offers everything today; BCEL has the most pieces.
 - [ ] The fee rate. Proposal: 2.9% + 1,000 kip (always under LOCA Pay's 3% + 5,000). Depends on the partner's price.
 - [ ] Company registration: what kind of company, and who owns which share.
 - [ ] Ask the Bank of the Lao PDR or a lawyer whether Phalom needs its own licence.
@@ -73,7 +74,7 @@ The sandbox already works. See `winner-agreement/PhaJay_Sandbox_Test.md`.
 
 - [ ] **Visit 5–10 vendors** in the pilot market and write the answers down (in `knowledge-base/` or tell Claude): Do you already have a bank QR (BCEL OnePay or other)? Do Thai, Chinese or Vietnamese tourists pay it with their own apps? What's hard about selling to tourists? How often does a tourist walk away because they have no cash and can't pay the QR? Would you put up a free Phalom sign so tourists can pay by card, Alipay or WeChat Pay (the tourist pays the fee, you get the full price instantly)? Do you have an ID card and a personal bank account (no business licence needed)? Don't record names or phone numbers in the repo.
 - [ ] **Ask BCEL** (branch or OnePay desk) what a merchant pays for LAO QR / OnePay Shop. No public rate found.
-- [ ] **Contact BCEL first (EzyKip / OnePay team), then LOCA and LDB.** This decides the new proposal (`winner-agreement/Phalom_New_Solution_lo.html`, v4). Pitch it as: Phalom brings the bank micro-vendors its sales team does not reach, and all foreign card / Alipay payments run through the bank. Draft, edit as you like:
+- [ ] **Contact BCEL first (EzyKip / OnePay team), then LOCA and LDB.** BCEL card centre: cardcenter@bcel.com.la, +856 21 211012 ext. 3. If BCEL says no or doesn't answer within 3 weeks, go to LOCA (+856 20 9811 1129). Ask NewPay (business@newpay.la) in parallel about Alipay/WeChat payouts to vendors' bank accounts. If BCEL only offers its normal gateway (money to Phalom's account next day), don't agree yet: Phalom would hold money. Details: `winner-agreement/Partner_Choice_lo.md`. This decides the new proposal (`winner-agreement/Phalom_New_Solution_lo.html`, v4). Pitch it as: Phalom brings the bank micro-vendors its sales team does not reach, and all foreign card / Alipay payments run through the bank. Draft, edit as you like:
 
   > ສະບາຍດີ. ພວກເຮົາແມ່ນທີມ Phalom, ຊະນະການແຂ່ງຂັນ Innovative Business Challenge 2026. ພວກເຮົາຊ່ວຍນັກທ່ອງທ່ຽວຊອກຫາ ແລະ ຈ່າຍເງິນໃຫ້ແມ່ຄ້ານ້ອຍ (ແຜນທີ່, ເມນູ 5 ພາສາ). ຢາກຮ່ວມມືໃຫ້ນັກທ່ອງທ່ຽວສະແກນປ້າຍ Phalom ດ້ວຍກ້ອງໂທລະສັບ ແລ້ວຈ່າຍດ້ວຍບັດ, Apple Pay, Alipay ຫຼື WeChat Pay ໃນໜ້າເວັບ (ບໍ່ຕ້ອງດາວໂຫຼດແອັບ), ແລະ ລະບົບຂອງທ່ານໂອນລາຄາເຕັມເຂົ້າ LAO QR ຂອງແມ່ຄ້າ. ຂໍຖາມແດ່:
   > 1. ໂອນເຂົ້າບັນຊີທະນາຄານຂອງແມ່ຄ້າ ຜ່ານ LAO QR ທັນທີ ໄດ້ບໍ່?
