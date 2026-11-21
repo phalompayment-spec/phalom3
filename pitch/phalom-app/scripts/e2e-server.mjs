@@ -232,23 +232,29 @@ const rpcHandlers = {
   },
 };
 
-const rpcServer = http.createServer(async (req, res) => {
-  const m = req.url?.match(/^\/rest\/v1\/rpc\/([a-z0-9_]+)/i);
-  const send = (status, obj) => { res.writeHead(status, { "content-type": "application/json" }); res.end(JSON.stringify(obj)); };
-  if (req.method !== "POST" || !m || !rpcHandlers[m[1]]) return send(404, { message: "not_found" });
-  let raw = ""; for await (const c of req) raw += c;
-  try { send(200, rpcHandlers[m[1]](raw ? JSON.parse(raw) : {}) ?? null); }
-  catch (e) { send(400, { message: e.message }); }
-});
-await new Promise((r) => rpcServer.listen(0, "127.0.0.1", r));
-const rpcPort = rpcServer.address().port;
+const EXTERNAL_SUPABASE_URL = process.env.SUPABASE_URL || "";
+let supabaseUrl = EXTERNAL_SUPABASE_URL;
+
+if (!supabaseUrl) {
+  const rpcServer = http.createServer(async (req, res) => {
+    const m = req.url?.match(/^\/rest\/v1\/rpc\/([a-z0-9_]+)/i);
+    const send = (status, obj) => { res.writeHead(status, { "content-type": "application/json" }); res.end(JSON.stringify(obj)); };
+    if (req.method !== "POST" || !m || !rpcHandlers[m[1]]) return send(404, { message: "not_found" });
+    let raw = ""; for await (const c of req) raw += c;
+    try { send(200, rpcHandlers[m[1]](raw ? JSON.parse(raw) : {}) ?? null); }
+    catch (e) { send(400, { message: e.message }); }
+  });
+  await new Promise((r) => rpcServer.listen(0, "127.0.0.1", r));
+  supabaseUrl = `http://127.0.0.1:${rpcServer.address().port}`;
+}
 
 const workerEnv = {
   ASSETS: { fetch: async (request) => serveStatic(path.join(ROOT, "public"), request.url, false) },
-  SUPABASE_URL: `http://127.0.0.1:${rpcPort}`,
-  SUPABASE_SERVICE_ROLE_KEY: "local-e2e-key",
+  SUPABASE_URL: supabaseUrl,
+  SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY || "local-e2e-key",
   APP_MODE,
   WEBHOOK_SECRET,
+  SESSION_SECRET: process.env.SESSION_SECRET || "e2e-local-session-secret",
   TOURIST_URL: `http://127.0.0.1:${TOURIST_PORT}`,
 };
 const ctx = { waitUntil() {}, passThroughOnException() {} };
