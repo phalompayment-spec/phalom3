@@ -61,7 +61,8 @@ The sandbox already works. See `winner-agreement/PhaJay_Sandbox_Test.md`.
 
 ## ⚪ Later (after the above)
 
-- [ ] PhaJay KYC for live money. Needs the registered company and documents; never put them in this repo.
+- [ ] **Deploy the hardened app (`0007_auth_and_hardening.sql` + Workers).** Run `pitch/phalom-app/scripts/deploy.sh` with `CLOUDFLARE_API_TOKEN`, `SUPABASE_ACCESS_TOKEN`, and optionally a newly generated random `SESSION_SECRET` (never commit keys). Once a real payment partner is signed and wired up, flip `APP_MODE = "production"` in `wrangler.toml`, enable Supabase database backups, and run `supabase/production-cleanup.sql`.
+- [ ] PhaJay KYC for live money (only if PhaJay later launches Alipay/WeChat and fits the model; otherwise complete KYC with BCEL/LOCA/NewPay). Needs the registered company and documents; never put them in this repo.
 - [ ] Visit 3–5 real shops; write down what they say (no names or phone numbers in the repo).
 - [ ] Test the app on real Android phones in a real market.
 

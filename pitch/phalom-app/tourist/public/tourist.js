@@ -23,13 +23,14 @@
     ["ແຊບຫຼາຍ", "saep lai", { en: "Delicious!", zh: "很好吃！", th: "อร่อยมาก", vi: "Ngon quá!", ko: "맛있어요!" }],
     ["ບໍ່ເປັນຫຍັງ", "bo pen nyang", { en: "No worries", zh: "没关系", th: "ไม่เป็นไร", vi: "Không sao", ko: "괜찮아요" }]];
 
+  let cfg = { demoEnabled: false, termsVersion: "2026-11-22" };
   let lang = store.get("t.lang") || "lo"; // Lao first; visitors switch with one tap
   if (!T[lang]) lang = "en";
   let wallet = store.get("t.wallet") || DEF_WALLET[lang];
   const t = (k) => T[lang][k] ?? T.en[k];
   const nameOf = (o) => (lang === "lo" ? o.name_lo : (o.names && (o.names[lang === "ko" ? "en" : lang] || o.names.en)) || o.name_lo);
   const kip = (n) => `<span class="num">${fmt(n)}</span> <span style="color:var(--gold-d);font-weight:800">${KIP[lang]}</span>`;
-  // PhaJay's 1.5% is added on top of the price: the tourist pays more, the shop receives the full price.
+  // Partner fee is added on top of the price: the tourist pays the fee, the shop receives 100% of the price.
   const feeOf = (k) => Math.round(Number(k) * 0.015);
   const cat = (c) => CAT[c] || CAT.souvenir;
   const nav = (path) => { history.pushState({}, "", path); render(); };
@@ -42,6 +43,8 @@
     if (a === "pay" && id) return payView(id);
     if (a === "shop" && id) return shopView(id);
     if (a === "map") return mapView();
+    if (a === "terms") return legalView("terms");
+    if (a === "privacy") return legalView("privacy");
     return homeView();
   }
 
@@ -58,7 +61,8 @@
       <div class="h3">${t("shops")}</div><div class="card" style="margin:0 16px" id="shops"><div class="skeleton" style="height:180px"></div></div>
       <div class="h3">${t("words")}</div>
       <div class="phr">${PHRASES.map(([lo, r, m]) => `<div><div class="l">${lo}</div><div class="r">${r}</div><div class="m">${m[lang] || m.en}</div></div>`).join("")}</div>
-      <div class="center small muted" style="margin-top:22px;display:flex;gap:6px;justify-content:center;align-items:center">${champa(18)} Phalom · ${t("demo")}</div></div>`;
+      <div class="center small muted" style="margin-top:22px;display:flex;gap:6px;justify-content:center;align-items:center">${champa(18)} Phalom${cfg.demoEnabled ? ` · ${t("demo")}` : ""}</div>
+      <div class="center small" style="margin-top:8px;display:flex;gap:12px;justify-content:center"><a href="/terms" data-nav style="color:var(--indigo);font-weight:700;text-decoration:none">${lang === "lo" ? "ເງື່ອນໄຂການນຳໃຊ້" : "Terms"}</a><span class="muted">·</span><a href="/privacy" data-nav style="color:var(--indigo);font-weight:700;text-decoration:none">${lang === "lo" ? "ຄວາມເປັນສ່ວນຕົວ" : "Privacy"}</a></div></div>`;
     $$("[data-l]").forEach((b) => (b.onclick = () => { lang = b.dataset.l; store.set("t.lang", lang); if (!store.get("t.wallet")) wallet = DEF_WALLET[lang]; render(); }));
     $$("[data-w]").forEach((b) => (b.onclick = () => { wallet = b.dataset.w; store.set("t.wallet", wallet); render(); }));
     $("#scan").onclick = scanQR;
@@ -208,9 +212,14 @@
           <div class="r"><span><b>${t("totalPay")}</b></span><b class="num" style="font-size:20px;color:var(--indigo-d)">${fmt(Number(p.amount_kip) + feeOf(p.amount_kip))} ${KIP[lang]}</b></div></div>
         <div class="note">${icon("info", "g-sm")}<span>${t("kipNote")}</span></div>
         <div id="route"></div></div>
-      <div style="margin-top:16px"><button class="btn btn-gold btn-block" id="go">${walletTile(wallet, "sm")} ${t("payWith")} ${WALLET[wallet].n}</button>
-      <p class="small muted center">${icon("shield", "g-sm", 'style="display:inline;vertical-align:-3px"')} ${t("demo")}</p></div></div></div>`;
-    $("#go").onclick = () => doPay(() => api(`/api/payments/${id}/simulate`, { method: "POST", body: { wallet } }), s);
+      <div style="margin-top:16px">${cfg.demoEnabled
+        ? `<button class="btn btn-gold btn-block" id="go">${walletTile(wallet, "sm")} ${t("payWith")} ${WALLET[wallet].n}</button>
+           <p class="small muted center">${icon("shield", "g-sm", 'style="display:inline;vertical-align:-3px"')} ${t("demo")}</p>`
+        : `<div class="note">${icon("shield", "g-sm")}<span>${lang === "lo" ? "ລະບົບຊຳລະເງິນຈິງກຳລັງເຊື່ອມຕໍ່ກັບຄູ່ຮ່ວມທີ່ໄດ້ຮັບອະນຸຍາດ · ກະລຸນາຈ່າຍໂດຍກົງທີ່ຮ້ານ." : "Live partner checkout is being activated. Please pay directly at the shop."}</span></div>`}
+      <div class="center small" style="margin-top:10px;display:flex;gap:12px;justify-content:center"><a href="/terms" data-nav style="color:var(--indigo);font-weight:700;text-decoration:none">${lang === "lo" ? "ເງື່ອນໄຂ" : "Terms"}</a><span class="muted">·</span><a href="/privacy" data-nav style="color:var(--indigo);font-weight:700;text-decoration:none">${lang === "lo" ? "ຄວາມເປັນສ່ວນຕົວ" : "Privacy"}</a></div></div></div></div>`;
+    if (cfg.demoEnabled && $("#go")) {
+      $("#go").onclick = () => doPay(() => api(`/api/payments/${id}/simulate`, { method: "POST", body: { wallet } }), s);
+    }
   }
 
   // ---- A shop's own page (static QR on the stall) ----
@@ -229,10 +238,13 @@
       $$("[data-it]").forEach((b) => (b.onclick = () => { cart[b.dataset.it] = (cart[b.dataset.it] || 0) + 1; draw(); }));
       const o = $("#oth");
       o.onchange = () => { other = Number(o.value.replace(/\D/g, "")) || 0; draw(); };
-      $("#go").onclick = () => doPay(async () => {
-        const p = await api("/api/payments", { method: "POST", body: { merchant_id: s.id, amount_kip: total() } });
-        return api(`/api/payments/${p.id}/simulate`, { method: "POST", body: { wallet, from_map: true } });
-      }, s);
+      $("#go").onclick = () => {
+        if (!cfg.demoEnabled) return toast(`${icon("shield")}<b>${lang === "lo" ? "ລະບົບຊຳລະເງິນຈິງກຳລັງເຊື່ອມຕໍ່ກັບຄູ່ຮ່ວມ" : "Live partner checkout is being activated."}</b>`, 3500);
+        return doPay(async () => {
+          const p = await api("/api/payments", { method: "POST", body: { merchant_id: s.id, amount_kip: total() } });
+          return api(`/api/payments/${p.id}/simulate`, { method: "POST", body: { wallet, from_map: true } });
+        }, s);
+      };
     };
     draw();
   }
@@ -267,9 +279,26 @@
     petals();
   }
 
+  function legalView(kind) {
+    const isLo = lang === "lo";
+    const isTerms = kind === "terms";
+    const title = isTerms ? (isLo ? "ເງື່ອນໄຂການນຳໃຊ້" : "Terms of Use") : (isLo ? "ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ" : "Privacy Notice");
+    const bodyHtml = isTerms
+      ? (isLo
+        ? `<p><b>Phalom</b> ຊ່ວຍໃຫ້ນັກທ່ອງທ່ຽວເບິ່ງເມນູຮ້ານຄ້າໃນລາວເປັນພາສາຂອງທ່ານ ແລະ ຊຳລະເງິນເປັນກີບຜ່ານຄູ່ຮ່ວມຊຳລະເງິນທີ່ໄດ້ຮັບອະນຸຍາດ.</p><p>Phalom ບໍ່ຖືເງິນຂອງທ່ານ. ລາຄາສິນຄ້າສະແດງເປັນເງິນກີບລາວ (LAK) ເທົ່ານັ້ນ; ອັດຕາແລກປ່ຽນຂຶ້ນກັບກະເປົາເງິນ ຫຼື ທະນາຄານຂອງທ່ານ.</p><p>ຕິດຕໍ່: <b>phalom.payment@gmail.com</b></p>`
+        : `<p><b>Phalom</b> helps visitors browse menus of small shops in Laos in their own language and pay in Lao kip (LAK) through a licensed payment partner.</p><p>Phalom does not hold customer or merchant funds. Prices are displayed in Lao kip only; currency conversion is handled by your wallet or card issuer.</p><p>Contact: <b>phalom.payment@gmail.com</b></p>`)
+      : (isLo
+        ? `<p>ນັກທ່ອງທ່ຽວບໍ່ຈຳເປັນຕ້ອງສ້າງບັນຊີ ຫຼື ໃຫ້ຂໍ້ມູນສ່ວນຕົວເພື່ອໃຊ້ Phalom.</p><p>ພວກເຮົາບໍ່ເກັບເລກບັດ, ລະຫັດຜ່ານ ຫຼື ຂໍ້ມູນກະເປົາເງິນຂອງທ່ານ. ຖ້າທ່ານອະນຸຍາດຕຳແໜ່ງ (Location), ພິກັດຈະຖືກໃຊ້ສະເພາະຈັດອັນດັບຮ້ານໃກ້ທ່ານ ແລະ ບໍ່ໄດ້ບັນທຶກໄວ້ໃນຖານຂໍ້ມູນ.</p><p>ຕິດຕໍ່: <b>phalom.payment@gmail.com</b></p>`
+        : `<p>Visitors do not need an account to use Phalom. We do not collect or store card numbers, wallet credentials, or personal identities.</p><p>If you share your location on the map, coordinates are used only to sort nearby shops and are not stored. Payment credentials are handled solely by your wallet and the licensed payment partner.</p><p>Contact: <b>phalom.payment@gmail.com</b></p>`);
+    app.innerHTML = `<div class="view">${top(title)}<div class="pay"><div class="bill" style="text-align:left"><h2 style="margin-bottom:10px">${title}</h2><div style="font-size:14.5px;line-height:1.65;color:var(--ink-2)">${bodyHtml}</div><p class="small muted" style="margin-top:14px">${isLo ? "ສະບັບວັນທີ" : "Version"}: ${esc(cfg.termsVersion || "2026-11-22")}</p></div></div></div>`;
+  }
+
   function msg(text) {
     app.innerHTML = `<div class="view">${top()}<div class="pay center" style="padding-top:40px">${G.elephant(150)}<h2>${esc(text)}</h2><a class="btn btn-ghost" href="/" data-nav>${t("back")}</a></div></div>`;
   }
 
-  render();
+  (async function start() {
+    try { cfg = await api("/api/config"); } catch (e) {}
+    render();
+  })();
 })();

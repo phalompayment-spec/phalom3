@@ -5,11 +5,33 @@
   const app = $("#app");
 
   const S = {
-    cfg: null, mid: store.get("phalom.mid"), merchant: null, dash: null, hist: null, menu: null,
+    cfg: null, mid: store.get("phalom.mid"), token: store.get("phalom.token"), isDemoSession: false,
+    merchant: null, dash: null, hist: null, menu: null,
     seen: new Set(), handled: new Set(), payments: {},
     sound: store.get("phalom.sound", true), voice: store.get("phalom.voice", true),
     charge: { str: "", cart: {}, mode: "keys" },
   };
+  const PUBLIC_VIEWS = ["welcome", "login", "register", "terms", "privacy"];
+
+  function setSession(merchant, token, isDemo = false) {
+    S.mid = merchant.id; S.merchant = merchant; S.isDemoSession = !!isDemo || !!merchant.is_demo;
+    store.set("phalom.mid", merchant.id);
+    if (token) { S.token = token; store.set("phalom.token", token); }
+  }
+  function clearSession() {
+    store.del("phalom.mid"); store.del("phalom.token");
+    Object.assign(S, { mid: null, token: null, isDemoSession: false, merchant: null, dash: null, hist: null, menu: null, map: null });
+    S.seen.clear();
+  }
+  function handleAuthError(e) {
+    if (e && (e.status === 401 || (e.status === 403 && ["demo_disabled", "forbidden"].includes(e.code)))) {
+      clearSession();
+      toast(`${icon("shield")}<b>ກະລຸນາເຂົ້າສູ່ລະບົບໃໝ່</b>`, 3200);
+      go("#/login");
+      return true;
+    }
+    return false;
+  }
 
   const MARKETS = ["ຕະຫຼາດກາງຄືນ ຫຼວງພະບາງ", "ຕະຫຼາດກາງຄືນ ນະຄອນຫຼວງວຽງຈັນ", "ຕະຫຼາດເຊົ້າ ວຽງຈັນ", "ວັງວຽງ", "ປາກເຊ / ວັດພູ", "ບ່ອນອື່ນ"];
   // Where each market is, so a new shop shows up on the tourist map straight away.
@@ -45,7 +67,7 @@
         announce(p);
       }
       if (fresh.length && ["home", "history"].includes(route().name)) render(true);
-    } catch (e) { /* offline: try again next tick */ }
+    } catch (e) { if (handleAuthError(e)) { pollBusy = false; return; } /* offline: try again next tick */ }
     pollBusy = false;
   }
   setInterval(poll, 4000);
@@ -58,6 +80,7 @@
   }
 
   // ---------------------------------------------------------------- router
+  let lastNonLegalHash = null;
   function route() {
     const [name = "home", arg] = location.hash.replace(/^#\/?/, "").split("/");
     return { name, arg };
@@ -67,17 +90,19 @@
 
   async function render(soft = false) {
     const r = route();
-    if (!S.mid && !["welcome", "register"].includes(r.name)) return go("#/welcome");
-    if (S.mid && r.name === "welcome") return go("#/home");
+    if (!["terms", "privacy"].includes(r.name)) lastNonLegalHash = `#/${r.name}${r.arg ? "/" + r.arg : ""}`;
+    if (!S.mid && !PUBLIC_VIEWS.includes(r.name)) return go("#/welcome");
+    if (S.mid && ["welcome", "login"].includes(r.name)) return go("#/home");
     if (r.name !== "map" && !soft) S.map = null; // refresh map facts on the next visit
-    if (S.mid && !S.merchant && !["welcome", "register"].includes(r.name)) {
+    if (S.mid && (!S.merchant || !S.dash) && !PUBLIC_VIEWS.includes(r.name)) {
       app.innerHTML = `<div class="page" style="display:grid;place-items:center;min-height:100dvh"><div class="center">${logo(84)}<div class="dots" style="color:var(--indigo);margin-top:18px"><i></i><i></i><i></i></div></div></div>`;
       try { await loadAll(); } catch (e) {
-        if (e.status === 404 || e.status === 400) { store.del("phalom.mid"); S.mid = null; return go("#/welcome"); }
+        if (handleAuthError(e)) return;
+        if (e.status === 404 || e.status === 400) { clearSession(); return go("#/welcome"); }
         app.innerHTML = offline(); $("#retry").onclick = () => render(); return;
       }
     }
-    const view = VIEWS[r.name] || VIEWS.home;
+    const view = VIEWS[r.name] || (S.mid ? VIEWS.home : VIEWS.welcome);
     const y = soft ? window.scrollY : 0;
     app.innerHTML = view.html(r.arg);
     if (!soft) app.firstElementChild?.classList.add("view");
@@ -132,31 +157,93 @@
   const VIEWS = {};
 
   VIEWS.welcome = {
-    html: () => `<div class="welcome">
+    html: () => {
+      const demoOn = !!S.cfg?.demoEnabled;
+      return `<div class="welcome">
       <div class="hero"><div class="hero-sky">${champa(150, { cls: "float" })}<div class="display">ສະບາຍດີ</div><span>Sabaidee · ແອັບຮັບເງິນຂອງແມ່ຄ້າລາວ</span></div>${scene({ h: 250 })}</div>
       <div class="brand"><div class="lg">${logo(92, 0.26)}</div><div><h1>ພະລົມ</h1><div style="font-weight:800;color:var(--gold-d);letter-spacing:.18em;font-size:13px;font-family:var(--font-num)">PHALOM</div></div></div>
       <p class="tagline">ນັກທ່ອງທ່ຽວຈ່າຍແບບບ້ານເຂົາ<br><b>ແມ່ຄ້າຮັບເງິນກີບແບບບ້ານເຮົາ</b></p>
       <div style="margin-top:14px">
         <div class="feat"><span class="ic" style="background:var(--indigo-50);color:var(--indigo)">${icon("scan")}</span><div>ລູກຄ້າສະແກນດ້ວຍ Alipay, WeChat Pay, PromptPay, VietQR</div></div>
-        <div class="feat"><span class="ic" style="background:var(--jade-50);color:var(--jade)">${icon("bank")}</span><div>ເງິນກີບເຂົ້າບັນຊີທະນາຄານຂອງທ່ານທັນທີ</div></div>
+        <div class="feat"><span class="ic" style="background:var(--jade-50);color:var(--jade)">${icon("bank")}</span><div>ເງິນກີບເຂົ້າບັນຊີທະນາຄານຂອງທ່ານໂດຍກົງ · Phalom ບໍ່ຖືເງິນ</div></div>
         <div class="feat"><span class="ic" style="background:#EFEAFD;color:#6B4FC8">${icon("sparkle")}</span><div>ຊື່ຮ້ານ ແລະ ສິນຄ້າ ແປເປັນ 4 ພາສາໃຫ້ເອງ</div></div>
       </div>
-      <div class="actions"><a class="btn btn-primary btn-block" href="#/register">${icon("shop")} ເປີດຮ້ານໃນ Phalom</a>
-        <button class="btn btn-ghost btn-block" id="demo">${icon("textile")} ລອງໃຊ້ຮ້ານຕົວຢ່າງ (ຮ້ານຜ້າທໍແມ່ຄຳ)</button></div></div>`,
+      <div class="actions">
+        <a class="btn btn-primary btn-block" href="#/register">${icon("shop")} ເປີດຮ້ານໃນ Phalom</a>
+        <a class="btn btn-soft btn-block" href="#/login">${icon("shield")} ເຂົ້າສູ່ລະບົບຮ້ານ</a>
+        ${demoOn ? `<button class="btn btn-ghost btn-block" id="demo">${icon("textile")} ລອງໃຊ້ຮ້ານຕົວຢ່າງ (ຮ້ານຜ້າທໍແມ່ຄຳ)</button>` : ""}
+        <div class="legal-links"><a href="#/terms">ເງື່ອນໄຂການນຳໃຊ້</a><span>·</span><a href="#/privacy">ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ</a></div>
+      </div></div>`;
+    },
     mount() {
-      $("#demo").onclick = async () => {
-        $("#demo").innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
-        S.cfg = S.cfg || (await api("/api/config"));
-        S.mid = S.cfg.demoMerchantId; store.set("phalom.mid", S.mid); S.merchant = null;
-        go("#/home");
-      };
+      const demoBtn = $("#demo");
+      if (demoBtn) {
+        demoBtn.onclick = async () => {
+          demoBtn.disabled = true;
+          demoBtn.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
+          try {
+            const res = await api("/api/auth/demo", { method: "POST" });
+            setSession(res.merchant, res.token, true);
+            S.dash = null; S.hist = null; S.menu = null; S.seen.clear();
+            go("#/home");
+          } catch (e) {
+            toast(`${icon("info")}<b>ເປີດຮ້ານຕົວຢ່າງບໍ່ສຳເລັດ</b>`, 3000);
+            render(true);
+          }
+        };
+      }
     },
   };
 
-  const reg = { name: "", category: "souvenir", market: MARKETS[0], bank: "BCEL", last4: "", phone: "" };
+  VIEWS.login = {
+    html: () => `<div class="page no-tabs">${headBar("ເຂົ້າສູ່ລະບົບຮ້ານ", "#/welcome")}
+      <div class="form-wrap" style="padding-top:10px">
+        <h2>ຍິນດີຕ້ອນຮັບກັບຄືນ</h2>
+        <p class="lead">ໃສ່ເບີໂທ ແລະ ລະຫັດ PIN 6 ໂຕເລກ ທີ່ທ່ານຕັ້ງໄວ້ຕອນເປີດຮ້ານ.</p>
+        <label class="field"><span>ເບີໂທຂອງຮ້ານ</span><input class="input num" id="l-phone" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="020 xxxx xxxx"></label>
+        <label class="field"><span>ລະຫັດ PIN 6 ໂຕເລກ</span><input class="input num pin-input" id="l-pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="6" placeholder="• • • • • •"></label>
+        <button class="btn btn-primary btn-block" id="l-go" style="margin-top:8px">${icon("shield")} ເຂົ້າສູ່ລະບົບ</button>
+        <p class="small muted center" style="margin-top:16px">ຍັງບໍ່ມີບັນຊີຮ້ານ? <a href="#/register" style="color:var(--indigo);font-weight:800">ເປີດຮ້ານໃໝ່</a></p>
+        <div class="legal-links" style="margin-top:18px"><a href="#/terms">ເງື່ອນໄຂການນຳໃຊ້</a><span>·</span><a href="#/privacy">ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ</a></div>
+      </div></div>`,
+    mount() {
+      const submit = async () => {
+        const phone = $("#l-phone").value.trim();
+        const pin = $("#l-pin").value.replace(/\D/g, "");
+        if (!phone) { $("#l-phone").focus(); return toast(`${icon("info")}<b>ກະລຸນາໃສ່ເບີໂທ</b>`, 2500); }
+        if (!/^\d{6}$/.test(pin)) { $("#l-pin").focus(); return toast(`${icon("info")}<b>ລະຫັດ PIN ຕ້ອງມີ 6 ໂຕເລກ</b>`, 2500); }
+        const btn = $("#l-go");
+        btn.disabled = true; btn.innerHTML = '<span class="dots"><i></i><i></i><i></i></span> ກຳລັງກວດສອບ...';
+        try {
+          const res = await api("/api/auth/login", { method: "POST", body: { phone, pin } });
+          setSession(res.merchant, res.token, false);
+          S.dash = null; S.hist = null; S.menu = null; S.seen.clear();
+          await loadAll();
+          go("#/home");
+        } catch (e) {
+          let msg = "ເບີໂທ ຫຼື ລະຫັດ PIN ບໍ່ຖືກຕ້ອງ";
+          if (e.code === "account_locked") {
+            const mins = Math.max(1, Math.ceil((Number(e.data?.retry_after) || 60) / 60));
+            msg = `ໃສ່ລະຫັດຜິດຫຼາຍຄັ້ງ · ກະລຸນາລໍຖ້າ ${mins} ນາທີ`;
+          } else if (e.code === "invalid_credentials" && typeof e.data?.attempts_remaining === "number") {
+            msg = `ເບີໂທ ຫຼື ລະຫັດ PIN ບໍ່ຖືກຕ້ອງ (ເຫຼືອ ${e.data.attempts_remaining} ຄັ້ງ)`;
+          } else if (!e.status) {
+            msg = "ເຊື່ອມຕໍ່ອິນເຕີເນັດບໍ່ໄດ້";
+          }
+          toast(`${icon("info")}<b>${esc(msg)}</b>`, 4000);
+          btn.disabled = false; btn.innerHTML = `${icon("shield")} ເຂົ້າສູ່ລະບົບ`;
+        }
+      };
+      $("#l-go").onclick = submit;
+      $("#l-pin").addEventListener("keydown", (e) => { if (e.key === "Enter") submit(); });
+    },
+  };
+
+  const reg = { name: "", category: "souvenir", market: MARKETS[0], bank: "BCEL", last4: "", phone: "", pin: "", pin2: "", accepted: false };
   VIEWS.register = {
     html: () => {
-      const done = [reg.name.trim(), reg.category, reg.bank && /^\d{4}$/.test(reg.last4)].filter(Boolean).length;
+      const demoOn = !!S.cfg?.demoEnabled;
+      const done = [reg.name.trim() && reg.category, reg.bank && /^\d{4}$/.test(reg.last4), reg.phone.trim() && /^\d{6}$/.test(reg.pin) && reg.pin === reg.pin2 && reg.accepted].filter(Boolean).length;
       return `<div class="page no-tabs">${headBar("ເປີດຮ້ານໃໝ່", "#/welcome")}
       <div class="steps">${[0, 1, 2].map((i) => `<i class="${i < done ? "on" : ""}"></i>`).join("")}</div>
       <div class="form-wrap">
@@ -167,33 +254,66 @@
         <h2 style="margin-top:26px">ເງິນເຂົ້າບັນຊີໃດ?</h2><p class="lead">ເງິນຈາກລູກຄ້າເຂົ້າບັນຊີນີ້ໂດຍກົງ. Phalom ບໍ່ຖືເງິນຂອງທ່ານ.</p>
         <div class="field"><span>ທະນາຄານ</span><div class="chips">${BANKS.map((b) => `<button class="chip ${reg.bank === b ? "on" : ""}" data-bk="${b}">${icon("bank", "g-sm")}${b}</button>`).join("")}</div></div>
         <label class="field"><span>4 ໂຕທ້າຍຂອງເລກບັນຊີ</span><input class="input num" id="r-last4" inputmode="numeric" maxlength="4" placeholder="• • • •" value="${esc(reg.last4)}" style="letter-spacing:.4em;font-size:22px"></label>
-        <label class="field"><span>ເບີໂທ (ບໍ່ບັງຄັບ)</span><input class="input num" id="r-phone" inputmode="tel" maxlength="16" placeholder="020 xxxx xxxx" value="${esc(reg.phone)}"></label>
+        <h2 style="margin-top:26px">ຕັ້ງການເຂົ້າສູ່ລະບົບ</h2><p class="lead">ໃຊ້ເບີໂທ ແລະ ລະຫັດ PIN 6 ໂຕເລກ ເພື່ອປົກປ້ອງຂໍ້ມູນຮ້ານຂອງທ່ານ.</p>
+        <label class="field"><span>ເບີໂທຂອງຮ້ານ</span><input class="input num" id="r-phone" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="020 xxxx xxxx" value="${esc(reg.phone)}"></label>
+        <label class="field"><span>ຕັ້ງລະຫັດ PIN 6 ໂຕເລກ</span><input class="input num pin-input" id="r-pin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="6" placeholder="• • • • • •" value="${esc(reg.pin)}"></label>
+        <label class="field"><span>ຢືນຢັນລະຫັດ PIN ອີກຄັ້ງ</span><input class="input num pin-input" id="r-pin2" type="password" inputmode="numeric" autocomplete="new-password" maxlength="6" placeholder="• • • • • •" value="${esc(reg.pin2)}"></label>
+        <label class="consent"><input type="checkbox" id="r-terms" ${reg.accepted ? "checked" : ""}><span>ຂ້ອຍໄດ້ອ່ານ ແລະ ຍອມຮັບ <a href="#/terms">ເງື່ອນໄຂການນຳໃຊ້</a> ແລະ <a href="#/privacy">ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ</a> ຂອງ Phalom</span></label>
         <button class="btn btn-primary btn-block" id="r-go" style="margin-top:6px">${icon("check")} ເປີດຮ້ານ</button>
-        <p class="small muted center" style="margin-top:12px">${icon("shield", "g-sm", 'style="display:inline;vertical-align:-3px"')} ການຈ່າຍເງິນໃນແອັບນີ້ເປັນການສາທິດ, ບໍ່ມີເງິນຈິງເຄື່ອນໄຫວ</p>
+        ${demoOn ? `<p class="small muted center" style="margin-top:12px">${icon("shield", "g-sm", 'style="display:inline;vertical-align:-3px"')} ຕອນນີ້ແອັບຢູ່ໃນໂໝດສາທິດ, ບໍ່ມີເງິນຈິງເຄື່ອນໄຫວ</p>` : ""}
       </div></div>`;
     },
     mount() {
-      const keep = () => { reg.name = $("#r-name").value; reg.last4 = $("#r-last4").value.replace(/\D/g, ""); reg.phone = $("#r-phone").value; };
+      const keep = () => {
+        reg.name = $("#r-name").value;
+        reg.last4 = $("#r-last4").value.replace(/\D/g, "");
+        reg.phone = $("#r-phone").value;
+        reg.pin = $("#r-pin").value.replace(/\D/g, "").slice(0, 6);
+        reg.pin2 = $("#r-pin2").value.replace(/\D/g, "").slice(0, 6);
+        reg.accepted = $("#r-terms").checked;
+      };
       const rerender = () => { keep(); render(true); };
       $$("[data-cat]").forEach((b) => (b.onclick = () => { reg.category = b.dataset.cat; rerender(); }));
       $$("[data-mk]").forEach((b) => (b.onclick = () => { reg.market = b.dataset.mk; rerender(); }));
       $$("[data-bk]").forEach((b) => (b.onclick = () => { reg.bank = b.dataset.bk; rerender(); }));
-      ["#r-name", "#r-last4", "#r-phone"].forEach((s) => $(s).addEventListener("change", rerender));
+      ["#r-name", "#r-last4", "#r-phone", "#r-pin", "#r-pin2", "#r-terms"].forEach((s) => $(s).addEventListener("change", rerender));
+      $$(".consent a").forEach((a) => a.addEventListener("click", keep));
       $("#r-go").onclick = async () => {
         keep();
         if (!reg.name.trim()) { $("#r-name").focus(); return toast(`${icon("info")}<b>ກະລຸນາຂຽນຊື່ຮ້ານ</b>`, 2500); }
         if (!/^\d{4}$/.test(reg.last4)) { $("#r-last4").focus(); return toast(`${icon("info")}<b>ກະລຸນາໃສ່ 4 ໂຕທ້າຍຂອງເລກບັນຊີ</b>`, 2500); }
+        if (reg.phone.replace(/\D/g, "").length < 8) { $("#r-phone").focus(); return toast(`${icon("info")}<b>ກະລຸນາໃສ່ເບີໂທໃຫ້ຖືກຕ້ອງ</b>`, 2500); }
+        if (!/^\d{6}$/.test(reg.pin)) { $("#r-pin").focus(); return toast(`${icon("info")}<b>ລະຫັດ PIN ຕ້ອງມີ 6 ໂຕເລກ</b>`, 2500); }
+        if (reg.pin !== reg.pin2) { $("#r-pin2").focus(); return toast(`${icon("info")}<b>ລະຫັດ PIN ທັງສອງຄັ້ງບໍ່ຕົງກັນ</b>`, 2500); }
+        if (!reg.accepted) { $("#r-terms").focus(); return toast(`${icon("info")}<b>ກະລຸນາຍອມຮັບເງື່ອນໄຂການນຳໃຊ້ກ່ອນ</b>`, 2800); }
         $("#r-go").innerHTML = `<span class="dots"><i></i><i></i><i></i></span> ກຳລັງເປີດຮ້ານ ແລະ ແປຊື່...`; $("#r-go").disabled = true;
         try {
-          const m = await api("/api/merchants", { method: "POST", body: { name_lo: reg.name.trim(), category: reg.category, market: reg.market, bank: reg.bank, account_last4: reg.last4, phone: reg.phone || null } });
-          S.mid = m.id; store.set("phalom.mid", m.id); S.merchant = null; S.seen.clear();
+          const m = await api("/api/merchants", {
+            method: "POST",
+            body: {
+              name_lo: reg.name.trim(), category: reg.category, market: reg.market,
+              bank: reg.bank, account_last4: reg.last4, phone: reg.phone.trim(),
+              pin: reg.pin, accepted_terms: true,
+            },
+          });
+          setSession(m.merchant || m, m.token, false);
+          S.dash = null; S.hist = null; S.menu = null; S.seen.clear();
+          Object.assign(reg, { name: "", last4: "", phone: "", pin: "", pin2: "", accepted: false });
           const [la, ln] = MARKET_LL[reg.market] || MARKET_LL[MARKETS[0]];
           const j = () => (Math.random() - 0.5) * 0.002; // ~100 m, so shops in one market don't sit on one pin
-          await api(`/api/merchants/${m.id}/location`, { method: "PUT", body: { lat: la + j(), lng: ln + j() } }).catch(() => {});
+          await api(`/api/merchants/${S.mid}/location`, { method: "PUT", body: { lat: la + j(), lng: ln + j() } }).catch(() => {});
           await loadAll();
           go("#/home");
-          setTimeout(() => welcomeSheet(m), 400);
-        } catch (e) { toast(`${icon("info")}<b>ເປີດຮ້ານບໍ່ສຳເລັດ, ລອງໃໝ່</b>`); $("#r-go").disabled = false; $("#r-go").textContent = "ເປີດຮ້ານ"; }
+          setTimeout(() => welcomeSheet(S.merchant), 400);
+        } catch (e) {
+          const msg = e.code === "phone_already_registered"
+            ? "ເບີໂທນີ້ມີຮ້ານແລ້ວ · ກະລຸນາເຂົ້າສູ່ລະບົບ"
+            : e.code === "invalid_phone"
+              ? "ເບີໂທບໍ່ຖືກຕ້ອງ"
+              : "ເປີດຮ້ານບໍ່ສຳເລັດ, ລອງໃໝ່";
+          toast(`${icon("info")}<b>${msg}</b>`, 3600);
+          $("#r-go").disabled = false; $("#r-go").innerHTML = `${icon("check")} ເປີດຮ້ານ`;
+        }
       };
     },
   };
@@ -314,9 +434,9 @@
           <div class="wallets">${["alipay", "wechat", "unionpay", "promptpay", "vietqr", "kakaopay", "laoqr"].map((w) => `<span class="wallet-chip">${walletTile(w, "sm")}${WALLET[w].n}</span>`).join("")}</div>
         </div>
         <div class="waiting" id="wait"><span class="dots"><i></i><i></i><i></i></span> ລໍຖ້າລູກຄ້າຈ່າຍ... <span class="timer" id="tm">0:00</span></div>
-        <div style="padding:14px 20px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="padding:14px 20px 0;display:grid;grid-template-columns:${S.cfg?.demoEnabled ? "1fr 1fr" : "1fr"};gap:10px">
           <a class="btn btn-ghost" href="#/charge">${icon("close")} ຍົກເລີກ</a>
-          <a class="btn btn-soft" href="${esc(p.pay_url)}" target="_blank" rel="noopener">${icon("phone")} ທົດລອງຈ່າຍ</a></div>
+          ${S.cfg?.demoEnabled ? `<a class="btn btn-soft" href="${esc(p.pay_url)}" target="_blank" rel="noopener">${icon("phone")} ທົດລອງຈ່າຍ</a>` : ""}</div>
         <p class="small muted center" style="margin:12px 24px 0">ເມື່ອລູກຄ້າຈ່າຍແລ້ວ ໂທລະສັບຈະມີສຽງ ແລະ ບອກຈຳນວນເງິນ</p></div>`;
     },
     mount(pid) {
@@ -562,11 +682,61 @@
     },
   };
 
+  // ---- Terms of Use & Privacy Notice (plain Lao for shop owners) ----
+  const legalBack = () => lastNonLegalHash || (S.mid ? "#/me" : "#/welcome");
+  VIEWS.terms = {
+    html: () => `<div class="page no-tabs">${headBar("ເງື່ອນໄຂການນຳໃຊ້", legalBack())}
+      <div class="card legal-card">
+        <h3>1. Phalom ແມ່ນຫຍັງ</h3>
+        <p>Phalom ແມ່ນແອັບຊອບແວສຳລັບຮ້ານຄ້າຂະໜາດນ້ອຍໃນລາວ ເພື່ອສ້າງປ້າຍ QR, ສະແດງເມນູຫຼາຍພາສາ, ຕິດຕາມຍອດຂາຍ ແລະ ຊ່ວຍໃຫ້ນັກທ່ອງທ່ຽວຊອກຫາຮ້ານໄດ້ງ່າຍ. <b>Phalom ບໍ່ແມ່ນທະນາຄານ ແລະ ບໍ່ຖືເງິນຂອງຮ້ານຄ້າ ຫຼື ລູກຄ້າ.</b></p>
+        <h3>2. ສະຖານະການຊຳລະເງິນ</h3>
+        <p>${S.cfg?.demoEnabled
+          ? "ໃນໂໝດສາທິດ (Demo), ການຈ່າຍເງິນທັງໝົດເປັນການຈຳລອງເພື່ອທົດລອງໃຊ້ງານເທົ່ານັ້ນ ບໍ່ມີເງິນຈິງເຄື່ອນໄຫວ. ເມື່ອເປີດໃຊ້ງານຈິງ ການຊຳລະເງິນຈະດຳເນີນຜ່ານຄູ່ຮ່ວມທະນາຄານ ຫຼື ຜູ້ໃຫ້ບໍລິການຊຳລະເງິນທີ່ໄດ້ຮັບອະນຸຍາດຈາກ ທຫລ ເທົ່ານັ້ນ."
+          : "ການຊຳລະເງິນຈິງດຳເນີນຜ່ານຄູ່ຮ່ວມທະນາຄານ ຫຼື ຜູ້ໃຫ້ບໍລິການຊຳລະເງິນທີ່ໄດ້ຮັບອະນຸຍາດຈາກທະນາຄານແຫ່ງ ສປປ ລາວ. ລາຄາສິນຄ້າສະແດງເປັນເງິນກີບເທົ່ານັ້ນ."}</p>
+        <h3>3. ໜ້າທີ່ຂອງເຈົ້າຂອງຮ້ານ</h3>
+        <ul>
+          <li>ໃຫ້ຂໍ້ມູນຮ້ານ, ສິນຄ້າ ແລະ ລາຄາທີ່ຖືກຕ້ອງຕາມຄວາມຈິງ.</li>
+          <li>ຮັກສາລະຫັດ PIN 6 ໂຕເລກໄວ້ເປັນຄວາມລັບ ແລະ ບໍ່ແບ່ງປັນໃຫ້ຜູ້ອື່ນ.</li>
+          <li>ຂາຍສິນຄ້າ ແລະ ບໍລິການທີ່ຖືກຕ້ອງຕາມກົດໝາຍ ສປປ ລາວ.</li>
+          <li>ຮ່ວມມືກວດສອບເມື່ອມີການຮ້ອງຂໍຄືນເງິນ ຫຼື ຂໍ້ພິພາດການຊຳລະເງິນຕາມລະບຽບຂອງຄູ່ຮ່ວມຊຳລະເງິນ.</li>
+        </ul>
+        <h3>4. ການຢຸດໃຊ້ງານ ແລະ ຕິດຕໍ່</h3>
+        <p>ທ່ານສາມາດຢຸດໃຊ້ງານ ຫຼື ຂໍລຶບບັນຊີຮ້ານໄດ້ທຸກເວລາ ໂດຍຕິດຕໍ່ທີມ Phalom ທີ່ <b>phalom.payment@gmail.com</b>.</p>
+        <p class="small muted" style="margin-top:14px">ສະບັບວັນທີ: ${esc(S.cfg?.termsVersion || "2026-11-22")}</p>
+      </div></div>`,
+  };
+
+  VIEWS.privacy = {
+    html: () => `<div class="page no-tabs">${headBar("ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ", legalBack())}
+      <div class="card legal-card">
+        <h3>1. ຂໍ້ມູນທີ່ພວກເຮົາເກັບ</h3>
+        <ul>
+          <li><b>ຂໍ້ມູນຮ້ານ (ສະແດງໃຫ້ນັກທ່ອງທ່ຽວ):</b> ຊື່ຮ້ານ, ປະເພດ, ຕະຫຼາດ, ຈຸດປັກໝຸດແຜນທີ່, ເວລາເປີດ-ປິດ ແລະ ລາຍການສິນຄ້າ.</li>
+          <li><b>ຂໍ້ມູນສ່ວນຕົວຂອງຮ້ານ (ບໍ່ເປີດເຜີຍສາທາລະນະ):</b> ເບີໂທສຳລັບເຂົ້າສູ່ລະບົບ, ຊື່ທະນາຄານ, <b>ສະເພາະ 4 ໂຕທ້າຍຂອງເລກບັນຊີ</b> ແລະ ປະຫວັດການຂາຍ.</li>
+        </ul>
+        <h3>2. ຂໍ້ມູນທີ່ພວກເຮົາບໍ່ເກັບ</h3>
+        <p>ພວກເຮົາບໍ່ເກັບເລກບັນຊີທະນາຄານເຕັມ, ບໍ່ເກັບເລກບັດເຄຣດິດ ຫຼື ລະຫັດກະເປົາເງິນຂອງນັກທ່ອງທ່ຽວ, ແລະ <b>ບໍ່ເກັບລະຫັດ PIN ເປັນໂຕໜັງສືທຳມະດາ</b> (ລະຫັດ PIN ຖືກເຂົ້າລະຫັດ PBKDF2-SHA256 ກ່ອນບັນທຶກ).</p>
+        <h3>3. ການນຳໃຊ້ຂໍ້ມູນ</h3>
+        <ul>
+          <li>ສະແດງຮ້ານ, ເມນູທີ່ແປພາສາແລ້ວ ແລະ ແຜນທີ່ໃຫ້ນັກທ່ອງທ່ຽວ.</li>
+          <li>ຄິດໄລ່ຍອດຂາຍປະຈຳວັນ, ສະຖິຕິ 7 ມື້ ແລະ ແຈ້ງເຕືອນສຽງເມື່ອເງິນເຂົ້າ.</li>
+          <li>ປ້ອງກັນການເຂົ້າເຖິງໂດຍບໍ່ໄດ້ຮັບອະນຸຍາດ (session ທີ່ຍົກເລີກໄດ້ ແລະ ລັອກຊົ່ວຄາວເມື່ອໃສ່ PIN ຜິດຫຼາຍຄັ້ງ).</li>
+        </ul>
+        <h3>4. ຜູ້ໃຫ້ບໍລິການພື້ນຖານໂຄງລ່າງ</h3>
+        <p>ລະບົບໃຊ້ Cloudflare (Workers &amp; ແປພາສາ), Supabase (ຖານຂໍ້ມູນ), Google Maps (ສະແດງແຜນທີ່) ແລະ ບໍລິການສຽງອ່ານຈຳນວນເງິນ (ເມື່ອເປີດໃຊ້). ຂໍ້ມູນການຈ່າຍເງິນຈິງຈະຢູ່ກັບຄູ່ຮ່ວມຊຳລະເງິນທີ່ໄດ້ຮັບອະນຸຍາດ.</p>
+        <h3>5. ສິດຂອງທ່ານ ແລະ ການຕິດຕໍ່</h3>
+        <p>ທ່ານສາມາດຂໍເບິ່ງ, ແກ້ໄຂ ຫຼື ລຶບຂໍ້ມູນຮ້ານຂອງທ່ານໄດ້ທີ່ <b>phalom.payment@gmail.com</b>.</p>
+        <p class="small muted" style="margin-top:14px">ສະບັບວັນທີ: ${esc(S.cfg?.termsVersion || "2026-11-22")}</p>
+      </div></div>`,
+  };
+
   // ---- My shop / settings ----
   VIEWS.me = {
     html: () => {
       const m = S.merchant, c = cat(m.category), n = m.names || {};
-      return `<div class="page"><div class="topbar"><h1 class="grow">ຮ້ານຂອງຂ້ອຍ</h1></div>
+      const demoOn = !!S.cfg?.demoEnabled;
+      const isDemoShop = S.isDemoSession || !!m.is_demo;
+      return `<div class="page"><div class="topbar"><h1 class="grow">ຮ້ານຂອງຂ້ອຍ</h1>${isDemoShop ? `<span class="demo-pill">ໂໝດສາທິດ</span>` : ""}</div>
         <div class="card profile-card"><div class="avatar" style="background:${c.bg};color:${c.c};width:62px;height:62px;border-radius:20px">${icon(c.g, "g-lg")}</div>
           <div class="grow"><b style="font-size:18px;display:block">${esc(m.name_lo)}</b><span class="small muted">${c.lo} · ${esc(m.market)}</span>
           ${m.rating ? `<div class="small" style="color:var(--gold-d);font-weight:800;display:flex;align-items:center;gap:4px">${icon("star", "g-sm")} ${m.rating}</div>` : ""}</div></div>
@@ -578,7 +748,7 @@
         <div class="card how">
           <div class="how-step"><span class="ic" style="background:#E6F0FF;color:#1677FF">${icon("phone")}</span><div><b>ນັກທ່ອງທ່ຽວຈ່າຍດ້ວຍແອັບຂອງເຂົາ</b><span>Alipay, WeChat Pay, PromptPay, VietQR...</span></div></div>
           <div class="how-line"></div>
-          <div class="how-step"><span class="ic" style="background:var(--gold-50);color:var(--gold-d)">${icon("route")}</span><div><b>PhaJay ຄູ່ຮ່ວມຮັບຈ່າຍເງິນ</b><span>ປ່ຽນເປັນເງິນກີບ ຢ່າງຖືກກົດໝາຍ</span></div></div>
+          <div class="how-step"><span class="ic" style="background:var(--gold-50);color:var(--gold-d)">${icon("route")}</span><div><b>ຄູ່ຮ່ວມຊຳລະເງິນທີ່ໄດ້ຮັບອະນຸຍາດ</b><span>ປ່ຽນເປັນເງິນກີບ ຢ່າງຖືກກົດໝາຍ</span></div></div>
           <div class="how-line"></div>
           <div class="how-step"><span class="ic" style="background:var(--jade-50);color:var(--jade)">${icon("bank")}</span><div><b>ເຂົ້າບັນຊີ ${esc(m.bank)} ຂອງທ່ານ</b><span>Phalom ບໍ່ຖືເງິນຂອງທ່ານຈັກກີບ</span></div></div>
         </div>
@@ -590,25 +760,66 @@
           <a class="li" href="#/poster"><span class="ic" style="background:var(--red-50);color:var(--red)">${icon("print")}</span>ປ້າຍ QR ຂອງຮ້ານ<span class="v">${icon("next", "g-sm")}</span></a>
           <a class="li" href="#/tent"><span class="ic" style="background:var(--gold-50);color:var(--gold-d)">${icon("shop")}</span>ປ້າຍຕັ້ງໂຕະ (Tent card)<span class="v">${icon("next", "g-sm")}</span></a>
           <a class="li" href="#/map"><span class="ic" style="background:var(--indigo-50);color:var(--indigo)">${icon("map")}</span>ແຜນທີ່ ແລະ ເວລາເປີດຮ້ານ<span class="v">${icon("next", "g-sm")}</span></a>
-          <button class="li" id="t-out"><span class="ic" style="background:var(--paper-2);color:var(--ink-2)">${icon("logout")}</span>ອອກ / ປ່ຽນຮ້ານ<span class="v">${icon("next", "g-sm")}</span></button>
         </div>
-        <div class="center" style="margin:30px 0 0">${logo(44)}<div class="small muted" style="margin-top:6px">Phalom 2.0 · ການຈ່າຍເງິນເປັນການສາທິດ</div></div>
+        <div class="section-title"><h3>ຄວາມປອດໄພ ແລະ ກົດໝາຍ</h3></div>
+        <div class="card list">
+          ${!isDemoShop ? `<button class="li" id="t-pin"><span class="ic" style="background:var(--indigo-50);color:var(--indigo)">${icon("shield")}</span>ປ່ຽນລະຫັດ PIN<span class="v">${icon("next", "g-sm")}</span></button>` : ""}
+          <a class="li" href="#/terms"><span class="ic" style="background:var(--paper-2);color:var(--ink-2)">${icon("leaf")}</span>ເງື່ອນໄຂການນຳໃຊ້<span class="v">${icon("next", "g-sm")}</span></a>
+          <a class="li" href="#/privacy"><span class="ic" style="background:var(--jade-50);color:var(--jade)">${icon("shield")}</span>ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ<span class="v">${icon("next", "g-sm")}</span></a>
+          <button class="li" id="t-out"><span class="ic" style="background:var(--red-50);color:var(--red)">${icon("logout")}</span>ອອກຈາກລະບົບ<span class="v">${icon("next", "g-sm")}</span></button>
+        </div>
+        <div class="center" style="margin:30px 0 0">${logo(44)}<div class="small muted" style="margin-top:6px">Phalom · ${demoOn ? "ໂໝດສາທິດ · ບໍ່ມີເງິນຈິງເຄື່ອນໄຫວ" : "ການຊຳລະຜ່ານຄູ່ຮ່ວມທີ່ໄດ້ຮັບອະນຸຍາດ"}</div></div>
       </div>${tabbar("me")}`;
     },
     mount() {
       $("#t-sound").onclick = () => { S.sound = !S.sound; store.set("phalom.sound", S.sound); render(true); };
       $("#t-voice").onclick = () => { S.voice = !S.voice; store.set("phalom.voice", S.voice); render(true); };
       $("#t-test").onclick = () => { chime("paid"); speakKip(50000); };
-      $("#t-out").onclick = () => sheet(`<h2 style="margin:0 0 6px">ອອກຈາກຮ້ານນີ້?</h2><p class="muted" style="margin:0 0 16px">ຂໍ້ມູນຮ້ານຍັງຢູ່ຄົບ. ທ່ານສາມາດເປີດຮ້ານອື່ນ ຫຼື ກັບມາໃຊ້ຮ້ານຕົວຢ່າງໄດ້.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="btn btn-ghost" id="no">ຢູ່ຕໍ່</button><button class="btn btn-danger" id="yes">${icon("logout")} ອອກ</button></div>`, (sh, close) => {
+      const pinBtn = $("#t-pin");
+      if (pinBtn) {
+        pinBtn.onclick = () => sheet(`<h2 style="margin:0 0 4px">ປ່ຽນລະຫັດ PIN</h2><p class="small muted" style="margin:0 0 14px">ເຄື່ອງອື່ນທີ່ເຂົ້າລະບົບໄວ້ຈະຖືກອອກຈາກລະບົບອັດຕະໂນມັດ.</p>
+          <label class="field"><span>ລະຫັດ PIN ປັດຈຸບັນ</span><input class="input num pin-input" id="p-cur" type="password" inputmode="numeric" maxlength="6" placeholder="• • • • • •"></label>
+          <label class="field"><span>ລະຫັດ PIN ໃໝ່ (6 ໂຕເລກ)</span><input class="input num pin-input" id="p-new" type="password" inputmode="numeric" maxlength="6" placeholder="• • • • • •"></label>
+          <label class="field"><span>ຢືນຢັນລະຫັດ PIN ໃໝ່</span><input class="input num pin-input" id="p-new2" type="password" inputmode="numeric" maxlength="6" placeholder="• • • • • •"></label>
+          <button class="btn btn-primary btn-block" id="p-go">${icon("shield")} ບັນທຶກລະຫັດໃໝ່</button>`, (sh, close) => {
+          $("#p-go", sh).onclick = async () => {
+            const cur = $("#p-cur", sh).value.replace(/\D/g, ""), nw = $("#p-new", sh).value.replace(/\D/g, ""), nw2 = $("#p-new2", sh).value.replace(/\D/g, "");
+            if (!/^\d{6}$/.test(cur) || !/^\d{6}$/.test(nw)) return toast(`${icon("info")}<b>ລະຫັດ PIN ຕ້ອງມີ 6 ໂຕເລກ</b>`, 2600);
+            if (nw !== nw2) return toast(`${icon("info")}<b>ລະຫັດ PIN ໃໝ່ບໍ່ຕົງກັນ</b>`, 2600);
+            if (cur === nw) return toast(`${icon("info")}<b>ລະຫັດໃໝ່ຕ້ອງຕ່າງຈາກລະຫັດເດີມ</b>`, 2600);
+            $("#p-go", sh).disabled = true; $("#p-go", sh).innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
+            try {
+              await api("/api/auth/change-pin", { method: "POST", body: { current_pin: cur, new_pin: nw } });
+              close(); toast(`${icon("check")}<b>ປ່ຽນລະຫັດ PIN ແລ້ວ</b>`, 2800);
+            } catch (e) {
+              const msg = e.code === "invalid_credentials" ? "ລະຫັດ PIN ປັດຈຸບັນບໍ່ຖືກຕ້ອງ" : "ປ່ຽນລະຫັດບໍ່ສຳເລັດ";
+              toast(`${icon("info")}<b>${msg}</b>`, 3200);
+              $("#p-go", sh).disabled = false; $("#p-go", sh).innerHTML = `${icon("shield")} ບັນທຶກລະຫັດໃໝ່`;
+            }
+          };
+        });
+      }
+      $("#t-out").onclick = () => sheet(`<h2 style="margin:0 0 6px">ອອກຈາກລະບົບ?</h2><p class="muted" style="margin:0 0 16px">ຂໍ້ມູນຮ້ານຍັງຢູ່ຄົບ. ທ່ານສາມາດເຂົ້າສູ່ລະບົບກັບມາໄດ້ດ້ວຍເບີໂທ ແລະ ລະຫັດ PIN.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="btn btn-ghost" id="no">ຢູ່ຕໍ່</button><button class="btn btn-danger" id="yes">${icon("logout")} ອອກ</button></div>`, (sh, close) => {
         $("#no", sh).onclick = close;
-        $("#yes", sh).onclick = () => { close(); store.del("phalom.mid"); Object.assign(S, { mid: null, merchant: null, dash: null, hist: null, menu: null, map: null }); S.seen.clear(); go("#/welcome"); };
+        $("#yes", sh).onclick = async () => {
+          close();
+          await api("/api/auth/logout", { method: "POST" }).catch(() => {});
+          clearSession();
+          go("#/welcome");
+        };
       });
     },
   };
 
   // ---------------------------------------------------------------- start
   (async function start() {
-    try { S.cfg = await api("/api/config"); } catch (e) { S.cfg = { touristUrl: location.origin }; }
+    try { S.cfg = await api("/api/config"); } catch (e) { S.cfg = { touristUrl: location.origin, demoEnabled: false }; }
+    try {
+      const me = await api("/api/auth/me");
+      if (me && me.merchant) setSession(me.merchant, S.token, me.is_demo);
+    } catch (e) {
+      if (e.status === 401 || e.status === 403) clearSession();
+    }
     if (!location.hash || location.hash === "#") location.replace(S.mid ? "#/home" : "#/welcome");
     render();
   })();

@@ -36,16 +36,16 @@ Tasks waiting on a person: [HUMAN_TODO.md](HUMAN_TODO.md).
 
 ## What the app needs before real money flows
 
-The app was built for a demo, so these are missing:
+The app was built for a demo; production-hardening status:
 
-- **Shop login.** Today anyone who knows a shop's id can open its dashboard. Real shops need a login (e.g. phone number + one-time code) and every `/api/merchants/:id/*` route must check it.
-- **Remove the demo paths** in production: `POST /api/payments/:id/simulate`, the demo shop, the seeded example shops and sales (migrations 0002 and 0004).
-- **Real PhaJay integration:** create the payment with PhaJay's API instead of the demo QR, receive their confirmation on the webhook, match it to the payment, handle refunds and failed payments. Needs PhaJay merchant/partner access first.
-- **Real shop sign-up (KYC):** owner's name, ID, bank account checked by PhaJay or the bank. Store only what is needed; bank details stay masked (today only the last 4 digits are kept).
+- **Shop login (implemented 22 Nov 2026; pending deploy):** Phone number + 6-digit PIN (PBKDF2-SHA256 salted hash, 5-attempt / 15-minute lockout), server-side revocable sessions (`HttpOnly` cookie + Bearer token), PIN change, and strict ownership checks on every `/api/merchants/:id/*` route and `/api/payments/:id/voice`. SMS/WhatsApp OTP for PIN reset can be layered on later once a provider is chosen.
+- **Demo vs. production separation (implemented 22 Nov 2026; pending deploy):** Controlled by `APP_MODE` (`"demo"` vs. `"production"`, fail-safe default `"production"`). In production mode, `/api/auth/demo`, `/api/payments/:id/simulate`, and all seeded demo shops (`is_demo = true`) are disabled/hidden. Optional `supabase/production-cleanup.sql` strips seeded rows on live cutover. Currently `wrangler.toml` stays `APP_MODE = "demo"` until a real partner is connected.
+- **Real partner integration (blocked on partner contract):** Create the payment with the chosen licensed partner's API (recommended: BCEL; see `winner-agreement/Partner_Choice_lo.md`) instead of the demo flow, connect their webhook signature/payload to `POST /api/webhooks/payment` → `confirm_partner_payment`, and handle refunds and failed payments.
+- **Real shop sign-up (KYC):** Owner's name, ID, bank account checked by the partner bank. Store only what is needed; bank details stay masked (only the last 4 digits are kept, and public `GET /api/payments/:id` no longer exposes bank/last4).
 - **Keys:** ~~the OpenRouter key was pasted in chat and must be revoked and replaced.~~ Rotated (confirmed 22 Nov 2026, along with the old GitHub token). Keep all keys in environment variables or Worker secrets, never in files.
-- **Basics for a live service:** error monitoring, database backups, a privacy notice for shops and tourists, and terms of use.
+- **Basics for a live service:** Security headers, structured JSON error logs + `X-Request-Id` (Cloudflare Observability), and plain-Lao Terms of Use + Privacy Notice for shops (with recorded registration acceptance) and bilingual notices for tourists added 22 Nov 2026. Still needed before live money: Supabase scheduled database backups and external uptime/error alerting.
 - Test on real Android phones in a real market (sound, QR scanning in sunlight, weak signal).
-- Automated browser tests (none today, only the API check `smoke.mjs`). Research and plan: `pitch/phalom-app/E2E_TESTING_RESEARCH.md` (Playwright + free GitHub Actions; team to decide).
+- Automated tests: API + auth + demo/production isolation test suite added (`npm test` → `scripts/test-hardening.mjs`, 22 Nov 2026). Browser E2E tests still open — research and plan: `pitch/phalom-app/E2E_TESTING_RESEARCH.md` (Playwright + free GitHub Actions; team to decide).
 
 ## Pitch-only material
 

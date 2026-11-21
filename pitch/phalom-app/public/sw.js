@@ -1,6 +1,6 @@
 // Phalom service worker: lets Android install the merchant app and open it without signal.
 // App files: network first, cached copy when offline. API calls always go to the server.
-const CACHE = "phalom-v11";
+const CACHE = "phalom-v12";
 const SHELL = ["/", "/index.html", "/merchant.js", "/merchant.css", "/shared/lao.css", "/shared/core.js", "/shared/glyphs.js", "/shared/qrcode.js", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png"];
 
 self.addEventListener("install", (e) => {

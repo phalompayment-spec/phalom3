@@ -8,9 +8,17 @@
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   async function api(path, opts = {}) {
-    const r = await fetch(path, { ...opts, headers: { "content-type": "application/json", ...(opts.headers || {}) }, body: opts.body && typeof opts.body !== "string" ? JSON.stringify(opts.body) : opts.body });
+    const token = store.get("phalom.token");
+    const headers = { "content-type": "application/json", ...(opts.headers || {}) };
+    if (token && !headers.authorization && !headers.Authorization) headers.authorization = `Bearer ${token}`;
+    const r = await fetch(path, {
+      credentials: "same-origin",
+      ...opts,
+      headers,
+      body: opts.body && typeof opts.body !== "string" ? JSON.stringify(opts.body) : opts.body,
+    });
     const j = await r.json().catch(() => ({}));
-    if (!r.ok) throw Object.assign(new Error(j.error || `HTTP ${r.status}`), { status: r.status });
+    if (!r.ok) throw Object.assign(new Error(j.error || `HTTP ${r.status}`), { status: r.status, code: j.error || "", data: j });
     return j;
   }
 
@@ -76,7 +84,9 @@
   function speakKip(kip, pid) {
     if (pid && g.fetch && g.Audio) {
       const ac = new AbortController(), t = setTimeout(() => ac.abort(), 6000);
-      fetch(`/api/payments/${pid}/voice`, { signal: ac.signal })
+      const token = store.get("phalom.token");
+      const headers = token ? { authorization: `Bearer ${token}` } : {};
+      fetch(`/api/payments/${pid}/voice`, { signal: ac.signal, credentials: "same-origin", headers })
         .then((r) => { if (!r.ok) throw new Error("voice " + r.status); return r.blob(); })
         .then((b) => { clearTimeout(t); const a = new Audio(URL.createObjectURL(b)); a.onended = () => URL.revokeObjectURL(a.src); return a.play(); })
         .catch(() => { clearTimeout(t); speakKipLocal(kip); });
