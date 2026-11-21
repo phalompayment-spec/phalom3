@@ -608,3 +608,55 @@ test("partner webhook HMAC-SHA256 verification and production confirmation", asy
   assert.equal(okRes.data.nationality, "cn");
   assert.equal(okRes.data.reference, "BCEL-LIVE-001");
 });
+
+test("partner webhook adapters (PhaJay Base64 HMAC, BCEL/NewPay/LOCA placeholders) and kip pricing profiles", async () => {
+  const phajaySecret = "phajay-dev-secret-key";
+  const env = makeEnv({ APP_MODE: "production", PRICING_PROFILE: "v4_proposed", PHAJAY_WEBHOOK_SECRET: phajaySecret });
+
+  // Config returns v4_proposed pricing (2.9% + 1,000 kip, always below LOCA 3% + 5,000 kip)
+  const cfg = await req(env, "GET", "/api/config");
+  assert.equal(cfg.data.pricing.profile, "v4_proposed");
+  assert.equal(cfg.data.pricing.pctBps, 290);
+  assert.equal(cfg.data.pricing.fixedKip, 1000);
+
+  // Unconnected partners return 501; unknown provider returns 404
+  for (const p of ["bcel", "newpay", "loca"]) {
+    const r = await req(env, "POST", `/api/webhooks/${p}`, { body: "{}" });
+    assert.equal(r.res.status, 501);
+    assert.equal(r.data.error, `${p}_partner_not_connected`);
+  }
+  const unknown = await req(env, "POST", "/api/webhooks/otherbank", { body: "{}" });
+  assert.equal(unknown.res.status, 404);
+
+  // PhaJay adapter: Base64 HMAC-SHA256 in X-Signature, ignores non-completed, confirms PAYMENT_COMPLETED
+  const shop = await req(env, "POST", "/api/merchants", {
+    body: { name_lo: "ຮ້ານທົດສອບ Webhook", category: "food", bank: "BCEL", account_last4: "8888", phone: "020 5577 6655", pin: "246813", accepted_terms: true },
+  });
+  const pay = await req(env, "POST", "/api/payments", { body: { merchant_id: shop.data.id, amount_kip: 80000 } });
+
+  const pendingBody = JSON.stringify({ tag1: pay.data.id, status: "PENDING", paymentMethod: "BCEL", transactionId: "PJ-1" });
+  const pendingSig = crypto.createHmac("sha256", phajaySecret).update(pendingBody).digest("base64");
+  const pendRes = await req(env, "POST", "/api/webhooks/phajay", { body: pendingBody, headers: { "x-signature": pendingSig } });
+  assert.equal(pendRes.res.status, 200);
+  assert.equal(pendRes.data.ignored, true);
+
+  const doneBody = JSON.stringify({ tag1: pay.data.id, status: "PAYMENT_COMPLETED", paymentMethod: "WECHAT_PAY", refNo: "PJ-REF-999" });
+  const doneSig = crypto.createHmac("sha256", phajaySecret).update(doneBody).digest("base64");
+  const doneRes = await req(env, "POST", "/api/webhooks/phajay", { body: doneBody, headers: { "x-signature": doneSig } });
+  assert.equal(doneRes.res.status, 200);
+  assert.equal(doneRes.data.status, "paid");
+  assert.equal(doneRes.data.wallet, "wechat");
+  assert.equal(doneRes.data.nationality, "cn");
+  assert.equal(doneRes.data.reference, "PJ-REF-999");
+
+  // Pricing module invariant: across all profiles & price points (10k to 10M kip), shop gets 100% and tourist total < LOCA
+  const pricingMod = await import(pathToFileURL(path.join(ROOT, "src/pricing.ts")).href);
+  for (const prof of Object.values(pricingMod.PRICING_PROFILES)) {
+    for (const amount of [10_000, 50_000, 100_000, 500_000, 1_000_000, 10_000_000]) {
+      const b = pricingMod.calculateFee(amount, prof);
+      assert.equal(b.merchant_net_kip, amount);
+      assert.equal(b.tourist_total_kip, amount + b.fee_kip);
+      assert.ok(b.tourist_total_kip < b.loca_benchmark_kip, `${prof.profile} at ${amount} must stay under LOCA benchmark`);
+    }
+  }
+});

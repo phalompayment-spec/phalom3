@@ -13,6 +13,8 @@
  */
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { recommend, shopStanding, vientianeMinute, WEIGHTS, MapShop } from "./recommend";
+import { resolvePricingProfile } from "./pricing";
+import { resolveWebhookAdapter, WebhookError } from "./payments";
 import {
   SESSION_TTL_SECONDS,
   DEMO_SESSION_TTL_SECONDS,
@@ -27,7 +29,6 @@ import {
   parseSessionToken,
   buildSessionCookie,
   clearSessionCookie,
-  verifyWebhookSignature,
 } from "./auth";
 
 export interface Env {
@@ -36,8 +37,10 @@ export interface Env {
   SUPABASE_URL: string;
   SUPABASE_SERVICE_ROLE_KEY: string;
   APP_MODE?: string; // "demo" | "production" (defaults safely to "production")
+  PRICING_PROFILE?: string; // "demo" | "v4_proposed" | "v4_card_fallback"
   SESSION_SECRET?: string; // optional pepper for hashing session tokens
-  WEBHOOK_SECRET?: string; // HMAC-SHA256 secret for partner payment webhooks
+  WEBHOOK_SECRET?: string; // HMAC-SHA256 secret for generic partner payment webhooks
+  PHAJAY_WEBHOOK_SECRET?: string; // optional Base64 HMAC-SHA256 secret for PhaJay webhooks
   OPENROUTER_API_KEY?: string; // secret: voice alert (text-to-speech) through OpenRouter
   DEMO_MERCHANT_ID?: string;
   TOURIST_URL?: string; // the tourist app (phalom-tourist); payment QR codes open there
@@ -269,6 +272,7 @@ async function api(req: Request, env: Env, ctx: ExecutionContext, url: URL, reqI
       demoMerchantId: demo ? demoId : null,
       wallets: WALLETS,
       currency: "LAK",
+      pricing: resolvePricingProfile(env.PRICING_PROFILE, demo),
       touristUrl: touristUrl(env, url),
       termsVersion: TERMS_VERSION,
     });
@@ -597,24 +601,30 @@ async function api(req: Request, env: Env, ctx: ExecutionContext, url: URL, reqI
     }
   }
 
-  // ---- Partner webhook (licensed bank / gateway confirmation) ---------------
-  if (m === "POST" && p[0] === "webhooks" && p[1] === "payment") {
-    if (!env.WEBHOOK_SECRET) throw new HttpError(501, "webhook_not_configured");
+  // ---- Partner webhooks (licensed bank / gateway confirmation) --------------
+  if (m === "POST" && p[0] === "webhooks" && p.length === 2) {
+    const adapter = resolveWebhookAdapter(p[1]);
+    if (!adapter) throw new HttpError(404, "unknown_webhook_provider");
     const raw = await rawText(req);
-    if (!(await verifyWebhookSignature(env.WEBHOOK_SECRET, raw, req.headers.get("x-phalom-signature")))) {
-      logEvent("warn", "webhook_bad_signature", { reqId });
-      throw new HttpError(401, "bad_signature");
-    }
-    let b: any;
     try {
-      b = JSON.parse(raw);
-    } catch {
-      throw new HttpError(400, "invalid_json");
+      const event = await adapter.verifyAndParse(req, raw, env);
+      if (event.status === "ignored") {
+        return json({ ok: true, ignored: true, provider: event.provider, raw_status: event.rawStatus });
+      }
+      return json(
+        await rpc(env, "confirm_partner_payment", {
+          p_id: event.paymentId,
+          p_wallet: event.wallet,
+          p_reference: event.reference,
+        }),
+      );
+    } catch (e) {
+      if (e instanceof WebhookError) {
+        if (e.status === 401) logEvent("warn", "webhook_bad_signature", { reqId, provider: adapter.name });
+        throw new HttpError(e.status, e.message);
+      }
+      throw e;
     }
-    const pid = id(b?.payment_id, "payment");
-    const wallet = (WALLETS as readonly string[]).includes(b?.wallet) ? b.wallet : "laoqr";
-    const ref = typeof b?.reference === "string" ? b.reference.trim().slice(0, 64) : null;
-    return json(await rpc(env, "confirm_partner_payment", { p_id: pid, p_wallet: wallet, p_reference: ref }));
   }
 
   throw new HttpError(404, "not_found");

@@ -140,11 +140,12 @@
       <circle cx="${last[0] - 4}" cy="${last[1]}" r="5" fill="#F3D58C" stroke="#161F57" stroke-width="2"/></svg>`;
   }
 
-  // PhaJay's 1.5% is added to what the tourist pays; the shop receives the full price (100,000 → tourist pays 101,500).
-  const feeOf = (k) => Math.round(Number(k) * 0.015);
+  // Transaction fee is added to what the tourist pays; the shop always receives 100% of the price.
+  const pricing = () => S.cfg?.pricing || { pctBps: 150, fixedKip: 0, labelLo: "ຄ່າທຳນຽມລະບົບ 1.5% (ສາທິດ)" };
+  const feeOf = (k) => { const pr = pricing(); return Math.round((Number(k) * pr.pctBps) / 10000) + (pr.fixedKip || 0); };
   const feeLines = (price, fee) => `<div class="fee-lines">
       <div class="r"><span>ລູກຄ້າຈ່າຍທັງໝົດ</span><b class="num">${fmt(price + fee)} ກີບ</b></div>
-      <div class="r fee"><span>ຄ່າທຳນຽມ PhaJay 1.5% (ລູກຄ້າຈ່າຍ)</span><b class="num">${fmt(fee)} ກີບ</b></div>
+      <div class="r fee"><span>${esc(pricing().labelLo)} (ລູກຄ້າຈ່າຍ)</span><b class="num">${fmt(fee)} ກີບ</b></div>
       <div class="r net"><span>ເງິນເຂົ້າບັນຊີຮ້ານເຕັມ 100%</span><b class="num">${fmt(price)} ກີບ</b></div></div>`;
 
   function txRow(p, isNew) {

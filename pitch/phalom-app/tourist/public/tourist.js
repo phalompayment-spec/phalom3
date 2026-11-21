@@ -31,7 +31,15 @@
   const nameOf = (o) => (lang === "lo" ? o.name_lo : (o.names && (o.names[lang === "ko" ? "en" : lang] || o.names.en)) || o.name_lo);
   const kip = (n) => `<span class="num">${fmt(n)}</span> <span style="color:var(--gold-d);font-weight:800">${KIP[lang]}</span>`;
   // Partner fee is added on top of the price: the tourist pays the fee, the shop receives 100% of the price.
-  const feeOf = (k) => Math.round(Number(k) * 0.015);
+  const feeOf = (k) => {
+    const pr = cfg.pricing || { pctBps: 150, fixedKip: 0 };
+    return Math.round((Number(k) * pr.pctBps) / 10000) + (pr.fixedKip || 0);
+  };
+  const feeLabel = () => {
+    const pr = cfg.pricing;
+    if (!pr) return t("feeL");
+    return lang === "lo" ? (pr.labelLo || t("feeL")) : (pr.labelEn || t("feeL"));
+  };
   const cat = (c) => CAT[c] || CAT.souvenir;
   const nav = (path) => { history.pushState({}, "", path); render(); };
   window.addEventListener("popstate", () => render());
@@ -208,7 +216,7 @@
     app.innerHTML = `<div class="view">${top()}<div class="pay"><div class="bill">${shopHead(s, c)}
         <div class="amt">${kip(Number(p.amount_kip) + feeOf(p.amount_kip)).replace('class="num"', 'class="num" style="font-size:46px;font-weight:700;color:var(--indigo-d)"')}</div>
         <div class="rc" style="margin-top:12px"><div class="r"><span>${t("price")}</span><b class="num">${fmt(p.amount_kip)} ${KIP[lang]}</b></div>
-          <div class="r"><span>${t("feeL")}</span><b class="num">+ ${fmt(feeOf(p.amount_kip))} ${KIP[lang]}</b></div>
+          <div class="r"><span>${esc(feeLabel())}</span><b class="num">+ ${fmt(feeOf(p.amount_kip))} ${KIP[lang]}</b></div>
           <div class="r"><span><b>${t("totalPay")}</b></span><b class="num" style="font-size:20px;color:var(--indigo-d)">${fmt(Number(p.amount_kip) + feeOf(p.amount_kip))} ${KIP[lang]}</b></div></div>
         <div class="note">${icon("info", "g-sm")}<span>${t("kipNote")}</span></div>
         <div id="route"></div></div>
