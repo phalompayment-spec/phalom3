@@ -18,7 +18,7 @@ Script: `pitch/phalom-app/scripts/phajay-sandbox.mjs` (see the comments at the t
 - **The status check doesn't see sandbox payments.** `GET /v1/api/payment/check-transaction/status/:id` answers `PAYMENT_NOT_FOUND` for test transactions, and `/test/...` has no status endpoint. So in the sandbox, the only way to learn "paid" is PhaJay's **webhook** (set the URL in the portal under Settings → Webhook) or its Socket.IO event `join::<key>`.
 - **Webhook format** (from the docs): JSON `POST` with header `X-Signature` = Base64 HMAC-SHA256 of the raw body. Before KYC it's signed with the `devSecretKey`, after KYC with the `secretKey`. Fields include `transactionId`, `txnAmount`, `status: "PAYMENT_COMPLETED"`, `paymentMethod`, `refNo` and `tag1`–`tag6`. A real payment counts only when `status` is `PAYMENT_COMPLETED` (and `isPaid` is true on the status check).
 - Our app's webhook (`POST /api/webhooks/payment`) uses its **own** format and signature today. To accept PhaJay it needs a small adapter that checks `X-Signature` and maps `transactionId`/`tag` back to our payment.
-- **Alipay, WeChat Pay, cards and Thai/Chinese tourist wallets are not in the sandbox.** Those are the main reason Phalom exists, so we still have to ask PhaJay how a foreign wallet pays a Lao merchant and what reaches the shop (kip, fee).
+- **Alipay, WeChat Pay, cards and Thai/Chinese tourist wallets are not in the sandbox.** **Update (22 Nov 2026):** PhaJay confirmed to the team that **WeChat Pay and Alipay are still in development**, so PhaJay cannot yet support Chinese tourist wallets in production either.
 - Bank descriptions: plain ASCII, short (BCEL refuses Lao/Thai text, APB wants under 25 characters).
 
 ## Next steps (free)

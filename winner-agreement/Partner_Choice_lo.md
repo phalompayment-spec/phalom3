@@ -8,7 +8,7 @@
 - **ຄູ່ຮ່ວມທີ່ແນະນຳ: BCEL.** ມີເກືອບທຸກສ່ວນແລ້ວ: ໃບອະນຸຍາດ payment gateway, ຮັບບັດ + Alipay + WeChat Pay, 3-D Secure, ແລະ EzyKip ທີ່ຈ່າຍ LAO QR ຈາກບັດຕ່າງປະເທດຢູ່ແລ້ວ. ສິ່ງທີ່ຂາດແມ່ນ: ເຮັດໃຫ້ EzyKip ເປັນໜ້າເວັບ ແທນແອັບ, ແລະ ໂອນເຂົ້າ LAO QR ຂອງແມ່ຄ້າທັນທີ.
 - **ສຳຮອງ: LOCA Pay.** ເຮັດສິ່ງທີ່ເຮົາຕ້ອງການ ໄດ້ຄົບແລ້ວ ຍົກເວັ້ນໜ້າເວັບ. ແຕ່ເປັນຄູ່ແຂ່ງ ແລະ ເປັນຜູ້ກຳນົດລາຄາ.
 - **ສຳລັບ Alipay / WeChat Pay ຢ່າງດຽວ: NewPay.** ມີ API ແລະ ໜ້າຈ່າຍເງິນ, ແຕ່ບໍ່ຮູ້ວ່າໂອນເຂົ້າບັນຊີແມ່ຄ້າໄດ້ບໍ່.
-- **PhaJay ບໍ່ເໝາະ** (ຮູ້ແລ້ວ): ເງິນບໍ່ເຂົ້າຮ້ານທັນທີ, ຄ່າບັດ 4.15%.
+- **PhaJay ບໍ່ເໝາະ** (ຮູ້ແລ້ວ): ເງິນບໍ່ເຂົ້າຮ້ານທັນທີ, ຄ່າບັດ 4.15%, ແລະ PhaJay ຢືນຢັນແລ້ວ (22 ພ.ຈ. 2026) ວ່າ WeChat Pay ແລະ Alipay ຍັງຢູ່ໃນຂັ້ນຕອນພັດທະນາ.
 
 ## ສິ່ງທີ່ Phalom ຕ້ອງການຈາກຄູ່ຮ່ວມ
 
@@ -31,7 +31,7 @@
 |---|---|---|---|---|
 | 1 ໃບອະນຸຍາດ | ✅ ທະນາຄານ, gateway ທຳອິດໃນລາວ | ✅ ເວົ້າວ່າມີ, ສະມາຊິກ LAPNet | ✅ ເວົ້າວ່າມີ (payment business licence) | ❓ |
 | 2 ໜ້າເວັບ / API | ✅ gateway ມີ (CyberSource), ❌ EzyKip ເປັນແອັບ | ❌ ແອັບເທົ່ານັ້ນ, ບໍ່ມີ API ສາທາລະນະ | ✅ API + ລິ້ງໜ້າຈ່າຍເງິນ, ❌ ບໍ່ມີ sandbox | ✅ |
-| 3 ບັດ / Alipay / WeChat | ✅ Visa, MC, JCB, Amex, UnionPay, Alipay, WeChat | ✅ ຄົບ + Apple/Google Pay | ✅ Alipay, Alipay+, ❓ ບັດ (MasterCard USD), WeChat ສະເພາະ mini program | ✅ ແຕ່ 4.15% |
+| 3 ບັດ / Alipay / WeChat | ✅ Visa, MC, JCB, Amex, UnionPay, Alipay, WeChat | ✅ ຄົບ + Apple/Google Pay | ✅ Alipay, Alipay+, ❓ ບັດ (MasterCard USD), WeChat ສະເພາະ mini program | ❌ ບັດ 4.15%, Alipay/WeChat ຍັງພັດທະນາຢູ່ |
 | 4 ໂອນເຂົ້າແມ່ຄ້າທັນທີ | ❌ gateway: T+1 ເຂົ້າບັນຊີ BCEL ຂອງ merchant ດຽວ. EzyKip ຈ່າຍ LAO QR ໄດ້ ແຕ່ຜ່ານແອັບ | ✅ ຈ່າຍ LAO QR ໃດກໍໄດ້ | ❓ ໂອນໄດ້ແຕ່ບັນຊີ NewPay | ❌ ກົດ Claim, ແອັດມິນໂອນ |
 | 5 ແມ່ຄ້າບໍ່ມີໃບທະບຽນ | ❌ gateway ຕ້ອງການໃບທະບຽນທຸລະກິດ + ເວັບໄຊ. ✅ ຖ້າໃຊ້ແບບ EzyKip (ຈ່າຍ LAO QR) | ✅ ແມ່ຄ້າບໍ່ຕ້ອງເຮັດຫຍັງ | ❓ | ❓ |
 | 6 ຕົ້ນທຶນ | ບັດ 3% ຂຶ້ນໄປ, QR (Alipay/WeChat) 1.5% ຂຶ້ນໄປ, 45 USD/ເດືອນ. EzyKip ~2.1% (ຍັງບໍ່ໄດ້ກວດ) | ລາຄາຂາຍ 3% + 5,000. ລາຄາຂາຍສົ່ງ ❓ | ❓ | ❌ 4.15% |

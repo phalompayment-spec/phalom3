@@ -4,19 +4,18 @@ Things only a person on the team can do: sign in, pay, phone someone, sign, deci
 
 Rules: never paste keys, ID cards, bank details or contracts into this file (the repo is public). Ask before paying for anything.
 
-Last updated: 27 Oct 2026.
+Last updated: 22 Nov 2026.
 
 ## 🔴 Urgent (security)
 
-- [ ] **Delete the old GitHub token.** github.com → Settings → Developer settings → Personal access tokens → delete the one that was in the git link. Git now signs in with `gh`, so nothing breaks.
-- [ ] **Revoke the OpenRouter key** that was pasted in chat during the pitch: https://openrouter.ai/settings/keys → delete it → make a new one. Keep the new one in your terminal (`export OPENROUTER_API_KEY=...`) or tell Claude to set it as a Worker secret. Don't paste it in chat.
+- [x] 22 Nov 2026: **Delete the old GitHub token.** Security keys rotated.
+- [x] 22 Nov 2026: **Revoke the OpenRouter key.** Security keys rotated. Keep new keys in environment variables or Worker secrets only; never paste in chat.
 - [ ] **Tell the claude.ai Claude** to use the `main` branch only (the old branch is deleted).
 
 ## 🟠 Winner agreement (dates from the organizer, SPK)
 
 - [x] 25 Oct 2026: received the draft agreement (PDF, kept out of the repo). Claude's review and draft comments: `winner-agreement/Phalom_Agreement_Review.md`.
-- [ ] **By 31 Oct:** team decides who signs, which bank account gets the prize, and how many ambassador posts/events per month you can accept (fill the blanks in comment 4), then sends the Lao comments in the review to SPK.
-- [ ] 2 Nov: final version. 15 Nov: signing and prize money.
+- [x] 22 Nov 2026: **Winner agreement signed** (contract kept out of the repo).
 
 ## 🟢 PhaJay test (free, test money only)
 
@@ -49,6 +48,7 @@ The sandbox already works. See `winner-agreement/PhaJay_Sandbox_Test.md`.
   > ຂອບໃຈຫຼາຍໆ
 
   Why these matter: `winner-agreement/PhaJay_E2E_Business_Process.html` (23 Oct) and the new proposal `winner-agreement/Phalom_New_Solution_lo.html` (25 Oct). Question 7 (instant, automatic payout) decides whether PhaJay fits the new proposal at all.
+  - **Update (22 Nov 2026):** PhaJay confirmed that **WeChat Pay and Alipay are still in development**. Together with their 4.15% card fee and manual Claim payout, PhaJay is not ready for Phalom's foreign-wallet flow — focus partner outreach on **BCEL**, **LOCA Pay**, and **NewPay** below.
 
 ## 🔵 Team decisions (details in `BUSINESS.md`)
 

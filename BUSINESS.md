@@ -10,10 +10,10 @@ Tasks waiting on a person: [HUMAN_TODO.md](HUMAN_TODO.md).
 |---|---|
 | Shop app + tourist demo app | Running on Cloudflare Workers + Supabase (links in README). Built for the pitch demo. |
 | Payments | **Simulated.** No money moves. The app has a webhook (`POST /api/webhooks/payment`, HMAC-signed) ready for a payment partner, but no partner is connected. |
-| PhaJay | Chosen as the partner route (tourist's app → PhaJay → shop's Lao bank). **No contract.** Free portal test account opened 23 Oct 2026: sandbox QR and payment link work (test money only, mock bank, no foreign wallets). See `winner-agreement/PhaJay_Sandbox_Test.md`. No live API access (needs KYC). |
-| Company | Not registered yet (pitch budget had 3M kip for registration in quarter 1). |
+| PhaJay | Chosen during the pitch (tourist's app → PhaJay → shop's Lao bank). **No contract.** Free portal test account opened 23 Oct 2026: sandbox QR and payment link work (test money only, mock bank, no foreign wallets). See `winner-agreement/PhaJay_Sandbox_Test.md`. No live API access (needs KYC). **Update (22 Nov 2026):** PhaJay confirmed WeChat Pay and Alipay are still in development — reinforcing that PhaJay is not ready for Phalom's core foreign-wallet flow (see Partner choice below). |
+| Company | Not registered yet (confirmed 22 Nov 2026; pitch budget had 3M kip for registration in quarter 1). Required before signing any payment partner contract. |
 | Shops | No real shops signed up. Real field visits with shop owners still need to be written down. |
-| Prize / winner agreement | Draft received 25 Oct 2026 (PDF kept out of the repo). No conditions on the money, no reports or targets, no repayment, no equity; the team keeps Phalom. Duties: 12 months Brand Ambassador, IBC 2027 committee/mentor, 2 videos (CATZ owns them). Gaps: prize amount not written, no end date, blank video deadlines. Review + Lao comments: `winner-agreement/Phalom_Agreement_Review.md`. Comments due about 31 Oct, final 2 Nov, signing + prize 15 Nov. |
+| Prize / winner agreement | **Signed** (confirmed 22 Nov 2026; contract kept out of the repo). Draft received 25 Oct 2026: no conditions on the money, no reports or targets, no repayment, no equity; the team keeps Phalom. Duties: 12 months Brand Ambassador, IBC 2027 committee/mentor, 2 videos (CATZ owns them). Review: `winner-agreement/Phalom_Agreement_Review.md`. |
 
 ## Pitch numbers that are estimates, not facts
 
@@ -28,7 +28,7 @@ Tasks waiting on a person: [HUMAN_TODO.md](HUMAN_TODO.md).
 
 ## Decisions the team still has to make
 
-1. Who signs the winner agreement for the team, and which bank account gets the prize.
+1. ~~Who signs the winner agreement for the team, and which bank account gets the prize.~~ Done (winner agreement signed, confirmed 22 Nov 2026).
 2. Where the pilot starts: Vientiane (roadmap and budget) or Luang Prabang (Judge Q&A answer 17).
 3. ~~How Phalom earns money~~ Decided 25 Oct 2026: transaction fee only, paid by the tourist at payment time, cheaper than LOCA Pay. Still open: the rate and the partner (recommended: BCEL, see `winner-agreement/Partner_Choice_lo.md`).
 4. Company registration: what kind of company, and who owns what share.
@@ -42,7 +42,7 @@ The app was built for a demo, so these are missing:
 - **Remove the demo paths** in production: `POST /api/payments/:id/simulate`, the demo shop, the seeded example shops and sales (migrations 0002 and 0004).
 - **Real PhaJay integration:** create the payment with PhaJay's API instead of the demo QR, receive their confirmation on the webhook, match it to the payment, handle refunds and failed payments. Needs PhaJay merchant/partner access first.
 - **Real shop sign-up (KYC):** owner's name, ID, bank account checked by PhaJay or the bank. Store only what is needed; bank details stay masked (today only the last 4 digits are kept).
-- **Keys:** the OpenRouter key was pasted in chat and must be revoked and replaced. Keep all keys in environment variables or Worker secrets, never in files.
+- **Keys:** ~~the OpenRouter key was pasted in chat and must be revoked and replaced.~~ Rotated (confirmed 22 Nov 2026, along with the old GitHub token). Keep all keys in environment variables or Worker secrets, never in files.
 - **Basics for a live service:** error monitoring, database backups, a privacy notice for shops and tourists, and terms of use.
 - Test on real Android phones in a real market (sound, QR scanning in sunlight, weak signal).
 - Automated browser tests (none today, only the API check `smoke.mjs`). Research and plan: `pitch/phalom-app/E2E_TESTING_RESEARCH.md` (Playwright + free GitHub Actions; team to decide).
