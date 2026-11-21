@@ -40,7 +40,8 @@ POST   /api/payments                    {merchant_id, amount_kip} → QR link <T
 GET    /api/payments/:id                public payment status (no bank details exposed)
 GET    /api/payments/:id/voice          [auth] Lao voice mp3 for a paid payment (owner only)
 POST   /api/payments/:id/simulate       demo mode only (403 in production): {wallet} demo payment
-POST   /api/webhooks/payment            partner confirmation, HMAC-SHA256 in X-Phalom-Signature
+POST   /api/webhooks/payment            partner confirmation (generic HMAC-SHA256 in X-Phalom-Signature)
+POST   /api/webhooks/:provider          partner webhook adapters (generic, phajay Base64 HMAC; bcel/newpay/loca placeholders)
 GET    /api/shops                       public shops for the tourist app (excludes demo shops in production)
 GET    /api/shops/:id                   public shop page + menu (no bank or phone details)
 GET    /api/map/recommend?lat=&lng=&nat=&cat=&limit=   shops ranked for this tourist (see below)
@@ -51,7 +52,7 @@ GET    /api/map/recommend?lat=&lng=&nat=&cat=&limit=   shops ranked for this tou
 - `APP_MODE` is configured in `wrangler.toml` (`"demo"` while no real partner is connected). If unset, the Worker defaults safely to `"production"`.
 - In `"production"` mode, `/api/auth/demo` and `/api/payments/:id/simulate` return `403 demo_disabled`, seeded demo shops (`is_demo = true`) are excluded from public shop/map/payment endpoints, and payments can only be confirmed via `POST /api/webhooks/payment` with `WEBHOOK_SECRET`.
 - When cutting a database over to live production, run `supabase/production-cleanup.sql` manually in the Supabase SQL Editor after taking a backup.
-- Run local hardening tests anytime (no cloud tokens needed): `npm run typecheck && npm test`.
+- Run local tests anytime (no cloud tokens needed): `npm run typecheck && npm test` (unit/API hardening + webhook adapters + kip pricing) and `npm run test:e2e` (Playwright browser E2E). GitHub Actions (`.github/workflows/ci.yml`) runs both + Postgres 16 migration checks automatically on every push to `main`.
 
 ## Map and recommendations
 

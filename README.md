@@ -16,7 +16,9 @@ Result: 1st place (October 2026). **The pitch is over and the team is now buildi
 | `pitch/screens-*`, `pitch/tent-card/` | App screenshots for slides, printable table QR card. |
 | `pitch-redesign/` | The 3D pitch deck and everything around it. `Phalom_Pitch_3D_live.html` is the latest deck (same as the live link below); the PDF, PPTX and offline HTML are older (15 Oct). Also Q&A pages, judge Q&A, budget Excel and the 5-minute Lao script for 4 speakers. |
 | `knowledge-base/` | Business knowledge base (English). Its fee section is older than the current fee model, see project notes. |
-| `winner-agreement/` | Prep for the prize contract and the check of PhaJay's real fees. |
+| `winner-agreement/` | Prep for the prize contract, partner comparison (`Partner_Choice_lo.md`), and PhaJay fee/sandbox checks. |
+| `business-ops/` | Plain-Lao execution pack for going live: company registration checklist, BCEL/NewPay/LOCA partner pitch one-pager, and printable vendor interview sheet. |
+| `.github/workflows/ci.yml` | Free GitHub Actions CI: TypeScript typecheck, hardening/payment unit tests, Wrangler dry-run builds, Postgres 16 migration check, API smoke check, and Playwright browser E2E tests. |
 | `rules/` | Challenge rules and pitch template (PDFs) with a short summary. |
 | `HUMAN_TODO.md` | **Start here when you come back:** the tasks only a person can do (sign in, phone PhaJay, sign, decide). |
 | `BUSINESS.md` | Current status of the business, open decisions and the to-do list for going live. |
