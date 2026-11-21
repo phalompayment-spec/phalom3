@@ -20,6 +20,7 @@ npx wrangler deploy | tee /tmp/phalom-deploy.log
 # Secrets go in after the first deploy; each put rolls out a new version.
 printf '%s' "$SUPABASE_URL" | npx wrangler secret put SUPABASE_URL
 printf '%s' "$SUPABASE_SERVICE_ROLE_KEY" | npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+if [ -n "${SESSION_SECRET:-}" ]; then printf '%s' "$SESSION_SECRET" | npx wrangler secret put SESSION_SECRET; fi
 if [ -n "${WEBHOOK_SECRET:-}" ]; then printf '%s' "$WEBHOOK_SECRET" | npx wrangler secret put WEBHOOK_SECRET; fi
 # Voice alert (ElevenLabs via OpenRouter). The key is read from the env var "openrouter" (or OPENROUTER_API_KEY); skipped if absent.
 OR_KEY="${OPENROUTER_API_KEY:-$(printenv openrouter || true)}"

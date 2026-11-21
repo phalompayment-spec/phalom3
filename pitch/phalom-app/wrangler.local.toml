@@ -7,10 +7,11 @@ compatibility_flags = ["nodejs_compat"]
 [assets]
 directory = "./public"
 binding = "ASSETS"
-run_worker_first = ["/api/*", "/pay/*", "/shop/*"]
+run_worker_first = ["/api/*", "/pay/*", "/shop/*", "/terms", "/privacy"]
 
 
 [vars]
+APP_MODE = "demo"
 # The tourist demo app (tourist/). Payment and shop QR codes open there.
 TOURIST_URL = "http://127.0.0.1:8788"
 
@@ -18,4 +19,4 @@ TOURIST_URL = "http://127.0.0.1:8788"
 enabled = true
 
 # Secrets (set with `npx wrangler secret put NAME`, never committed):
-#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, WEBHOOK_SECRET (optional)
+#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SESSION_SECRET (optional), WEBHOOK_SECRET (optional)

@@ -6,18 +6,22 @@ compatibility_flags = ["nodejs_compat"]
 [assets]
 directory = "./public"
 binding = "ASSETS"
-run_worker_first = ["/api/*", "/pay/*", "/shop/*"]
+run_worker_first = ["/api/*", "/pay/*", "/shop/*", "/terms", "/privacy"]
 
 # Workers AI: auto-translates Lao shop and menu names (zh, th, vi, en).
 [ai]
 binding = "AI"
 
 [vars]
-# The tourist demo app (tourist/). Payment and shop QR codes open there.
+# APP_MODE: "demo" enables the demo shop login and simulated payments.
+# Change to "production" (and run supabase/production-cleanup.sql) once a licensed
+# payment partner is connected so demo routes and example shops are disabled.
+APP_MODE = "demo"
+# The tourist app (tourist/). Payment and shop QR codes open there.
 TOURIST_URL = "https://phalom-tourist.phalom-payment.workers.dev"
 
 [observability]
 enabled = true
 
 # Secrets (set with `npx wrangler secret put NAME`, never committed):
-#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, WEBHOOK_SECRET (optional)
+#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SESSION_SECRET (optional), WEBHOOK_SECRET (optional)
