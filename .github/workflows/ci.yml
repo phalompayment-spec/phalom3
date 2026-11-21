@@ -1,0 +1,95 @@
+name: Phalom CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  unit-and-build:
+    name: Typecheck, Hardening Tests & Worker Dry-Run
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pitch/phalom-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: pitch/phalom-app/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npx wrangler deploy --dry-run --outdir /tmp/phalom-main
+      - run: (cd tourist && npx wrangler deploy --dry-run --outdir /tmp/phalom-tourist)
+
+  e2e-postgres-playwright:
+    name: Full-Stack E2E (Postgres 16 + Wrangler + Playwright)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 54322:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    defaults:
+      run:
+        working-directory: pitch/phalom-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: pitch/phalom-app/package-lock.json
+      - run: npm ci
+      - name: Apply all Supabase SQL migrations to Postgres 16
+        env:
+          PGPASSWORD: postgres
+        run: |
+          for f in supabase/migrations/*.sql; do
+            echo "Applying $f"
+            psql -h 127.0.0.1 -p 54322 -U postgres -d postgres -v ON_ERROR_STOP=1 -f "$f"
+          done
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Start local Supabase RPC bridge & both Cloudflare Workers
+        env:
+          DATABASE_URL: postgres://postgres:postgres@127.0.0.1:54322/postgres
+        run: |
+          printf 'SUPABASE_URL=http://127.0.0.1:54321\nSUPABASE_SERVICE_ROLE_KEY=local\nWEBHOOK_SECRET=e2e-local-webhook-secret\nSESSION_SECRET=e2e-local-session-secret\n' > .dev.vars
+          node scripts/local-supabase.mjs > /tmp/local-db.log 2>&1 &
+          npx wrangler dev -c wrangler.local.toml --port 8787 --ip 127.0.0.1 > /tmp/worker-main.log 2>&1 &
+          (cd tourist && npx wrangler dev --port 8788 --ip 127.0.0.1 > /tmp/worker-tourist.log 2>&1 &)
+          for i in $(seq 1 40); do
+            curl -fs http://127.0.0.1:8787/api/health >/dev/null && curl -fs http://127.0.0.1:8788/ >/dev/null && break
+            sleep 1
+          done
+          curl -fs http://127.0.0.1:8787/api/health
+      - name: Run API smoke check against local stack
+        run: BASE=http://127.0.0.1:8787 node scripts/smoke.mjs
+      - name: Run Playwright browser E2E tests
+        env:
+          E2E_EXTERNAL_SERVER: "1"
+          MERCHANT_URL: http://127.0.0.1:8787
+          TOURIST_URL: http://127.0.0.1:8788
+          WEBHOOK_SECRET: e2e-local-webhook-secret
+        run: npx playwright test
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: pitch/phalom-app/playwright-report
+          retention-days: 7

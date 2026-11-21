@@ -8,4 +8,6 @@ node_modules/
 pitch/phalom-app/android/.tools/
 pitch/phalom-app/android/build/
 pitch/phalom-app/out/
+pitch/phalom-app/playwright-report/
+pitch/phalom-app/test-results/
 .DS_Store

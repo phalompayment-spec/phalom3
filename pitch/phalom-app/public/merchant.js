@@ -86,7 +86,7 @@
     return { name, arg };
   }
   const go = (h) => { if (location.hash === h) render(); else location.hash = h; };
-  window.addEventListener("hashchange", () => render());
+  window.addEventListener("hashchange", () => { $$(".sheet-bg, .sheet").forEach((el) => el.remove()); render(); });
 
   async function render(soft = false) {
     const r = route();
@@ -273,11 +273,17 @@
         reg.pin2 = $("#r-pin2").value.replace(/\D/g, "").slice(0, 6);
         reg.accepted = $("#r-terms").checked;
       };
+      const updateSteps = () => {
+        keep();
+        const done = [reg.name.trim() && reg.category, reg.bank && /^\d{4}$/.test(reg.last4), reg.phone.trim() && /^\d{6}$/.test(reg.pin) && reg.pin === reg.pin2 && reg.accepted].filter(Boolean).length;
+        $$(".steps i").forEach((el, i) => el.classList.toggle("on", i < done));
+      };
       const rerender = () => { keep(); render(true); };
       $$("[data-cat]").forEach((b) => (b.onclick = () => { reg.category = b.dataset.cat; rerender(); }));
       $$("[data-mk]").forEach((b) => (b.onclick = () => { reg.market = b.dataset.mk; rerender(); }));
       $$("[data-bk]").forEach((b) => (b.onclick = () => { reg.bank = b.dataset.bk; rerender(); }));
-      ["#r-name", "#r-last4", "#r-phone", "#r-pin", "#r-pin2", "#r-terms"].forEach((s) => $(s).addEventListener("change", rerender));
+      ["#r-name", "#r-last4", "#r-phone", "#r-pin", "#r-pin2"].forEach((s) => $(s).addEventListener("input", updateSteps));
+      $("#r-terms").addEventListener("change", updateSteps);
       $$(".consent a").forEach((a) => a.addEventListener("click", keep));
       $("#r-go").onclick = async () => {
         keep();
@@ -305,7 +311,7 @@
           await api(`/api/merchants/${S.mid}/location`, { method: "PUT", body: { lat: la + j(), lng: ln + j() } }).catch(() => {});
           await loadAll();
           go("#/home");
-          setTimeout(() => welcomeSheet(S.merchant), 400);
+          setTimeout(() => { if (route().name === "home") welcomeSheet(S.merchant); }, 400);
         } catch (e) {
           const msg = e.code === "phone_already_registered"
             ? "ເບີໂທນີ້ມີຮ້ານແລ້ວ · ກະລຸນາເຂົ້າສູ່ລະບົບ"
