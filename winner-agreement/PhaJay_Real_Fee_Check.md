@@ -2,6 +2,9 @@
 
 Checked 20 Oct 2026 on PhaJay's own website. The deck, the budget file and the Q&A files were not changed.
 
+> **Important Audit Update (22 Nov 2026 — see `winner-agreement/PhaJay_Requirements_Audit_lo.md`):**
+> A deeper primary-source audit found **contradicting fees in PhaJay's own Terms of Service** (`phajay.co/en/terms-of-service`, Sec 5–6): **500 LAK** for transactions ≤ 40,000 LAK, **1.65%** (not 1.60%) above 40,000 LAK, **5,000 LAK per Claim/withdrawal**, and a **1% Refund fee** charged to the Platform Owner. Additionally, PhaJay confirmed to the team that **Alipay & WeChat Pay are still in development**, and the official Bank of the Lao PDR register (28 Nov 2025, p. 20) lists PhaPay Co., Ltd. for **Domestic Payment Facilitating only** (not Cross-Border Acquiring). Do **not** rely on the 1.60% / 4.15% table below without written confirmation from PhaJay.
+
 ## The short answer
 
 - **Where 1.5% came from:** our budget file's source sheet says it. The general fee for taking payments in Laos is 2.5–4% (PayAtlas guide), and we picked a lower round number, 1.5%, as our own estimate. It was never a PhaJay number.

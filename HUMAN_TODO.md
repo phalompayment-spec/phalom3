@@ -47,8 +47,8 @@ The sandbox already works. See `winner-agreement/PhaJay_Sandbox_Test.md`.
   > 12. ຖ້າເຈົ້າຂອງບັດຂໍເງິນຄືນ (chargeback), ຂັ້ນຕອນແນວໃດ ແລະ ໃຜຮັບຜິດຊອບ: ຮ້ານ, ບັນຊີແມ່ ຫຼື PhaJay?
   > ຂອບໃຈຫຼາຍໆ
 
-  Why these matter: `winner-agreement/PhaJay_E2E_Business_Process.html` (23 Oct) and the new proposal `winner-agreement/Phalom_New_Solution_lo.html` (25 Oct). Question 7 (instant, automatic payout) decides whether PhaJay fits the new proposal at all.
-  - **Update (22 Nov 2026):** PhaJay confirmed that **WeChat Pay and Alipay are still in development**. Together with their 4.15% card fee and manual Claim payout, PhaJay is not ready for Phalom's foreign-wallet flow — focus partner outreach on **BCEL**, **LOCA Pay**, and **NewPay** below.
+  Why these matter: `winner-agreement/PhaJay_E2E_Business_Process.html` (23 Oct), `winner-agreement/Phalom_New_Solution_lo.html` (25 Oct), and the full primary-source audit `winner-agreement/PhaJay_Requirements_Audit_lo.md` (22 Nov 2026).
+  - **Audit Verdict (22 Nov 2026 — NO-GO as primary partner):** PhaJay confirmed **WeChat Pay and Alipay are still in development**, BOL's official register (28 Nov 2025, p. 20) lists PhaPay for **Domestic Payment Facilitating only**, cards are 4.15–5.15% in USD, Auto Claim still transfers Mon–Fri only, and PhaJay's Terms of Service list **5,000 LAK/claim + 1% refund fee + 500 LAK/1.65% QR fees** (contradicting their pricing page). Focus partner outreach on **BCEL**, **NewPay**, and **LOCA Pay** below. If you still want final written confirmation from PhaJay, use the 6 sharpest questions in `winner-agreement/PhaJay_Requirements_Audit_lo.md`.
 
 ## 🔵 Team decisions (details in `BUSINESS.md`)
 

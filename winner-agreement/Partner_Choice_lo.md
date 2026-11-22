@@ -8,7 +8,7 @@
 - **ຄູ່ຮ່ວມທີ່ແນະນຳ: BCEL.** ມີເກືອບທຸກສ່ວນແລ້ວ: ໃບອະນຸຍາດ payment gateway, ຮັບບັດ + Alipay + WeChat Pay, 3-D Secure, ແລະ EzyKip ທີ່ຈ່າຍ LAO QR ຈາກບັດຕ່າງປະເທດຢູ່ແລ້ວ. ສິ່ງທີ່ຂາດແມ່ນ: ເຮັດໃຫ້ EzyKip ເປັນໜ້າເວັບ ແທນແອັບ, ແລະ ໂອນເຂົ້າ LAO QR ຂອງແມ່ຄ້າທັນທີ.
 - **ສຳຮອງ: LOCA Pay.** ເຮັດສິ່ງທີ່ເຮົາຕ້ອງການ ໄດ້ຄົບແລ້ວ ຍົກເວັ້ນໜ້າເວັບ. ແຕ່ເປັນຄູ່ແຂ່ງ ແລະ ເປັນຜູ້ກຳນົດລາຄາ.
 - **ສຳລັບ Alipay / WeChat Pay ຢ່າງດຽວ: NewPay.** ມີ API ແລະ ໜ້າຈ່າຍເງິນ, ແຕ່ບໍ່ຮູ້ວ່າໂອນເຂົ້າບັນຊີແມ່ຄ້າໄດ້ບໍ່.
-- **PhaJay ບໍ່ເໝາະ** (ຮູ້ແລ້ວ): ເງິນບໍ່ເຂົ້າຮ້ານທັນທີ, ຄ່າບັດ 4.15%, ແລະ PhaJay ຢືນຢັນແລ້ວ (22 ພ.ຈ. 2026) ວ່າ WeChat Pay ແລະ Alipay ຍັງຢູ່ໃນຂັ້ນຕອນພັດທະນາ.
+- **PhaJay ບໍ່ເໝາະ (NO-GO ຕາມການກວດສອບ 22 ພ.ຈ. 2026 — ເບິ່ງ `PhaJay_Requirements_Audit_lo.md`):** ມີໃບອະນຸຍາດ BOL **ສະເພາະພາຍໃນປະເທດ** (ບໍ່ມີໃນໝວດ Cross-Border ໃນບັນຊີ BOL 28 ພ.ຈ. 2025), Alipay/WeChat ຍັງພັດທະນາຢູ່, ບັດ USD 4.15–5.15%, Auto Claim ຍັງລໍແອັດມິນໂອນ ຈັນ–ສຸກ (ບໍ່ທັນທີ/ບໍ່ໂອນວັນເສົາ–ອາທິດ), ແລະ Terms of Service ລະບຸຄ່າ Claim 5,000 ກີບ/ຄັ້ງ + ຄ່າ Refund 1%.
 
 ## ສິ່ງທີ່ Phalom ຕ້ອງການຈາກຄູ່ຮ່ວມ
 
@@ -27,16 +27,16 @@
 
 ✅ = ມີ, ❌ = ບໍ່ມີ ຫຼື ບໍ່ເໝາະ, ❓ = ບໍ່ຮູ້, ຕ້ອງຖາມ
 
-| ຕ້ອງການ | BCEL (gateway + EzyKip) | LOCA Pay | NewPay | PhaJay |
+| ຕ້ອງການ | BCEL (gateway + EzyKip) | LOCA Pay | NewPay | PhaJay (ກວດສອບ 22 ພ.ຈ. 2026) |
 |---|---|---|---|---|
-| 1 ໃບອະນຸຍາດ | ✅ ທະນາຄານ, gateway ທຳອິດໃນລາວ | ✅ ເວົ້າວ່າມີ, ສະມາຊິກ LAPNet | ✅ ເວົ້າວ່າມີ (payment business licence) | ❓ |
-| 2 ໜ້າເວັບ / API | ✅ gateway ມີ (CyberSource), ❌ EzyKip ເປັນແອັບ | ❌ ແອັບເທົ່ານັ້ນ, ບໍ່ມີ API ສາທາລະນະ | ✅ API + ລິ້ງໜ້າຈ່າຍເງິນ, ❌ ບໍ່ມີ sandbox | ✅ |
-| 3 ບັດ / Alipay / WeChat | ✅ Visa, MC, JCB, Amex, UnionPay, Alipay, WeChat | ✅ ຄົບ + Apple/Google Pay | ✅ Alipay, Alipay+, ❓ ບັດ (MasterCard USD), WeChat ສະເພາະ mini program | ❌ ບັດ 4.15%, Alipay/WeChat ຍັງພັດທະນາຢູ່ |
-| 4 ໂອນເຂົ້າແມ່ຄ້າທັນທີ | ❌ gateway: T+1 ເຂົ້າບັນຊີ BCEL ຂອງ merchant ດຽວ. EzyKip ຈ່າຍ LAO QR ໄດ້ ແຕ່ຜ່ານແອັບ | ✅ ຈ່າຍ LAO QR ໃດກໍໄດ້ | ❓ ໂອນໄດ້ແຕ່ບັນຊີ NewPay | ❌ ກົດ Claim, ແອັດມິນໂອນ |
-| 5 ແມ່ຄ້າບໍ່ມີໃບທະບຽນ | ❌ gateway ຕ້ອງການໃບທະບຽນທຸລະກິດ + ເວັບໄຊ. ✅ ຖ້າໃຊ້ແບບ EzyKip (ຈ່າຍ LAO QR) | ✅ ແມ່ຄ້າບໍ່ຕ້ອງເຮັດຫຍັງ | ❓ | ❓ |
-| 6 ຕົ້ນທຶນ | ບັດ 3% ຂຶ້ນໄປ, QR (Alipay/WeChat) 1.5% ຂຶ້ນໄປ, 45 USD/ເດືອນ. EzyKip ~2.1% (ຍັງບໍ່ໄດ້ກວດ) | ລາຄາຂາຍ 3% + 5,000. ລາຄາຂາຍສົ່ງ ❓ | ❓ | ❌ 4.15% |
-| 7 3-D Secure | ✅ | ❓ | ❓ | ❓ |
-| 8 Webhook | ❓ | ❓ | ✅ | ✅ |
+| 1 ໃບອະນຸຍາດ | ✅ BOL: ທະນາຄານ, ບັດ + Alipay + WeChat (BOL PDF ໜ້າ 39, 42) | ✅ BOL: ຜູ້ດຽວໃນໝວດ Cross-Border Payment Facilitating (BOL PDF ໜ້າ 43) | ✅ BOL: Alipay, Alipay+, WeChat Pay (BOL PDF ໜ້າ 43) | ⚠️ BOL: Domestic Payment Facilitating ເທົ່ານັ້ນ (ໜ້າ 20); ບໍ່ມີໃນໝວດ Cross-Border |
+| 2 ໜ້າເວັບ / API | ✅ gateway ມີ (CyberSource), ❌ EzyKip ເປັນແອັບ | ❌ ແອັບເທົ່ານັ້ນ, ບໍ່ມີ API ສາທາລະນະ | ✅ API + ລິ້ງໜ້າຈ່າຍເງິນ, ❌ ບໍ່ມີ sandbox | ⚠️ ມີ Link/QR/2C2P ບັດ, ❌ ບໍ່ມີ API Alipay/WeChat |
+| 3 ບັດ / Alipay / WeChat | ✅ Visa, MC, JCB, Amex, UnionPay, Alipay, WeChat | ✅ ຄົບ + Apple/Google Pay | ✅ Alipay, Alipay+, ❓ ບັດ (MasterCard USD), WeChat ສະເພາະ mini program | ❌ ບັດ USD 4.15%/5.15%, Alipay/WeChat ຍັງພັດທະນາ, ບໍ່ມີ Apple/Google Pay |
+| 4 ໂອນເຂົ້າແມ່ຄ້າທັນທີ | ❌ gateway: T+1 ເຂົ້າບັນຊີ BCEL ຂອງ merchant ດຽວ. EzyKip ຈ່າຍ LAO QR ໄດ້ ແຕ່ຜ່ານແອັບ | ✅ ຈ່າຍ LAO QR ໃດກໍໄດ້ | ❓ ໂອນໄດ້ແຕ່ບັນຊີ NewPay | ❌ ບໍ່ທັນທີ: Auto Claim 08:00 ແຕ່ແອັດມິນໂອນ ຈັນ–ສຸກ 10:00–17/18:00 |
+| 5 ແມ່ຄ້າບໍ່ມີໃບທະບຽນ | ❌ gateway ຕ້ອງການໃບທະບຽນທຸລະກິດ + ເວັບໄຊ. ✅ ຖ້າໃຊ້ແບບ EzyKip (ຈ່າຍ LAO QR) | ✅ ແມ່ຄ້າບໍ່ຕ້ອງເຮັດຫຍັງ | ❓ | ⚠️ ມີ Individual KYC ໃນ ToS ແຕ່ຍັງຕ້ອງ 5 ທຸລະກຳແທ້ + ເວັບໄຊ |
+| 6 ຕົ້ນທຶນ | ບັດ 3% ຂຶ້ນໄປ, QR (Alipay/WeChat) 1.5% ຂຶ້ນໄປ, 45 USD/ເດືອນ. EzyKip ~2.1–2.8% | ລາຄາຂາຍ 3% + 5,000 (ຢືນຢັນໃນ loca.la). ລາຄາຂາຍສົ່ງ ❓ | ❓ | ❌ ບັດ 4.15–5.15%; ToS ຂັດກັບ Pricing: QR 500 ກີບ/1.65% + Claim 5,000 + Refund 1% |
+| 7 3-D Secure | ✅ | ❓ | ❓ | ⚠️ ບັດ 3DS ຜ່ານ JDB+2C2P; chargeback ບໍ່ໄດ້ລະບຸ |
+| 8 Webhook | ❓ | ❓ | ✅ | ✅ X-Signature Base64 HMAC-SHA256 |
 
 ## ເປັນຫຍັງ BCEL
 
@@ -68,4 +68,5 @@
 - NewPay (API, Alipay+, WeChat, ໃບອະນຸຍາດ): [newpay.la](https://www.newpay.la/en/index.html), [docs](https://www.newpay.la/en/docs.html), [Vientiane Times, ກ.ພ. 2026 (ໂຄສະນາ)](https://vientianetimes.org.la/freefreenews/freecontent_037_LaoNewPay_y26.php)
 - MmoneyX (ສະມາຊິກ LAPNet ກ.ລ. 2025, ບັດ Visa ກັບ JDB ທົດລອງ ເມ.ສ. 2026, ບໍ່ພົບ API ສຳລັບ merchant): [KPL](https://kpl.gov.la/EN/detail.aspx?id=92282), [KPL](https://kpl.gov.la/en/detail.aspx?id=92976)
 - ກົດໝາຍການຊຳລະ (ສະບັບແປ ທ.ວ. 2025, ບໍລິການຂ້າມແດນຕ້ອງມີໃບອະນຸຍາດ ທຫລ): [bol.gov.la](https://www.bol.gov.la/en/fileupload/18-12-2025_1766051569.pdf)
-- PhaJay: `PhaJay_Real_Fee_Check.md`, `PhaJay_E2E_Business_Process_lo.html`
+- ລາຍຊື່ຜູ້ໃຫ້ບໍລິການຊຳລະເງິນທີ່ໄດ້ຮັບອະນຸຍາດຈາກ ທຫລ (28 ພ.ຈ. 2025 / ເຜີຍແຜ່ 08 ທ.ວ. 2025, ຂໍ້ຕົກລົງ 511/ທຫລ): [bol.gov.la PDF](https://www.bol.gov.la/fileupload/08-12-2025_1765168343.pdf)
+- PhaJay (ກວດສອບຄົບ 22 ພ.ຈ. 2026): `PhaJay_Requirements_Audit_lo.md`, `PhaJay_Real_Fee_Check.md`, `PhaJay_E2E_Business_Process_lo.html`
